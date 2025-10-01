@@ -1,0 +1,1388 @@
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Sending response: {'response': 'We generated 11,207 leads in the last quarter.', 'chartData': None, 'sqlQuery': "SELECT COUNT(DISTINCT leads.lead_id) AS count_of_leads\nFROM `bq-demos-469816`.`klick_demo`.`leads` AS leads\nWHERE\n  leads.created_at >= TIMESTAMP_SUB(\n    TIMESTAMP '2025-10-01 00:00:00', INTERVAL 90 DAY)\n  AND leads.created_at < TIMESTAMP '2025-10-01 00:00:00';"}
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Sending response: {'response': 'There were 11,207 leads generated in the last quarter.', 'chartData': None, 'sqlQuery': "SELECT COUNT(DISTINCT leads.lead_id) AS count_of_leads\nFROM `bq-demos-469816`.`klick_demo`.`leads` AS leads\nWHERE\n  leads.created_at >= TIMESTAMP_SUB(TIMESTAMP '2025-10-01', INTERVAL 90 DAY)\n  AND leads.created_at < TIMESTAMP '2025-10-01';"}
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Sending response: {'response': 'We generated 167 leads last quarter.', 'chartData': None, 'sqlQuery': "SELECT COUNT(DISTINCT users.user_id) AS count_of_new_users\nFROM `bq-demos-469816`.`leagueapps_demo`.`users` AS users\nWHERE\n  DATE_TRUNC(DATE(users.created_at), QUARTER)\n  = DATE_SUB(DATE_TRUNC(DATE '2025-10-01', QUARTER), INTERVAL 1 QUARTER);"}
+INFO:root:Received request: How many leads did we generate last quarter?
+INFO:root:Sending response: {'response': 'We generated 167 leads last quarter.', 'chartData': None, 'sqlQuery': "SELECT COUNT(DISTINCT users.user_id) AS count_of_new_users\nFROM `bq-demos-469816`.`leagueapps_demo`.`users` AS users\nWHERE\n  users.created_at >= TIMESTAMP '2025-07-01 00:00:00'\n  AND users.created_at < TIMESTAMP '2025-10-01 00:00:00';"}
+INFO:root:Received request: What is the utilization of our
+  facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Sending response: {'response': 'The chart above shows the utilization of our facilities for the month of October 2025, measured by the number of games scheduled at each facility. Community Sports Park - Field 4 has the highest utilization with 59 games, while Community Sports Park - Field 5 has the lowest with 35 games.', 'chartData': {'title': 'Games per Facility in October 2025', 'encoding': {'y': {'field': 'count_of_games', 'title': 'Count of Games', 'type': 'quantitative', 'axis': {'labelOverlap': True}, 'sort': {}}, 'x': {'field': 'facility_name', 'title': 'Facility Name', 'type': 'nominal', 'axis': {'labelOverlap': True}, 'sort': {}}}, 'mark': {'tooltip': True, 'type': 'bar'}, 'data': {'values': [{'count_of_games': 59.0, 'facility_name': 'Community Sports Park - Field 4'}, {'count_of_games': 49.0, 'facility_name': 'Community Sports Park - Field 3'}, {'count_of_games': 48.0, 'facility_name': 'Community Sports Park - Field 2'}, {'count_of_games': 43.0, 'facility_name': 'Community Sports Park - Field 1'}, {'count_of_games': 35.0, 'facility_name': 'Community Sports Park - Field 5'}]}}, 'sqlQuery': "SELECT t2.facility_name, COUNT(t1.schedule_id) AS count_of_games\nFROM `bq-demos-469816`.`leagueapps_demo`.`schedule` AS t1\nINNER JOIN `bq-demos-469816`.`leagueapps_demo`.`facilities` AS t2\n  ON t1.facility_id = t2.facility_id\nWHERE TIMESTAMP_TRUNC(t1.game_date, MONTH) = TIMESTAMP '2025-10-01 00:00:00'\nGROUP BY t2.facility_name\nORDER BY COUNT(t1.schedule_id) DESC;"}
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility
+INFO:root:Received request: What is the utilization of our\n  facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x79fc7fb0b1d0>
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x7cc55cc170b0>
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result: <class 'google.cloud.geminidataanalytics_v1alpha.types.data_chat_service.ChartResult'>
+INFO:root:Value of m.chart.result: vega_config {
+  fields {
+    key: "title"
+    value {
+      string_value: "Games per Facility in October"
+    }
+  }
+  fields {
+    key: "mark"
+    value {
+      struct_value {
+        fields {
+          key: "type"
+          value {
+            string_value: "bar"
+          }
+        }
+        fields {
+          key: "tooltip"
+          value {
+            bool_value: true
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "encoding"
+    value {
+      struct_value {
+        fields {
+          key: "y"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "quantitative"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Number of Games"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "count_of_games"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        fields {
+          key: "x"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "nominal"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Facility Name"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "facility_name"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "data"
+    value {
+      struct_value {
+        fields {
+          key: "values"
+          value {
+            list_value {
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 1"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 330
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 2"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 351
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 3"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 323
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 4"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 317
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 5"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 279
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+image {
+}
+
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x791f3835b500>
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result: <class 'google.cloud.geminidataanalytics_v1alpha.types.data_chat_service.ChartResult'>
+INFO:root:Value of m.chart.result: vega_config {
+  fields {
+    key: "title"
+    value {
+      string_value: "Number of Games per Facility"
+    }
+  }
+  fields {
+    key: "mark"
+    value {
+      struct_value {
+        fields {
+          key: "type"
+          value {
+            string_value: "bar"
+          }
+        }
+        fields {
+          key: "tooltip"
+          value {
+            bool_value: true
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "encoding"
+    value {
+      struct_value {
+        fields {
+          key: "y"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "quantitative"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Count of Games"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "count_of_games"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        fields {
+          key: "x"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "nominal"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Facility Name"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "facility_name"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "data"
+    value {
+      struct_value {
+        fields {
+          key: "values"
+          value {
+            list_value {
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 1"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 43
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 2"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 48
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 3"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 49
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 4"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 59
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 5"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+image {
+}
+
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x7b48b3b23230>
+INFO:root:Received request: Analyze the top 3 clients by total deal amount in the last 6 months, and for each of those clients, show the breakdown of deals by campaign status (Won/Lost) and the average lead creation
+  time for their won deals.
+INFO:root:Sending response: {'response': 'I encountered an error when trying to retrieve the top 3 clients by total deal amount in the last 6 months. The error message "TIMESTAMP_SUB does not support the MONTH date part when the argument is TIMESTAMP type" indicates an issue with the date calculation. Therefore, I cannot provide the full analysis as requested. However, I was able to retrieve the deal breakdown by status and average lead creation time for the client "United Youth Sports Association".\n\nHere is the breakdown of deals by campaign status for United Youth Sports Association:\n- Lost Deals: 116\n- Won Deals: 264\n\nThe average lead creation time for won deals for United Youth Sports Association is 11,633,965.27 seconds (approximately 134.6 days).\n\nI recommend adjusting the date calculation in the query for top clients to resolve the error and re-run the analysis.', 'chartData': None, 'sqlQuery': "WITH\n  top_clients AS (\n    -- First, identify the top 3 clients (organizations) by total deal amount for 'Won' deals.\n    -- 'Won' deals are assumed to be payments that are not 'Failed'.\n    SELECT programs.organization_id\n    FROM `bq-demos-469816`.`leagueapps_demo`.`payments` AS payments\n    INNER JOIN\n      `bq-demos-469816`.`leagueapps_demo`.`registrations` AS registrations\n      ON payments.registration_id = registrations.registration_id\n    INNER JOIN `bq-demos-469816`.`leagueapps_demo`.`programs` AS programs\n      ON registrations.program_id = programs.program_id\n    WHERE payments.payment_status != 'Failed'\n    GROUP BY programs.organization_id\n    ORDER BY SUM(payments.amount) DESC\n    LIMIT 3\n  )\nSELECT\n  organizations.organization_id,\n  organizations.organization_name,\n  AVG(TIMESTAMP_DIFF(registrations.registration_date, users.created_at, SECOND))\n    AS average_lead_creation_time_seconds\nFROM `bq-demos-469816`.`leagueapps_demo`.`registrations` AS registrations\nINNER JOIN `bq-demos-469816`.`leagueapps_demo`.`payments` AS payments\n  ON registrations.registration_id = payments.registration_id\nINNER JOIN `bq-demos-469816`.`leagueapps_demo`.`programs` AS programs\n  ON registrations.program_id = programs.program_id\nINNER JOIN `bq-demos-469816`.`leagueapps_demo`.`organizations` AS organizations\n  ON programs.organization_id = organizations.organization_id\nINNER JOIN `bq-demos-469816`.`leagueapps_demo`.`users` AS users\n  ON registrations.user_id = users.user_id\nWHERE\n  payments.payment_status != 'Failed'  -- Filter for 'Won' deals\n  AND organizations.organization_id\n    IN (SELECT organization_id FROM `top_clients`)\nGROUP BY organizations.organization_id, organizations.organization_name\nORDER BY organizations.organization_id;"}
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result: <class 'google.cloud.geminidataanalytics_v1alpha.types.data_chat_service.ChartResult'>
+INFO:root:Value of m.chart.result: vega_config {
+  fields {
+    key: "title"
+    value {
+      string_value: "Number of Games per Facility"
+    }
+  }
+  fields {
+    key: "mark"
+    value {
+      struct_value {
+        fields {
+          key: "type"
+          value {
+            string_value: "bar"
+          }
+        }
+        fields {
+          key: "tooltip"
+          value {
+            bool_value: true
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "encoding"
+    value {
+      struct_value {
+        fields {
+          key: "y"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "quantitative"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Count of Games"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "count_of_games"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        fields {
+          key: "x"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "nominal"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Facility Name"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "facility_name"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "data"
+    value {
+      struct_value {
+        fields {
+          key: "values"
+          value {
+            list_value {
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 1"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 43
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 2"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 48
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 3"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 49
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 4"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 59
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 5"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+image {
+}
+
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x7fa1086a00b0>
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result: <class 'google.cloud.geminidataanalytics_v1alpha.types.data_chat_service.ChartResult'>
+INFO:root:Value of m.chart.result: vega_config {
+  fields {
+    key: "title"
+    value {
+      string_value: "Games per Facility in October 2025"
+    }
+  }
+  fields {
+    key: "mark"
+    value {
+      struct_value {
+        fields {
+          key: "type"
+          value {
+            string_value: "bar"
+          }
+        }
+        fields {
+          key: "tooltip"
+          value {
+            bool_value: true
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "encoding"
+    value {
+      struct_value {
+        fields {
+          key: "y"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "quantitative"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Number of Games"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "number_of_games"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        fields {
+          key: "x"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "nominal"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Facility Name"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "facility_name"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "data"
+    value {
+      struct_value {
+        fields {
+          key: "values"
+          value {
+            list_value {
+              values {
+                struct_value {
+                  fields {
+                    key: "number_of_games"
+                    value {
+                      number_value: 59
+                    }
+                  }
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 4"
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "number_of_games"
+                    value {
+                      number_value: 49
+                    }
+                  }
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 3"
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "number_of_games"
+                    value {
+                      number_value: 48
+                    }
+                  }
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 2"
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "number_of_games"
+                    value {
+                      number_value: 43
+                    }
+                  }
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 1"
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "number_of_games"
+                    value {
+                      number_value: 35
+                    }
+                  }
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 5"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+image {
+}
+
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x7e8378513860>
+INFO:root:Received request: What is the utilization of our facilities for the month of October? Show me a chart of games per facility.
+INFO:root:Type of m.chart.result: <class 'google.cloud.geminidataanalytics_v1alpha.types.data_chat_service.ChartResult'>
+INFO:root:Value of m.chart.result: vega_config {
+  fields {
+    key: "title"
+    value {
+      string_value: "Games per Facility in October 2025"
+    }
+  }
+  fields {
+    key: "mark"
+    value {
+      struct_value {
+        fields {
+          key: "type"
+          value {
+            string_value: "bar"
+          }
+        }
+        fields {
+          key: "tooltip"
+          value {
+            bool_value: true
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "encoding"
+    value {
+      struct_value {
+        fields {
+          key: "y"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "quantitative"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Count of Games"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "count_of_games"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        fields {
+          key: "x"
+          value {
+            struct_value {
+              fields {
+                key: "type"
+                value {
+                  string_value: "nominal"
+                }
+              }
+              fields {
+                key: "title"
+                value {
+                  string_value: "Facility Name"
+                }
+              }
+              fields {
+                key: "sort"
+                value {
+                  struct_value {
+                  }
+                }
+              }
+              fields {
+                key: "field"
+                value {
+                  string_value: "facility_name"
+                }
+              }
+              fields {
+                key: "axis"
+                value {
+                  struct_value {
+                    fields {
+                      key: "labelOverlap"
+                      value {
+                        bool_value: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  fields {
+    key: "data"
+    value {
+      struct_value {
+        fields {
+          key: "values"
+          value {
+            list_value {
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 4"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 59
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 3"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 49
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 2"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 48
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 1"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 43
+                    }
+                  }
+                }
+              }
+              values {
+                struct_value {
+                  fields {
+                    key: "facility_name"
+                    value {
+                      string_value: "Community Sports Park - Field 5"
+                    }
+                  }
+                  fields {
+                    key: "count_of_games"
+                    value {
+                      number_value: 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+image {
+}
+
+INFO:root:Type of m.chart.result.vega_config: <class 'proto.marshal.collections.maps.MapComposite'>
+INFO:root:Value of m.chart.result.vega_config: <proto.marshal.collections.maps.MapComposite object at 0x7e8374b8fec0>
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7e97d3385430>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7bc934405580>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7b205d27eb70>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x78c601e1d430>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7b28e77595e0>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x788a4bedcfe0>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7fcb549b9430>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7a72b1efca70>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x79466c718d70>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x7a9f72209490>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x78ab9bf90770>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'
+ERROR:grpc._plugin_wrapping:AuthMetadataPluginCallback "<google.auth.transport.grpc.AuthMetadataPlugin object at 0x78f8cb6c4740>" raised exception!
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/grpc/_plugin_wrapping.py", line 105, in __call__
+    self._metadata_plugin(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 95, in __call__
+    callback(self._get_authorization_headers(context), None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/transport/grpc.py", line 81, in _get_authorization_headers
+    self._credentials.before_request(
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 126, in refresh
+    self._retrieve_info(request)
+  File "/usr/local/lib/python3.12/dist-packages/google/auth/compute_engine/credentials.py", line 103, in _retrieve_info
+    self._service_account_email = info["email"]
+                                  ~~~~^^^^^^^^^
+TypeError: string indices must be integers, not 'str'

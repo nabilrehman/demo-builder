@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT users.user_id) AS count_of_new_users FROM `bq-demos-469816`.`leagueapps_demo`.`users` AS users WHERE users.created_at >= TIMESTAMP '2025-07-01 00:00:00' AND users.created_at < TIMESTAMP '2025-10-01 00:00:00';
