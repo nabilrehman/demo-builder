@@ -111,7 +111,7 @@ You should see a line that says `Application startup complete.`
 In your second terminal, run the following command to start the frontend server in the background.
 
 ```bash
-cd /home/admin_/final_demo/capi/demo-gen-capi/frontend/web-app
+cd /home/admin_/final_demo/capi/demo-gen-capi/newfrontend/conversational-api-demo-frontend
 npm run dev &
 ```
 
