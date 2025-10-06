@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+backend/venv/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+newfrontend/conversational-api-demo-frontend/node_modules/
+frontend/web-app/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+backend.log
+*.log.*
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Temporary files
+*.tmp
+.cache/
+/tmp/
+*.pid
+*.seed
+*.pid.lock
+
+# Documentation (not needed in container)
+*.md
+docs/
+
+# Scripts (not needed in production container)
+scripts/
+*.sh
+
+# Benchmarks
+benchmarks/
+
+# Cloud files
+.gcloudignore
+
+# Frontend source files are needed for Docker build
+# (Commenting out to allow multi-stage build to work)

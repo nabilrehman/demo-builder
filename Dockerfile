@@ -35,8 +35,8 @@ COPY --from=build-frontend /app/frontend/dist ./newfrontend/conversational-api-d
 # Copy the backend code
 COPY backend/ ./
 
-# Expose the port the app runs on
-EXPOSE 8000
+# Expose the port the app runs on (Cloud Run uses PORT env var, defaults to 8080)
+EXPOSE 8080
 
-# Run the application
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application (use PORT env var for Cloud Run compatibility)
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-8080}"]
