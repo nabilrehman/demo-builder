@@ -1,0 +1,617 @@
+{
+  "metadata": {
+    "test_url": "https://www.offerup.com",
+    "timestamp": "2025-10-05T15:01:14.261595",
+    "duration_seconds": 299.887425,
+    "configuration": {
+      "max_pages": 40,
+      "max_depth": 3,
+      "enable_blog": true,
+      "enable_linkedin": true,
+      "enable_youtube": true
+    }
+  },
+  "business_analysis": {
+    "company_name": "OfferUp",
+    "industry": "Online Classifieds & Marketplace",
+    "company_type": "C2C Marketplace Platform",
+    "business_domain": "Local peer-to-peer marketplace platform enabling individuals to buy and sell used and new items within their communities",
+    "business_model": "Commission-based marketplace with revenue from listing promotions, featured placements, shipping services, and potentially transaction fees on facilitated sales",
+    "key_products_services": [
+      "Mobile and web marketplace platform for local buying/selling",
+      "Item listing and discovery service across 15+ categories",
+      "In-app messaging and negotiation tools",
+      "Local pickup coordination",
+      "Shipping integration services",
+      "Seller promotion and featured listing services",
+      "User rating and trust/safety systems"
+    ],
+    "target_customers": "Individual consumers looking to buy or sell secondhand goods, vehicles, collectibles, and various merchandise locally; includes casual sellers, frequent resellers, small businesses, and bargain hunters",
+    "key_entities": [
+      {
+        "name": "users",
+        "description": "Individual buyers and sellers on the platform, with dual roles",
+        "importance": "high",
+        "relationships": [
+          "listings",
+          "transactions",
+          "messages",
+          "ratings",
+          "favorites"
+        ]
+      },
+      {
+        "name": "listings",
+        "description": "Items posted for sale across 15+ categories including vehicles, electronics, home goods, clothing, collectibles",
+        "importance": "high",
+        "relationships": [
+          "users",
+          "categories",
+          "transactions",
+          "views",
+          "favorites"
+        ]
+      },
+      {
+        "name": "transactions",
+        "description": "Completed sales between buyers and sellers",
+        "importance": "high",
+        "relationships": [
+          "users",
+          "listings",
+          "payments",
+          "ratings"
+        ]
+      },
+      {
+        "name": "categories",
+        "description": "Product taxonomy including Electronics, Vehicles, Home & Garden, Clothing, Baby & Kids, Collectibles, etc.",
+        "importance": "high",
+        "relationships": [
+          "listings",
+          "searches"
+        ]
+      },
+      {
+        "name": "messages",
+        "description": "In-app communications between buyers and sellers for negotiation",
+        "importance": "medium",
+        "relationships": [
+          "users",
+          "listings",
+          "transactions"
+        ]
+      },
+      {
+        "name": "locations",
+        "description": "Geographic data for local transactions (city, state, zip code)",
+        "importance": "high",
+        "relationships": [
+          "users",
+          "listings",
+          "searches"
+        ]
+      },
+      {
+        "name": "ratings_reviews",
+        "description": "User feedback and trust scores",
+        "importance": "medium",
+        "relationships": [
+          "users",
+          "transactions"
+        ]
+      },
+      {
+        "name": "searches",
+        "description": "User search queries and browse behavior",
+        "importance": "medium",
+        "relationships": [
+          "users",
+          "listings",
+          "categories",
+          "locations"
+        ]
+      },
+      {
+        "name": "promotions",
+        "description": "Paid listing enhancements and featured placements",
+        "importance": "medium",
+        "relationships": [
+          "listings",
+          "users",
+          "payments"
+        ]
+      }
+    ],
+    "data_products": [
+      {
+        "name": "Seller Analytics Dashboard",
+        "type": "Dashboard",
+        "description": "Likely provides sellers with listing performance metrics, views, messages received, and sales data"
+      },
+      {
+        "name": "Search and Discovery API",
+        "type": "API",
+        "description": "Powers listing search, filtering, and recommendation features across web and mobile"
+      },
+      {
+        "name": "Trust & Safety Scoring",
+        "type": "Internal Analytics",
+        "description": "Fraud detection and user reputation scoring system"
+      }
+    ],
+    "technologies_detected": [
+      "Mobile app platform (iOS/Android)",
+      "Web application",
+      "Location-based services/GPS",
+      "Image hosting and processing",
+      "Messaging/chat infrastructure",
+      "Payment processing integration",
+      "Search and recommendation engine"
+    ],
+    "data_types": {
+      "transactional": [
+        "completed_sales",
+        "listing_creations",
+        "payment_transactions",
+        "promotion_purchases",
+        "shipping_orders"
+      ],
+      "behavioral": [
+        "listing_views",
+        "search_queries",
+        "category_browsing",
+        "message_exchanges",
+        "favorite_items",
+        "app_sessions",
+        "time_on_listing"
+      ],
+      "operational": [
+        "active_listings",
+        "expired_listings",
+        "user_reports",
+        "moderation_actions",
+        "response_times",
+        "listing_inventory_by_category"
+      ],
+      "analytical": [
+        "user_cohorts",
+        "category_trends",
+        "price_distributions",
+        "geographic_demand",
+        "seller_performance_metrics",
+        "conversion_funnels"
+      ]
+    },
+    "primary_use_cases": [
+      "Marketplace health monitoring and GMV tracking",
+      "Category and pricing trend analysis",
+      "User acquisition and retention analytics",
+      "Search relevance and conversion optimization",
+      "Fraud detection and trust & safety monitoring",
+      "Geographic market penetration analysis",
+      "Seller performance and engagement tracking",
+      "Listing quality and completion rate analysis",
+      "Revenue optimization from promotions and services"
+    ],
+    "kpis": [
+      "Gross Merchandise Value (GMV)",
+      "Active Listings Count",
+      "Monthly Active Users (MAU)",
+      "Transaction Completion Rate",
+      "Listing-to-Sale Conversion Rate",
+      "Average Time to Sale",
+      "User Retention Rate (30/60/90 day)",
+      "Search-to-Contact Rate",
+      "Message Response Rate",
+      "Revenue per User",
+      "Promoted Listing Attach Rate",
+      "Category Mix and Growth",
+      "Geographic Market Penetration",
+      "Trust & Safety Incident Rate",
+      "Average Listing Price by Category"
+    ],
+    "business_questions": [
+      "What is the conversion rate from listing view to message to completed sale?",
+      "Which categories have the highest GMV and fastest time-to-sale?",
+      "What are the pricing trends for popular items like vehicles and electronics?",
+      "Which geographic markets show the strongest buyer and seller activity?",
+      "What is the cohort retention of new users over 90 days?",
+      "How effective are promoted listings at driving sales?",
+      "What percentage of listings result in successful transactions?",
+      "What are the peak listing and buying times by day/week/season?",
+      "Which user segments are most valuable (power sellers vs casual users)?",
+      "What is the correlation between response time and sale completion?",
+      "How does listing quality (photos, description) impact sale probability?",
+      "What are the fraud patterns and high-risk transaction indicators?",
+      "Which categories have supply/demand imbalances?",
+      "What is the customer lifetime value by acquisition channel?",
+      "How do local market dynamics differ across cities and states?"
+    ],
+    "demo_opportunities": [
+      "Build a marketplace health dashboard showing GMV, active listings, and transaction trends",
+      "Create category performance analysis comparing vehicles, electronics, and home goods",
+      "Demonstrate geographic heat mapping of buyer/seller activity by state and city",
+      "Show cohort analysis of user retention and lifetime value",
+      "Build conversion funnel from search to view to message to sale",
+      "Create pricing analytics showing market trends and competitive positioning",
+      "Demonstrate fraud detection patterns using transaction and user behavior data",
+      "Show seller performance scorecards with listing quality and response metrics",
+      "Build search effectiveness analysis with query-to-conversion tracking",
+      "Create seasonal demand forecasting for key categories",
+      "Demonstrate A/B test analysis for promoted listing effectiveness",
+      "Show real-time inventory monitoring by category and location"
+    ],
+    "additional_context": {
+      "company_size": "mid-market to enterprise",
+      "data_maturity": "advanced",
+      "geographic_focus": "US (with evidence of nationwide coverage across multiple states including NE, IA, IL, FL, TX, CA)",
+      "notable_features": [
+        "Strong local/geographic focus with city-level targeting",
+        "Diverse category mix from low-value items ($10-20) to high-value vehicles ($40K+)",
+        "Mobile-first platform with app download emphasis",
+        "Trust and safety critical to business model",
+        "Dual-sided marketplace dynamics requiring balance of supply and demand",
+        "Competes with Facebook Marketplace, Craigslist, Mercari, and Poshmark",
+        "Heavy vehicle inventory suggests dealer partnerships or power sellers",
+        "Price range from $7 to $69,950 indicates broad market coverage"
+      ]
+    }
+  },
+  "v2_intelligence": {
+    "website_crawl": {
+      "base_url": "https://www.offerup.com",
+      "pages_crawled": 40,
+      "pages": [
+        {
+          "url": "https://www.offerup.com",
+          "depth": 0,
+          "title": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp",
+          "content": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nThe simpler way to buy and sell locally!\nScan to download the app\nCurrent listings\n2016 Nissan Rogue\n$9,990\nOmaha, NE\nGucci Cloth Sandals\n$100\nOmaha, NE\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nLevono Tablet\n$45\nChicago, IL\nAdidas Running shoes size 6 mens/ 8 womens\n$20\nOmaha, NE\nmortal Kombat 1\n$45\nOmaha, NE\nWomen\u2019s Coat\n$30\nOmaha, NE\nWoman\u2019s Winter Coat\n$20\nOmaha, NE\nYoung Boys Heavy Winter Coat\n$15\nOmaha, NE\nBoys PlayStation Jacket\n$15\nOmaha, NE\nBoys Jordan Jacket\n$20\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n**New**Instax Mini 41 **New**\n$90\nCouncil Bluffs, IA\nApple iPhone XR - 256 GB - Yellow (Unlocked)\n$249\nOrlando, FL\nDigital Electric Smokehouse Stand\n$30\nCarter Lake, IA\nNintendo Switch Oled And Wii With Preloaded Games\n$400\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\nTall Ring Light\n$25\nOmaha, NE\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nmyra bag cowhide\n$85\nOmaha, NE\nCoach Handbags\n$85\nOmaha, NE\nCalvin Klein Coat\n$40\nOmaha, NE\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\nEarrings Shape X Diamonds Real 10k Gold\n$1,090\nTampa, FL\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\n\ud83d\udcf1 iPhone 16 Plus \u2013 Brand New! \ud83d\udcf1\n$9\nHouston, TX\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nMetal Bookshelf\n$40\nOmaha, NE\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\n$225\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\niPhone 13 Pro Max Factory Unlock\n$449\nHouston, TX\nPs5 Games\n$20\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nSurron 2025 Ultra Bee\n$7,000\nBennington, NE\niPhone 14 Pro 256gb\n$400\nCouncil Bluffs, IA\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\nArtika Essence 5-pendant LED light fixture.\n$90\nLa Mesa, CA\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\nNike Dunk Low Retro (Black/Black/White/ White)\n$85\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\nloveseat\n$40\nOmaha, NE\nDurham 7 door dresser\n$60\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\n2 10\u201d JL Audio W1s\n$350\nBellevue, NE\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n2025 Honda Pilot\n$37,950\nOmaha, NE\nElite M2 Gaming Mouse\n$20\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n$2 Each Onesies 4 Pack $8\n$14\nOmaha, NE\nToddler Size 18months\n$60\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nTodo En $300\n$300\nOmaha, NE\nSubwoofer 12  Pulgadas  SKAR Audio  Con Amp\n$300\nOmaha, NE\nGreen, Orange, Purple, & Gold chain Print Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nBlue & Yellow Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nPink & Yellow Floral African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\n$25\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nGrey Nike Dunks\n$130\nOmaha, NE\nBlack Converse Size 8\n$35\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nThunder Skateboard Trucks Size 8\n$20\nOmaha, NE\nRacks And Reels Long Sleeve Size L\n$7\nOmaha, NE\nFresh Laundry Size M\n$8\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\n501s Levi's Jean's Size 34x32\n$30\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nNike Zoom Airs Size 8 In Woman's\n$12\nOmaha, NE\nJordan 1 Lows Size 7\n$25\nOmaha, NE\nJordan 1 Lows Size 6\n$50\nOmaha, NE\nConverse Chuck Taylor's Size 8\n$15\nOmaha, NE\nAir Force 1s, Size 8\n$60\nOmaha, NE\n\ud835\ude91\ud835\ude8a\ud835\ude97\ud835\ude8d\ud835\ude96\ud835\ude8a\ud835\ude8d\ud835\ude8e \ud835\ude9c\ud835\ude92\ud835\ude97\ud835\ude90\ud835\ude95\ud835\ude8e \ud835\ude8c\ud835\ude9b\ud835\ude98\ud835\ude8c\ud835\ude91\ud835\ude8e\ud835\ude9d \ud835\ude96\ud835\ude92\ud835\ude95\ud835\ude9d\ud835\ude92\ud835\ude8c\ud835\ude98\ud835\ude95\ud835\ude98\ud835\ude9b\ud835\ude8e\ud835\ude8d \ud835\ude9d\ud835\ude8a\ud835\ude97\ud835\ude94\ud835\ude9d\ud835\ude98\ud835\ude99\n$20\nBellevue, NE\nView more\nSearch for items by city\nAtlanta, GA\nAustin, TX\nBaltimore, MD\nBoston, MA\nChicago, IL\nCleveland, OH\nColumbus, OH\nDallas, TX\nDenver, CO\nDetroit, MI\nHouston, TX\nLas Vegas, NV\nLos Angeles, CA\nMiami, FL\nNashville, TN\nNew York, NY\nOrlando, FL\nPhiladelphia, PA\nPittsburgh, PA\nPhoenix, AZ\nPortland, OR\nSalt Lake City, UT\nSan Diego, CA\nSan Francisco, CA\nSeattle, WA\nSt. Louis, MO\nTampa, FL\nSee more",
+          "category": "general",
+          "word_count": 953
+        },
+        {
+          "url": "https://www.offerup.com/explore/state",
+          "depth": 1,
+          "title": "New and Used Items for Sale by State - OfferUp",
+          "content": "New and Used Items for Sale by State - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale by state\nAlaska\nAlabama\nArkansas\nArizona\nCalifornia\nColorado\nConnecticut\nDelaware\nFlorida\nGeorgia\nHawaii\nIowa\nIdaho\nIllinois\nIndiana\nKansas\nKentucky\nLouisiana\nMassachusetts\nMaryland\nMaine\nMichigan\nMinnesota\nMissouri\nMississippi\nMontana\nNorth Carolina\nNorth Dakota\nNebraska\nNew Hampshire\nNew Jersey\nNew Mexico\nNevada\nNew York\nOhio\nOklahoma\nOregon\nPennsylvania\nRhode Island\nSouth Carolina\nSouth Dakota\nTennessee\nTexas\nUtah\nVirginia\nVermont\nWashington\nWisconsin\nWest Virginia\nWyoming",
+          "category": "general",
+          "word_count": 165
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/158d2495-42ba-3b01-8366-98c6e0c2925b",
+          "depth": 1,
+          "title": "Handmade Hanging Seashell Chandelier for Sale in Omaha, NE - OfferUp",
+          "content": "Handmade Hanging Seashell Chandelier for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$100\nHandmade Hanging Seashell Chandelier\nPosted about 19 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nKatelyn Gochenour\nJoined Sep 2023\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nHandmade from Hawaii. Can sell bundled or separately. The taller, skinnier one is technically a plant holder and can hold a plant.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.",
+          "category": "general",
+          "word_count": 251
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/2a190347-8e58-337b-b012-a67238cb739b",
+          "depth": 1,
+          "title": "2016 Volkswagen Tiguan for Sale in Omaha, NE - OfferUp",
+          "content": "2016 Volkswagen Tiguan for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$8,995\n$9,995\n2016 Volkswagen Tiguan\n80,117 Miles\n26/26 MPG\nAWD\nAutomatic\n4 cylinders\nGasoline\nVIN\nWVGBV7AX4GW534832\nPosted 5 months ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nAmericar LLC\n4.6\n(Google reviews)\nVerified Auto Dealer\nBusiness Information\n7216 Main St\nRalston, NE 68127, USA\nhttps://www.americar-llc.com/\n(402) 983-4890\nOpen\ntomorrow\nHours 10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nMonday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nTuesday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nWednesday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nThursday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nFriday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSaturday\n10:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nSunday\nClosed\nSee hours of operation\nChat\nCall for details\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nVehicle history report\nVinAudit did not find a salvage record\nNo accidents reported\nBuy VinAudit report for $1.99\nTypical Features\nContact the seller to confirm vehicle details\nCruise Control\nFog Lamps\nPush Button Ignition\nTire Pressure Monitor\nTraction Control\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDescription\nCASH - TRADE-IN - FINANCING - Ask us about financing with a $0 down payment with approved credit.  2016 VOLKSWAGEN TIGUAN SE ALL WHEEL DRIVE MINT CONDITION 80k MILES PRICED TO SELL $8995 Call or Text: 402-983-4890  Check out this nice and clean 2016 VOLKSWAGEN TIGUAN SE This car has options, including a 2.0L I4, AWD Automatic Transmission, A/C, Power Windows, Locks, Mirrors, Tilt, Cruise, and much more! This vehicle has a Branded title (Due to a very LIGHT accident) that has been replaced and passed inspection. Runs and drives perfectly with no mechanical issues whatsoever.  WE HAVE SEVERAL FINANCE OPTIONS. GET PREAPPROVED ON OUR WEBSITE WWW.AMERICAR-LLC.COM  AMERICAR LLC 7216 Main St. Ralston, NE 68127 Business hours: Monday - Friday 10 am-6 pm. Saturday - 10 am-5 pm. Sunday - Make an appointment! Call or Text: 402-983-4890 Tel/FAX: 402-315-9919\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nGood\nColor\nblack\nYear\n2016\nEngine Description\n2.0L I4 Turbocharger\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nRelated searches\nBmw\nHonda civic\nChevy\nChevy silverado\nLexus\nToyota tacoma\nHonda\nFord\nToyota\nAudi\nNissan altima\nJeep wrangler\nJeep\nMazda\nFord ranger\nTruck\nDodge\nNissan\nSubaru\nHonda crv",
+          "category": "general",
+          "word_count": 538
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/82dadde4-441d-31d3-9a02-95f44e083c7c",
+          "depth": 1,
+          "title": "Tall Ring Light for Sale in Omaha, NE - OfferUp",
+          "content": "Tall Ring Light for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$25\nTall Ring Light\nPosted about 15 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\n402.Snker\nJoined Oct 2024\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nTall ring light\nWorks great\nDelivery available \u2705\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nKate spade\nGold chain\nSilver\nRing\nCoach\nSunglasses\nWallets\nBag\nBracelet\nGucci bag\nLouis vuitton bag\nBean bag\nTiffany\nDiamond earrings\nChanel bag\nGucci wallet\nTote bag\nHeavy bag\nCharms\nMessenger bag",
+          "category": "general",
+          "word_count": 268
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/fa804c32-669a-3c36-a9f5-b06dfd6ead89",
+          "depth": 1,
+          "title": "2021 Honda Pilot for Sale in Omaha, NE - OfferUp",
+          "content": "2021 Honda Pilot for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$23,950\n2021 Honda Pilot\n42,000 Miles\n19/26 MPG\nAWD\nAutomatic\n6 cylinders\nRegular Unleaded\nVIN\n5FNYF6H23MB066124\nPosted about 18 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nBig O Auto LLC\n4.2\n(Google reviews)\nVerified Auto Dealer\nBusiness Information\n6503 L St\nOmaha, NE 68117, USA\nhttps://www.bigoautollc.com\n(402) 991-2526\nOpen\ntoday\nHours 11:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nMonday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nTuesday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nWednesday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nThursday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nFriday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSaturday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSunday\n11:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nSee hours of operation\nChat\nCall for details\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nVehicle history report\nVinAudit found a salvage record\nNo accidents reported\nBuy VinAudit report for $1.99\nTypical Features\nContact the seller to confirm vehicle details\nPush Button Ignition\nRemote Start\nTraction Control\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDescription\nQuality used Cars, Autos, Minvans, Pickups/Pick Up Trucks, Sports Cars, Jeeps, & SUVs for sale! We offer used Chevy, Ford, Audi, GMC, Buick, Toyota, Honda, Dodge, Mazda, Subaru, Lincoln & more vehicles! Stop by or call (402) 991-2526 to schedule a test drive today!\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nGood\nColor\nsilver\nYear\n2021\nEngine Description\n3.5L V-6 gasoline direct injection, i-VTEC variable valve control, regular unleaded, engine with cylinder deactivation and 280HP\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nRelated searches\nBmw\nHonda civic\nChevy\nChevy silverado\nLexus\nToyota tacoma\nHonda\nFord\nToyota\nAudi\nNissan altima\nJeep wrangler\nJeep\nMazda\nFord ranger\nTruck\nDodge\nNissan\nSubaru\nHonda crv",
+          "category": "general",
+          "word_count": 457
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/a371ad61-9c9f-348b-beb1-d0931ca130d7",
+          "depth": 1,
+          "title": "Boys Jordan Jacket for Sale in Omaha, NE - OfferUp",
+          "content": "Boys Jordan Jacket for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$20\nBoys Jordan Jacket\nPosted about 2 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nBrianna Leigh\nJoined Apr 2023\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nLight jacket, no hood. Has some marks on it but no tears, and the zipper works.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSize Type\nRegular\nSize\nL\nBrand\nJordan\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 279
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/98f66123-63d1-384e-a2d3-dce5af235904",
+          "depth": 1,
+          "title": "iPhone 13 Pro Max Factory Unlock for Sale in Houston, TX - OfferUp",
+          "content": "iPhone 13 Pro Max Factory Unlock for Sale in Houston, TX - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$449\niPhone 13 Pro Max Factory Unlock\nShips for $4.49\nPosted 30 days ago\nin Houston, TX\nListed in categories:\nBack to main\nSold by\nVeterans Wireless & Computers\nJoined Aug 2024\nAsk\nBuy now\nGet a second opinion\nSee what others say\nChat securely on the app\n2-Day Purchase Protection\nItems shipped through OfferUp come with a 2-day purchase protection.\nLearn more\nDescription\n12665 Veterans Memorial Dr Houston TX 77014\n(contact info removed)\nMonday through Saturday: 10am-8pm\nSunday: 12pm-7pm\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nNew\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\niPhone\niPhone x\nSamsung galaxy\nSamsung phones\niPhone 8\niPhone 5\niPhone 6\niPhone 7\niPhone 6s\nLg headphones\niPhone wireless headphones",
+          "category": "general",
+          "word_count": 285
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/dbdcdeb6-e241-3b87-b640-6e5e1fcca171",
+          "depth": 1,
+          "title": "Table & Chairs (2) for Sale in Omaha, NE - OfferUp",
+          "content": "Table & Chairs (2) for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$75\nTable & Chairs (2)\nPosted about 19 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nKatelyn Gochenour\nJoined Sep 2023\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nFairly new condition. Black round dining table. Two white dining chairs with gold accents.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nDresser\nDining table\nDesk\nBedroom set\nCoffee table\nCouch\nSofa\nTv stand\nTable\nBed frame\nChair\nSectional couch\nMirror\nKitchen table\nTwin bed\nBunk beds\nBookshelves\nFuton\nShelves",
+          "category": "general",
+          "word_count": 273
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/eb91048c-2dd6-3b8a-98c7-3aef12b4b946",
+          "depth": 1,
+          "title": "2015 Nissan Altima for Sale in Omaha, NE - OfferUp",
+          "content": "2015 Nissan Altima for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$6,350\n$6,950\n2015 Nissan Altima\n140,000 Miles\n38/38 MPG\nFWD\n4 cylinders\nGasoline\nVIN\n1N4AL3AP2FC283099\nPosted 6 months ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nAmericar LLC\n4.6\n(Google reviews)\nVerified Auto Dealer\nBusiness Information\n7216 Main St\nRalston, NE 68127, USA\nhttps://www.americar-llc.com/\n(402) 983-4890\nOpen\ntomorrow\nHours 10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nMonday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nTuesday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nWednesday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nThursday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nFriday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSaturday\n10:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nSunday\nClosed\nSee hours of operation\nChat\nCall for details\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nVehicle history report\nVinAudit found a salvage record\nNo accidents reported\nBuy VinAudit report for $1.99\nTypical Features\nContact the seller to confirm vehicle details\nCruise Control\nFog Lamps\nPush Button Ignition\nRemote Start\nTire Pressure Monitor\nTraction Control\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDescription\nCASH - TRADE-IN - FINANCING - Ask us about financing with a $0 down payment with approved credit.  2015 NISSAN ALTIMA 2.5 SV 0-ACCIDENTS 140k MILES PRICED TO SELL $6350 Call or Text: 402-983-4890  Check out this nice and clean 2015 NISSAN ALTIMA 2.5 SV This car is loaded with options including a 2.5L I4, Automatic Transmission, A/C, Power Windows, Locks, Mirrors, Tilt, Cruise, and much more! This vehicle comes with a Branded title (Due to Hail damage) that has been replaced and passed inspection. Runs and drives perfectly with no mechanical issues whatsoever.  WE HAVE SEVERAL FINANCE OPTIONS, GET PREAPPROVED ON OUR WEBSITE WWW.AMERICAR-LLC.COM  AMERICAR LLC 7216 Main St. Ralston, NE 68127 Business hours: Monday - Friday 10 am.-6 pm. Saturday - 10 am.-5 pm. Sunday - Make an appointment! Call or Text: 402-983-4890 Tel/FAX: 402-315-9919\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nGood\nColor\ngray\nYear\n2015\nEngine Description\n2.5L I4\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nRelated searches\nBmw\nHonda civic\nChevy\nChevy silverado\nLexus\nToyota tacoma\nHonda\nFord\nToyota\nAudi\nNissan altima\nJeep wrangler\nJeep\nMazda\nFord ranger\nTruck\nDodge\nNissan\nSubaru\nHonda crv",
+          "category": "general",
+          "word_count": 534
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/8ad873fb-61ac-331b-9133-deefe1f2c976",
+          "depth": 1,
+          "title": "Fisher-Price Baby Toys Set for Sale in Omaha, NE - OfferUp",
+          "content": "Fisher-Price Baby Toys Set for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$10\nFisher-Price Baby Toys Set\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nXJ\nJoined Nov 2018\n|\n(\n4\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nIncludes Fisher price shape sorter blocks, Fisher price laugh & learn smartwatch, activity ball, and toy bunny.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nStroller\nDouble stroller\nDiapers\nChanging tables\nKids toys\nBooster seat\nHello kitty\nPampers\nHuggies\nKids clothes\nKids desk\nStuffed bears\nCostume\nKids chair\nSnow boots kids\nMoana\nNewborn diapers\nTrolls",
+          "category": "general",
+          "word_count": 283
+        },
+        {
+          "url": "https://www.offerup.com/",
+          "depth": 2,
+          "title": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp",
+          "content": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nThe simpler way to buy and sell locally!\nScan to download the app\nCurrent listings\n2016 Nissan Rogue\n$9,990\nOmaha, NE\nGucci Cloth Sandals\n$100\nOmaha, NE\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nLevono Tablet\n$45\nChicago, IL\nAdidas Running shoes size 6 mens/ 8 womens\n$20\nOmaha, NE\nmortal Kombat 1\n$45\nOmaha, NE\nWomen\u2019s Coat\n$30\nOmaha, NE\nWoman\u2019s Winter Coat\n$20\nOmaha, NE\nYoung Boys Heavy Winter Coat\n$15\nOmaha, NE\nBoys PlayStation Jacket\n$15\nOmaha, NE\nBoys Jordan Jacket\n$20\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n**New**Instax Mini 41 **New**\n$90\nCouncil Bluffs, IA\nApple iPhone XR - 256 GB - Yellow (Unlocked)\n$249\nOrlando, FL\nDigital Electric Smokehouse Stand\n$30\nCarter Lake, IA\nNintendo Switch Oled And Wii With Preloaded Games\n$400\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\nTall Ring Light\n$25\nOmaha, NE\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nmyra bag cowhide\n$85\nOmaha, NE\nCoach Handbags\n$85\nOmaha, NE\nCalvin Klein Coat\n$40\nOmaha, NE\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\nEarrings Shape X Diamonds Real 10k Gold\n$1,090\nTampa, FL\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\nArtika Essence 5-pendant LED light fixture.\n$90\nLa Mesa, CA\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nMetal Bookshelf\n$40\nOmaha, NE\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\n$225\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\n\ud83d\udcf1 iPhone 16 Plus \u2013 Brand New! \ud83d\udcf1\n$9\nHouston, TX\nPs5 Games\n$20\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nSurron 2025 Ultra Bee\n$7,000\nBennington, NE\niPhone 14 Pro 256gb\n$400\nCouncil Bluffs, IA\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\niPhone 13 Pro Max Factory Unlock\n$449\nHouston, TX\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\nNike Dunk Low Retro (Black/Black/White/ White)\n$85\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\nloveseat\n$40\nOmaha, NE\nDurham 7 door dresser\n$60\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\n2 10\u201d JL Audio W1s\n$350\nBellevue, NE\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n2025 Honda Pilot\n$37,950\nOmaha, NE\nElite M2 Gaming Mouse\n$20\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n$2 Each Onesies 4 Pack $8\n$14\nOmaha, NE\nToddler Size 18months\n$60\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nTodo En $300\n$300\nOmaha, NE\nSubwoofer 12  Pulgadas  SKAR Audio  Con Amp\n$300\nOmaha, NE\nGreen, Orange, Purple, & Gold chain Print Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nBlue & Yellow Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nPink & Yellow Floral African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\n$25\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nGrey Nike Dunks\n$130\nOmaha, NE\nBlack Converse Size 8\n$35\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nThunder Skateboard Trucks Size 8\n$20\nOmaha, NE\nRacks And Reels Long Sleeve Size L\n$7\nOmaha, NE\nFresh Laundry Size M\n$8\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\n501s Levi's Jean's Size 34x32\n$30\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nNike Zoom Airs Size 8 In Woman's\n$12\nOmaha, NE\nJordan 1 Lows Size 7\n$25\nOmaha, NE\nJordan 1 Lows Size 6\n$50\nOmaha, NE\nConverse Chuck Taylor's Size 8\n$15\nOmaha, NE\nAir Force 1s, Size 8\n$60\nOmaha, NE\n\ud835\ude91\ud835\ude8a\ud835\ude97\ud835\ude8d\ud835\ude96\ud835\ude8a\ud835\ude8d\ud835\ude8e \ud835\ude9c\ud835\ude92\ud835\ude97\ud835\ude90\ud835\ude95\ud835\ude8e \ud835\ude8c\ud835\ude9b\ud835\ude98\ud835\ude8c\ud835\ude91\ud835\ude8e\ud835\ude9d \ud835\ude96\ud835\ude92\ud835\ude95\ud835\ude9d\ud835\ude92\ud835\ude8c\ud835\ude98\ud835\ude95\ud835\ude98\ud835\ude9b\ud835\ude8e\ud835\ude8d \ud835\ude9d\ud835\ude8a\ud835\ude97\ud835\ude94\ud835\ude9d\ud835\ude98\ud835\ude99\n$20\nBellevue, NE\nView more\nSearch for items by city\nAtlanta, GA\nAustin, TX\nBaltimore, MD\nBoston, MA\nChicago, IL\nCleveland, OH\nColumbus, OH\nDallas, TX\nDenver, CO\nDetroit, MI\nHouston, TX\nLas Vegas, NV\nLos Angeles, CA\nMiami, FL\nNashville, TN\nNew York, NY\nOrlando, FL\nPhiladelphia, PA\nPittsburgh, PA\nPhoenix, AZ\nPortland, OR\nSalt Lake City, UT\nSan Diego, CA\nSan Francisco, CA\nSeattle, WA\nSt. Louis, MO\nTampa, FL\nSee more",
+          "category": "general",
+          "word_count": 953
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/or",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Oregon - OfferUp",
+          "content": "New and Used Items for Sale in Oregon - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Oregon\nBeaverton\nBend\nEugene\nGresham\nHappy Valley\nHillsboro\nKlamath Falls\nMedford\nMilwaukie\nOregon City\nPortland",
+          "category": "general",
+          "word_count": 119
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/13",
+          "depth": 2,
+          "title": "New and Used Tickets for Sale - OfferUp",
+          "content": "New and Used Tickets for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nTickets\nConcerts\nSports\nTheater\nTheme parks\nOther - Tickets\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nTickets\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\nROYAL GROVE $5 Concert Tickets!\n$5\nPlattsmouth, NE\nHinterland GA Sunday\n$650\nOmaha, NE\nLSU Vs UCLA  Tickets\n$1\nCouncil Bluffs, IA\nTwo JFK LIVE AID TICKETS\n$100\nWest Palm Beach, FL\nBloodrush Haunted House\n$15\nOmaha, NE\nHOZIER TICKETS\n$440\nOmaha, NE\n3 Tickets To Monster Trucks\n$55\nCouncil Bluffs, IA\nCollege World Series Hotel Room For Sale EVEN HOTELS 5 Mins From Charles Schwab Field\n$140\nOmaha, NE\nAwesome chiefs Beenie\n$25\nOmaha, NE\nNew kc Beenie\n$25\nOmaha, NE\nMiranda Lambert Locked and Reloaded Concert Tour Shirt\n$15\nBellevue, NE\nAwesome bay day jeweely\n$40\nOmaha, NE\n6 holloween fake life sized weapons with blood\n$18\nBellevue, NE\nTickets\n$200\nOmaha, NE\nNew wrist band\n$30\nOmaha, NE\nRussell CWS Miami Baseball Jersey\n$25\nOmaha, NE\nBroadway in Omaha extra seats\n$90\nBennington, NE\nHuskers 300th Consecutive Sellout - 2 Tickets & Pass 9-26-09 Suitable for Framing\n$40\nOmaha, NE",
+          "category": "general",
+          "word_count": 313
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/id",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Idaho - OfferUp",
+          "content": "New and Used Items for Sale in Idaho - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Idaho\nBoise\nIdaho Falls\nPocatello\nTwin Falls",
+          "category": "general",
+          "word_count": 111
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/in",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Indiana - OfferUp",
+          "content": "New and Used Items for Sale in Indiana - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Indiana\nBloomington\nElkhart\nEvansville\nFort Wayne\nFt. Wayne\nGreenwood\nIndianapolis\nLafayette\nSouth Bend\nTerre Haute",
+          "category": "general",
+          "word_count": 119
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/5",
+          "depth": 2,
+          "title": "New and Used Vehicles for Sale - OfferUp",
+          "content": "New and Used Vehicles for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nVehicles\nCars & Trucks\nMotorcycles\nCampers & RVs\nBoats & Marine\nPowersport vehicles\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nVehicles\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\n2016 Nissan Rogue\n$9,990\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\nD2 Coilovers: No Credit Check/only $40 Down-payment\n$40\nQueens, NY\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\nCar Batteries 24f H5 34 78 65 48 49 47 H6 H7 51r 94r 86 H8 H9 Truck SUV And Car Battery with Warranty. FIRM Price is $59.99 Bateria Carro Car Battery\n$60\nDiamond Bar, CA\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n4 Camera Screen Splitter, Auto, RV\n$20\nRedlands, CA\n2025 Honda Pilot\n$37,950\nOmaha, NE\n2018 Chevrolet Equinox\n$12,490\nOmaha, NE\n2018 Mazda Mazda3\n$8,995\nOmaha, NE\n2014 Ford Focus\n$9,950\nOmaha, NE\n2015 Chevrolet Malibu\n$9,990\nOmaha, NE\n2017 Nissan Rogue Sport\n$10,990\nOmaha, NE\n2018 Ford Edge\n$14,950\nOmaha, NE\n2020 Toyota Camry\n$20,950\nOmaha, NE\nBlack Wire Loom Over 50 Ft Each\n$100\nLos Angeles, CA\n2013 Chrysler Town & Country\n$9,950\nOmaha, NE\n2014 Jeep Wrangler\n$17,950\nOmaha, NE\n2017 Buick Enclave\n$12,950\nOmaha, NE\n2019 Chevrolet Traverse\n$12,950\nOmaha, NE\n2020 Chevrolet Malibu\n$10,950\nOmaha, NE\n2013 Ford Edge\n$5,990\nOmaha, NE\n2017 Ford Transit-150\n$12,450\nOmaha, NE\n2016 Chevrolet Colorado\n$17,950\nOmaha, NE\n2022 Chevrolet Tahoe\n$49,950\nOmaha, NE\nFits 2021-2024 Buick Envision Retractable Rear Trunk Cargo Cover Carbon Fiber Print\n$61\nCity Of Industry, CA\n2024 Nissan Kicks\n$14,990\nOmaha, NE\n2000 Ford Mustang\n$1,500\nOmaha, NE\n2013 Nissan Frontier\n$7,950\nOmaha, NE\n2014 Audi R8\n$64,950\nOmaha, NE\n2024 Subaru Ascent\n$31,950\nOmaha, NE\n2011 Toyota Sienna\n$6,950\nOmaha, NE\n2019 Chevrolet Impala\n$14,950\nOmaha, NE",
+          "category": "general",
+          "word_count": 527
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/ga",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Georgia - OfferUp",
+          "content": "New and Used Items for Sale in Georgia - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Georgia\nAlbany\nAlpharetta\nAtlanta\nAugusta\nColumbus\nDecatur\nDouglasville\nLithonia\nMacon\nMarietta\nMcDonough\nNorcross\nRiverdale\nSavannah\nSmyrna\nStone Mountain\nThomasville",
+          "category": "general",
+          "word_count": 123
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/la",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Louisiana - OfferUp",
+          "content": "New and Used Items for Sale in Louisiana - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Louisiana\nAlexandria\nBaton Rouge\nLafayette\nLake Charles\nMonroe\nNew Orleans\nShreveport",
+          "category": "general",
+          "word_count": 115
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/ms",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Mississippi - OfferUp",
+          "content": "New and Used Items for Sale in Mississippi - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Mississippi\nBiloxi\nColumbus\nGreenville\nGreenwood\nGulfport\nHattiesburg\nJackson\nLaurel\nMeridian\nTupelo\nWest Point",
+          "category": "general",
+          "word_count": 117
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/nh",
+          "depth": 2,
+          "title": "New and Used Items for Sale in New Hampshire - OfferUp",
+          "content": "New and Used Items for Sale in New Hampshire - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in New Hampshire\nManchester",
+          "category": "general",
+          "word_count": 108
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/4",
+          "depth": 2,
+          "title": "New and Used Baby & Kids for Sale - OfferUp",
+          "content": "New and Used Baby & Kids for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nBaby & Kids\nGirls' accessories\nBoys' accessories\nBathing & Skincare\nCar seats & Accessories\nDiapering\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nBaby & Kids\nSort by\n:\nRecent first (Default)\nSub categories\nStroller\nDouble stroller\nDiapers\nChanging tables\nKids toys\nBooster seat\nHello kitty\nPampers\nHuggies\nKids clothes\nKids desk\nStuffed bears\nCostume\nKids chair\nSnow boots kids\nMoana\nNewborn diapers\nTrolls\nSelected filters\nCurrent listings\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nMobile Closet\n$60\nFairfield, CA\n2 In 1 Convertible Car Seat\n$60\nOmaha, NE\nOwlet Dream Sock\n$100\nBellevue, NE\nKid Chair Good Condition $10.00\n$10\nOmaha, NE\nStroller Wagon\n$250\nOmaha, NE\nPush Toy Good Condition $7.00\n$7\nOmaha, NE\nBaby Car Seat\n$50\nOmaha, NE\nPottery Barn Kids Foam Chair - Originally Paid $150 Retail\n$40\nCouncil Bluffs, IA\nDuel Glider 2 seater stroller\n$200\nOmaha, NE\nBedside Bassinet\n$25\nOmaha, NE\nBotas para bebe uggs\n$80\nSan Leandro, CA\nHalo Bassinest Bassinet Like New\n$60\nPapillion, NE\nLittle Tikes Blue Car Toddler Bed\n$100\nOmaha, NE\nNCVI Breast Pumps\n$45\nBellevue, NE\nBaby Buddha Pumps\n$100\nOmaha, NE\nMomcozy Portable Pumps\n$100\nOmaha, NE\nHands Free Breast Pump\n$75\nOmaha, NE\nStroller/wagon\n$150\nBellevue, NE\nMomcozy Wearable Breast Pump\n$80\nOmaha, NE\nBaby Bathtub With Changing Table\n$80\nOmaha, NE\nPLAYERA LACOSTE y playera de polo De beb\u00e9 de un a\u00f1o\n$30\nCastro Valley, CA\nSpectra\n$65\nOmaha, NE\nPuramino Baby Formula\n$80\nOmaha, NE\nReceiving Blankets, Bibs, Burp Rags\n$20\nCouncil Bluffs, IA\nBaby Bassinet\n$40\nCouncil Bluffs, IA\nBoys\n$10\nOmaha, NE\nWipe Warmer\n$15\nOmaha, NE\nTiny Time Water Matt\n$15\nOmaha, NE\nBaby Bouncer\n$45\nOmaha, NE\nCybex-Gazelle-S-Double-Stroller\n$325\nIndianapolis, IN\nElectric Double Breast Pump\n$70\nOmaha, NE\nBaby Bottles Dr Browns\n$10\nOmaha, NE\nGRACO PACK-N\u2014PLAY\n$40\nOmaha, NE\n2 Car Seats\n$10\nOmaha, NE\nBaby Rocker\n$15\nOmaha, NE\nDiaper Genie\n$20\nBellevue, NE\nBaby Wipe Warmer\n$25\nBellevue, NE\nHalo Swivel Baby Bassinet\n$150\nBellevue, NE\nInfant Walker\n$15\nOmaha, NE\nBoon Baby Bottle Grass Drying Rack With Flowers For Nipples\n$10\nParadise Valley, AZ\nInfantino Infant Carrier\n$20\nOmaha, NE\nBaby Mat Good Condition $6.00\n$6\nOmaha, NE\nParent's Choice Breast Milk Storage Bags\n$5\nOmaha, NE\nTommee Tippee Bottles 9oz And 5oz\n$10\nOmaha, NE\nWhite Wood Crib To Toddler Bed\n$35\nOmaha, NE\nWhite Wicker Bassinet On Legs\n$49\nBennington, NE\nBaby Sock Bundle\n$5\nOmaha, NE",
+          "category": "general",
+          "word_count": 551
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/6",
+          "depth": 2,
+          "title": "New and Used Toys, Games, & Hobbies for Sale - OfferUp",
+          "content": "New and Used Toys, Games, & Hobbies for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nToys, Games, & Hobbies\nToys\nGames & Puzzles\nOutdoor toys & Games\nStuffed animals & Plush\nDress up & Pretend\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nToys, Games, & Hobbies\nSort by\n:\nRecent first (Default)\nSub categories\nSwing sets\nNerf guns\nLol surprise\nBarbies\nBoard games\nLol dolls\nDoll\nGirl doll\nTeddy bear\nShopkins\nStuffed animals\nKids games\nPuzzle games\nCaptain america\nPlushies\nAir hockey tables\nSelected filters\nCurrent listings\nHover 1 Kids Hover Bored\n$0\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nDr Seuss The Cat In The Hat\n$25\nPhoenix, AZ\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nFramed Ravensburger Disney Magical Storybook Puzzle\n$20\nOmaha, NE\nFramed Blue Crab Bounty jigsaw puzzle\n$20\nOmaha, NE\nFramed Modern Jigsaw Puzzle\n$20\nOmaha, NE\nFramed Darrell Bush Canoe Lake Jigsaw Puzzle\n$20\nOmaha, NE\nMonster Jam\n$5\nWestminster, CA\nFramed Chicago-themed jigsaw puzzle\n$20\nOmaha, NE\n\ud83c\udfb8 Electric Guitar Starter Pack \u2013 Guitar + Amp + Cable \u2013 Ready to Play!\n$120\nPlattsmouth, NE\nC Pap AIR 11\n$400\nOmaha, NE\nBarbie Lot\n$20\nOmaha, NE\nD&D players, handbook, monster manual, and dungeons, Master guide and Dice set\n$100\nCouncil Bluffs, IA\nTotoro 100dB Personal Safety Alarm Plush | Studio Ghibli Official Buzzer\n$20\nOmaha, NE\n88 Honda Crx Hot Wheel\n$3\nBellevue, NE\nLot Of Various Hot Wheels Mystery Mdlodel Chase Cars\n$35\nBellevue, NE\nBatman Justice League Cowl\n$25\nOmaha, NE\nDr Seuss\n$25\nPhoenix, AZ\nToy Cars Good Condition $3.00 Each\n$3\nOmaha, NE\nToy Truck Good Condition $6.00\n$6\nOmaha, NE\nTyranitar Ex Rare Card\n$200\nOmaha, NE\nMamoswine Rare Card\n$75\nOmaha, NE\nHellboy With Sword Funko Pop #14 Signed By Ron Perlman At 2023 Planet Comicon\n$85\nOmaha, NE\nConstruction Toy Lot With Cat 3 Wheeled Scooter - Bobcat Caterpillar And Tonka Truck\n$60\nCouncil Bluffs, IA\nCrossword Puzzle Books Good Condition $1.00 Each\n$1\nOmaha, NE\nBrett Favre Rc\n$13\nOmaha, NE\n2024 Jayson Tatum Vertical Gold Kaboom 8/10\n$620\nCalabasas, CA\nFuture Hof Bobby Witt Jr Rc Amd Hof Mariano Rivera Rc\n$25\nOmaha, NE\nHot Wheels Ultra Hots Blast Launch Face-Off Track Set - Folding Portable Race Track\n$25\nCouncil Bluffs, IA\nHot Wheels Scorpion Monster Truck Race Track With Battery Operated Speed Booster\n$40\nCouncil Bluffs, IA\nHot Wheels Disney and Pixar Buzz Lightyear Hyper Loop Challenge Playset\n$25\nCouncil Bluffs, IA\nFisher-Price Blaze and the Monster Machines Toy Cars Playset, Mud Pit Race Track with Blaze And Crusher\n$20\nCouncil Bluffs, IA\nHot Wheels Battery Operated Controller Race Track - Portable\n$25\nCouncil Bluffs, IA\nFunko Lot\n$0\nOmaha, NE\nDemon slayer\n$100\nOmaha, NE\nPatrick Mahomes Rc In Focus Card\n$45\nOmaha, NE\nDr Seuss Horton Hears A Who!\n$15\nPhoenix, AZ\nLego Technic Cars\n$200\nOmaha, NE\nTable Games\n$15\nBellevue, NE\n2 Glass Blocks  For $10 ,5 Each\n$10\nBellevue, NE\nDuck Hunter Game\n$30\nPapillion, NE\nJuguetes de dinosaurios\n$5\nOmaha, NE\nNebraska Husker Gear\n$20\nOmaha, NE\n2006 Drew Brees Playoff Prestige\n$1\nCouncil Bluffs, IA",
+          "category": "general",
+          "word_count": 684
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/7",
+          "depth": 2,
+          "title": "New and Used Sports & Outdoors for Sale - OfferUp",
+          "content": "New and Used Sports & Outdoors for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nSports & Outdoors\nExercise\nYoga & Pilates\nMixed martial arts & Boxing\nBikes & Cycling\nSkateboarding\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nSports & Outdoors\nSort by\n:\nRecent first (Default)\nSub categories\nFishing\nSurfboard\nBackpack\nBasketball hoops\nFishing rod\nCooler\nSnowmobile\nFishing reels\nBaseball glove\nBaseball bats\nDuffle bag\nSleeping bag\nPatriots jersey\nCurl bar\nTennis rackets\nSpeed bag\nHiking backpack\nTreadmill nordictrack\nSoftball glove\nSelected filters\nCurrent listings\nDigital Electric Smokehouse Stand\n$30\nCarter Lake, IA\nThunder Skateboard Trucks Size 8\n$20\nOmaha, NE\n15ft Bestway Swimming Pool With Extra\n$640\nOmaha, NE\nElectric Skateboard 35\u201d (350W with Remote)\n$249\nWyandanch, NY\nOklahoma Sooners license plate\n$15\nOmaha, NE\nPro-form\n$50\nCouncil Bluffs, IA\nMariner 3 Inflatable Raft\n$150\nPapillion, NE\nCrabbing And Hunting Gear\n$5\nBennington, NE\nWeider Pro Gym\n$250\nBennington, NE\nLas Vegas Raiders Football License Plate Bracket Cover with Hardware - 2 Pack\n$15\nPlattsmouth, NE\nGymnastics Bar And Mat\n$150\nOmaha, NE\nBike\n$30\nOmaha, NE\nBike\n$35\nOmaha, NE\nDallas Cowboys Pillow\n$10\nLancaster, TX\nYETI Tundra 45 Hard Cooler\n$250\nOmaha, NE\nNew In Box 42\u201d Intex Stell Frame Pool Ladder\n$60\nOmaha, NE\nRaiders Autographed Helemt\n$100\nOmaha, NE\nARVAKOR 26\u201d cruiser bike, 7 Speed Bicycle\n$100\nOakland, IA\nKirkland Signature Golf Balls\n$40\nOmaha, NE\nEleiko 25kg Competition Metal Plates\n$200\nWaterloo, NE\n\ud83c\udfcc\ufe0f 300 Titleist Pro V1 Golf Balls \u2013 Lightly Used \u2013 Bulk Deal! \u26f3\n$225\nOmaha, NE\nElectric Scooter\n$500\nOmaha, NE\nLSU football Champions 2x 2003\n$30\nOmaha, NE\nOld School Viscount Dominator BMX Saddle $20 Seat New\n$20\nCity Of Industry, CA\nBushnell Range Finder With Case\n$175\nOmaha, NE\nTaekwondo Gear\n$60\nOmaha, NE\nPE 170r\n$1,200\nOmaha, NE\nOne wheel Pint\n$600\nOmaha, NE\nBike Seat\n$5\nBellevue, NE\nBaseball Cleats Size 5.5\n$10\nBellevue, NE\n\u2606SCHWINN \"JAGUAR\" BICYCLE!!!\u2606\n$66\nOmaha, NE\nTwin Size Blow Up Air Mattress\n$60\nPapillion, NE\nWellgo Bear Trap Pedals 1/2\" Or 9/16 $25 A pair\n$25\nCity Of Industry, CA\nTim Brown Raiders Helmet\n$20\nOmaha, NE\nStationary/Spinning Bike for Sale\n$500\nOmaha, NE\nNiceday Elliptical Exercise Trainer Machine\n$80\nBellevue, NE\nHusker Full Size Helmet\n$75\nOmaha, NE\nVintage pro tees/jerseys\n$30\nOmaha, NE\nIndianapolis Colts Signed Helmet\n$20\nOmaha, NE\nRiedell Orbit Roller Skates\n$150\nOmaha, NE\nMulti Set Weight Set\n$2,500\nOmaha, NE\nVintage NBA/NHL/NBA Tees\n$15\nOmaha, NE\nMcDermott COTM 11/24 SL10C Pool Cue\n$873\nGilbert, AZ\nDiamond Back 29,\" New Back Break,Chain Upgrade Spraket Everything Matching\n$300\nOmaha, NE\nOrange Cotopaxi Outdoor Backpacks\n$60\nBellevue, NE\nFunctional Trainer\n$1,500\nOmaha, NE\nWeights\n$400\nBellevue, NE\nTreadmill Nautilus T616\n$850\nBellevue, NE\nMen\u2019s Baseball Pants\n$30\nOmaha, NE\nElliptical\n$150\nBellevue, NE",
+          "category": "general",
+          "word_count": 586
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/1",
+          "depth": 2,
+          "title": "New and Used Electronics & Media for Sale - OfferUp",
+          "content": "New and Used Electronics & Media for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nElectronics & Media\nAudio & Speakers\nCell phones & Accessories\nCameras & Photography\nTVs & Media players\nVideo games & Consoles\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nElectronics & Media\nSort by\n:\nRecent first (Default)\nSub categories\nApple watch\nBluetooth speaker\nDrone\nBeats\nApple tvs\nFitbit\nHeadphones\nWireless headphones\nBluetooth headphones\nBeats wireless\nChromecast\nMicrosoft surface\nBeats solo\nBeats headphones\nHoverboards\niPads\nFirestick\nEarbuds\nWireless earbuds\nSelected filters\nCurrent listings\nmortal Kombat 1\n$45\nOmaha, NE\n**New**Instax Mini 41 **New**\n$90\nCouncil Bluffs, IA\nNintendo Switch Oled And Wii With Preloaded Games\n$400\nOmaha, NE\nLevono Tablet\n$45\nChicago, IL\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\n$225\nOmaha, NE\nPs5 Games\n$20\nOmaha, NE\nSurron 2025 Ultra Bee\n$7,000\nBennington, NE\niPhone 14 Pro 256gb\n$400\nCouncil Bluffs, IA\n2 10\u201d JL Audio W1s\n$350\nBellevue, NE\nElite M2 Gaming Mouse\n$20\nOmaha, NE\nSubwoofer 12  Pulgadas  SKAR Audio  Con Amp\n$300\nOmaha, NE\nOld Country Records (100+)\n$3\nOmaha, NE\nSpeaker Box Good Condition $25.00\n$25\nOmaha, NE\nApple iPhone XR - 256 GB - Yellow (Unlocked)\n$249\nOrlando, FL\n2 Amazon m8s26G Fire 7 tablet display 16 GB - Black With Kids Protective Cases And Stands\n$90\nCouncil Bluffs, IA\nFull Surround Sonos-w/era,arc,sub\n$700\nOmaha, NE\nairpod 4th gen\n$80\nPapillion, NE\nairpod Pro 2nd gen\n$90\nPapillion, NE\nAir Pod Pro 2\n$100\nOmaha, NE\nAcer Chromebook (2 Available)\n$175\nOmaha, NE\nrazer huntsman tournament Edition green key caps\n$35\nCouncil Bluffs, IA\nAirPods\n$55\nOmaha, NE\nBeats By dr.dre PRO SERIES\n$100\nOmaha, NE\n\ud83d\udcf1 iPhone 16 Plus \u2013 Brand New! \ud83d\udcf1\n$9\nHouston, TX\nGaming PC (Shoot Me An Offer, I'll Probably Accept)\n$0\nBellevue, NE\nXbox Series S 512 GB\n$350\nOmaha, NE\nLaptop Bag\n$20\nOmaha, NE\nGaming Pc\n$1,500\nBellevue, NE\niPhone 16 Pro Unlocked 256gb\n$750\nOmaha, NE\nIphone 12 64gb\n$200\nOmaha, NE\niPod Nanos\n$40\nOmaha, NE\nAirPod Pros 2nd Generation\n$85\nOmaha, NE\niPhone 13 Pro Max Factory Unlock\n$449\nHouston, TX\nXbox Series S/ Xbox Elite Controller\n$300\nOmaha, NE\nMid Range Gaming PC\n$450\nCouncil Bluffs, IA\nCrosley C62 Turntable Record Player System And Speaker\n$150\nOmaha, NE\niPhone 12 Pro Max\n$450\nOmaha, NE\nChrome Book Hp\n$180\nOmaha, NE\nGalaxy Smart Watch\n$70\nCouncil Bluffs, IA\nPlayStation 4 And Controller\n$120\nOmaha, NE\nAirpods 3rd Generation\n$120\nBellevue, NE\nAsus Gaming Laptop Rog 6 G16\n$2,000\nOmaha, NE\nMacBook Air 13.3\" A1932 | i5 1.6GHz | 8GB RAM | 120GB SSD | Retina | macOS\n$270\nMiami, FL\nCelero 5g 2024 Phone\n$75\nOmaha, NE\nNew Tv\n$150\nOmaha, NE\nSamsung  Tv Not A Smart 65\"  To .70\"\n$80\nCouncil Bluffs, IA\n3rd Gen AirPods\n$70\nOmaha, NE\nSkullcandy  MODtxt ear Buds\n$35\nBellevue, NE\nThe Secret Lives of Color \u2013 Hard Cover \u2013 Brand New \u2013 Stunning Gift Book!\n$10\nOmaha, NE\nPs5 Only 2months Old For Sale Make An Offer I\u2019m Willing To Talk\n$0\nOmaha, NE",
+          "category": "general",
+          "word_count": 644
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/8",
+          "depth": 2,
+          "title": "New and Used Collectibles & Art for Sale - OfferUp",
+          "content": "New and Used Collectibles & Art for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nCollectibles & Art\nArt\nArts & Crafts supplies\nAntiques\nCollectibles\nHandmade\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nCollectibles & Art\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nSwarovski 1990s Malachite Kingfishers Orange Beaks On Frosted Tree 623323, 3.75\u201d\n$97\nNatick, MA\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nVintage Windows (12 Total) In Various Sizes For Crafting and Decoration\n$50\nOmaha, NE\nOriginal Theodore De groot Wood Art\n$500\nOmaha, NE\nFootball Crochet Cousy\n$10\nOmaha, NE\nGolf Print And Desk Sign\n$10\nBennington, NE\nVintage Ducks Unlimited Empty Jim Beam Decanter Bottle\n$25\nPlattsmouth, NE\nCrochet Pumpkins\n$8\nOmaha, NE\nVintage Eva Zeisel by Hallcraft, Fantasy series Plates And Servings Dishes\n$650\nChandler, AZ\nCrochet Fall Pumpkin\n$10\nOmaha, NE\n1980 Jim Beam Ducks Unlimited Blue Winged Teal Ducks Empty Whiskey Decanter\n$25\nPlattsmouth, NE\nSilver Knife\n$5\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon Made In 1899\n$10\nOmaha, NE\nToyo-Sasaki Glass Handmade Wind Chime | Japanese \u201cMatsuri\u201d Summer Festival\n$25\nOmaha, NE\n\ud83d\uddbc\ufe0fD. MORGAN SEASHELL PAINTING PRINT SIGNED\ud83d\uddbc\ufe0f\n$20\nOswego, IL\nBreast Cancer Awareness Lot\n$10\nOmaha, NE\nVintage Candy Bowl\n$10\nOmaha, NE\nPok\u00e9mon Card Collection\n$800\nOmaha, NE\nCrochet Unicorn Doll\n$90\nOmaha, NE\n100 Snowy Day Forever Stamps\n$139\nOmaha, NE\n1000 FLOWERS FROM THE GARDEN FOREVER STAMPS\n$138\nOmaha, NE\n1000 CHRISTMAS CAROLS US FOREVER Stamps\n$135\nOmaha, NE\nCoca Cola Bear Good Condition $5.00\n$5\nOmaha, NE\nAnimal Crossing Inspired Paper Squishies\n$25\nSan Antonio, TX\nJayden Daniels Kaboom!\n$1,500\nBoys Town, NE\nHalloween Boo Porch Sign\n$15\nOmaha, NE\nOriginal Halloween Decor Art\n$15\nOmaha, NE\n1000 Stamps 2023 LUNAR NEW YEAR OF THE RABBIT FOREVER STAMPS\n$135\nOmaha, NE\nJapanese Charizard Rare card\n$200\nOmaha, NE\nVNTG 1960\u2019s Reindeer Fawn With Box\n$25\nPlattsmouth, NE\nHomemade Front Door Wreaths\n$50\nOmaha, NE\n\ud83c\udfa8Tombow Dual Brush Pens \u2013 Primary Palette \u2013 Brand New!\n$10\nOmaha, NE\nHof Harmon Kilibrew Card 1955 Card\n$205\nOmaha, NE\n\ud83d\uddbc\ufe0fORIGINAL C. BELOULT VIBRANT TROPICAL FISH SIGNED\ud83d\uddbc\ufe0f\n$250\nOswego, IL\n1989 Mark Mcgwire Famous Error Card\n$95\nOmaha, NE\n1925 S Peace Dollar\n$61\nOmaha, NE\n. Raggedy Ann by Johnny Gruelle24\u201dAndy Knickerbocker19\u201d dolls(319)\n$70\nPlattsmouth, NE\nCal Ripken Jr Rookie Card\n$41\nOmaha, NE\n2 Hof 1960s Players Palmer And Kaline\n$51\nOmaha, NE\n2 Hof Cards Rod Carew Rc And Harmon Kilibrew 1960\n$67\nOmaha, NE\nThe Rooks Patrick Mahomes Rookie Mint\n$75\nOmaha, NE",
+          "category": "general",
+          "word_count": 588
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/2",
+          "depth": 2,
+          "title": "New and Used Home & Garden for Sale - OfferUp",
+          "content": "New and Used Home & Garden for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nHome & Garden\nFurniture\nHousehold\nAppliances\nKitchen & Dining\nBathroom\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nHome & Garden\nSort by\n:\nRecent first (Default)\nSub categories\nPatio furniture\nShed\nLawn mower\nBbq grill\nHot tub\nTractor\nPlants\nRiding lawn mower\nTents\nPool\nGarage door\nCamping gear\nFountain\nFake plants\nFlower pots\nSprinklers\nSucculents\nPlant pots\nPorch swing\nFlower vase\nSelected filters\nCurrent listings\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\n\ud83d\udee0\ufe0f RYOBI 18V KIT \ud83d\udee0\ufe0f\n$60\nOswego, IL\nMetal Bookshelf\n$40\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\nloveseat\n$40\nOmaha, NE\nDurham 7 door dresser\n$60\nOmaha, NE\nArtika Essence 5-pendant LED light fixture.\n$90\nLa Mesa, CA\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nTall Shelf Good Condition $50.00\n$50\nOmaha, NE\nTall Shelf Good Condition $50.00\n$50\nOmaha, NE\nFireplace Good Condition $65.00\n$65\nOmaha, NE\nTable Shelf Good Condition $25.00\n$25\nOmaha, NE\nFile Cabinet Good Condition $55.00\n$55\nOmaha, NE\nSilver Curtains\n$20\nOmaha, NE\nWindow Curtains\n$20\nOmaha, NE\nOutdoor LED Wall Lantern Light Black\n$30\nAlexandria, VA\nPurple Curtains\n$20\nOmaha, NE\nCapiz Angel Christmas Tree Topper\n$10\nOmaha, NE\nLighted Black Tinsel Top Hat Christmas Tree Topper\n$10\nOmaha, NE\nMeadow Creek Fall Outdoor Garden Flag featuring Halloween Gnomes\n$10\nOmaha, NE\nHeart-shaped ceramic dish manufactured by Jay Imports\n$20\nOmaha, NE\nOneida Angela Staehling Sweets Collection\n$60\nOmaha, NE\nMirrors Good Condition $25.00 Each\n$25\nOmaha, NE\nBar Stools Brand New\n$100\nOmaha, NE\n1-1/4Hp 3170 GPH Submerge Clean Pool Transfer Pump  Submersible Drain Sump Pump For\n$60\nHacienda Heights, CA\nGarage Sale\n$10\nOmaha, NE\nWall Sconce Antique Bronze Dual Light Indoor Industrial Wall Light Fixture\n$40\nOmaha, NE\nTable Shelf Good Condition 23\"Across $40.00\n$40\nOmaha, NE\nMirrors 2 Of Them $30.00 Each ,40\" Across\n$30\nOmaha, NE\nTall Wooden Desk Good Condition $75.00\n$75\nOmaha, NE\nChairs For Sale Brand New\n$60\nOmaha, NE\nNew Milwaukee 16 in. Chainsaw Chain - Model 49-16-2715 With 7 Used Chains\n$25\nCouncil Bluffs, IA\nFire Place Good Condition $75.00\n$75\nOmaha, NE\nMetal Tall File Cabinet Good Condition $75.00\n$75\nOmaha, NE\nWhite, Mini Cantaro Shot Glasses \ud83e\udd0d\ud83c\udf76  \u203c\ufe0f$7 EACH OR $66/DOZEN\u203c\ufe0f\n$7\nNorwalk, CA\nTall Plant Stand With Spider Plant $20.00 For Both\n$20\nOmaha, NE\nQueen Size And Full Size Bed Frame Only\n$200\nOmaha, NE\nFingerprint Lock And Knob\n$90\nOmaha, NE\nAir Fryer\n$85\nPapillion, NE\nNorwex Dry Mop\n$10\nBennington, NE\nRustic French Decor\n$7\nBennington, NE\nQueen Size Air Mattress\n$10\nBennington, NE",
+          "category": "general",
+          "word_count": 628
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/14",
+          "depth": 2,
+          "title": "New and Used Stuff for Sale - OfferUp",
+          "content": "New and Used Stuff for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nGeneral\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nGeneral\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\n55ga AQUARIUMs  No Leaks\n$80\nCouncil Bluffs, IA\nGarage Sale - Womens Clothing, Furniture, And More - 59th & Grand Ave\n$1\nOmaha, NE\nRazor Sx350 Dirt Rocket\n$355\nOmaha, NE\n\ud83d\udca5\ud83d\udca5 Maseta Para Pared \ud83d\udca5\ud83d\udca5\n$45\nNorwalk, CA\nTamalera\n$50\nOmaha, NE\nBar that Transfer Into Roulette And Crap Games\n$300\nOmaha, NE\nHolosun 403r\n$140\nPapillion, NE\nLuggage Bags Good Condition $15.00.each\n$15\nOmaha, NE\nMail Boss Locking Mailbox\n$110\nOmaha, NE\nStuff Dor Sale\n$10\nBellevue, NE\nTurbo torch\n$300\nPapillion, NE\nAustin AST100 Red\n$100\nOmaha, NE\nNoise Cancelling Headphones Howard Leight T3\n$20\nOmaha, NE\n\ud83d\udca5\ud83d\udca5\u26f2\ufe0f Metal And Stone \u26f2\ufe0f \ud83d\udca5\ud83d\udca5\n$240\nNorwalk, CA\n2003 SL-Class 18\" Inch Wheels\n$3,000\nOmaha, NE\nSterile Nitrile SMALL\n$25\nOmaha, NE\nIodine Swab Stick\n$1\nOmaha, NE\nClave  Neutral Connector\n$1\nOmaha, NE\nSwab Pack 10ct\n$5\nOmaha, NE\nSterile Antimicrobial Disc 10ct\n$5\nOmaha, NE\nSterile Tegaderm HP Dressing\n$2\nOmaha, NE\nCURlN Tubing Set\n$2\nOmaha, NE\nAllevyn Life Sterile Dressing 10ct\n$15\nOmaha, NE\n\ud83d\udca5\ud83d\udca5 Table Runner \ud83d\udca5\ud83d\udca5\n$85\nNorwalk, CA\nSterile Dressing Kit\n$5\nOmaha, NE\nShower Glove/Sleeve 3pk\n$5\nOmaha, NE\nAdhesive Remover Wipes\n$5\nOmaha, NE\nSterile Nitrile Gloves SMALL\n$25\nOmaha, NE\nSkin Prep Wipes\n$5\nOmaha, NE\nShower Sleeve 1ct\n$5\nOmaha, NE\nNS Posiflush 30qty\n$18\nOmaha, NE\nDuoderm Extra Thin 4\"x4\"\n$15\nOmaha, NE\nBlow Gun (Blue Point)\n$20\nHuntington Beach, CA\nNon-sterile SMALL Nitrile Gloves\n$10\nOmaha, NE\nTranspore Medical Tape 1\"\n$2\nOmaha, NE\nMedipore 1\" 2pk\n$5\nOmaha, NE\nHypoallergenic Tape\n$5\nOmaha, NE\nAlcohol Pads\n$5\nOmaha, NE\nGrills\n$200\nOmaha, NE\nGrill\n$300\nOmaha, NE\nGaming Chair\n$30\nCouncil Bluffs, IA\nScooter Electric 6:Wheels Jazzy\n$2,999\nBennington, NE\n\u26f2\ufe0f Metal And Stone \u26f2\ufe0f \ud83d\udca5$240.00 30% Off\ud83d\udca5\n$240\nNorwalk, CA\nThe Sak\n$3\nOmaha, NE\nEcoflow LFP Battery Cables\n$150\nOmaha, NE\nWalker\n$50\nBellevue, NE\nAsad Latafa Perfume\n$30\nOmaha, NE\nFor Sale\n$80\nBellevue, NE\nDescent 35s\n$600\nOmaha, NE\nMATCO Tool Box\n$1,750\nOmaha, NE",
+          "category": "general",
+          "word_count": 486
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/1de98c87-f69d-3868-9126-8d9575316374",
+          "depth": 3,
+          "title": "$2 Each Onesies 4 Pack $8 for Sale in Omaha, NE - OfferUp",
+          "content": "$2 Each Onesies 4 Pack $8 for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$14\n$2 Each Onesies 4 Pack $8\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nLakeevia Johnson\nJoined Sep 2025\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\n12 and 18 months\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nNew\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 263
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/e8311e96-1621-3c68-89b2-f08fad78525b",
+          "depth": 3,
+          "title": "Nike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C for Sale in Omaha, NE - OfferUp",
+          "content": "Nike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$25\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nTanji\nJoined May 2017\n|\n(\n1\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nWorn authentic Nike Air Jordan 1 Retro High Toddler sneakers in the black, grey, and white colorway with iconic elephant print detailing. Gently used. Some signs of wear on the uppers and soles, but overall great structure and plenty of life left\nToddler size: 7C\nCondition:\nFair/Used \u2013 well worn but still wearable, sold as-is.\nStyle: High-top silhouette with leather, suede, and textured overlays.\nColorway: Black/White/Grey Elephant Print\nAuthenticity: 100% authentic\nI just need these off my hands. I\u2019m just wanting  to clear out space. Great for daycare, outdoor play, or everyday kicks.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nColor\nBlack\nStyle\nSneakers\nBrand\nNike\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 380
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/43f11bf5-103e-3335-96d2-32302341541c",
+          "depth": 3,
+          "title": "2022 Honda Odyssey for Sale in Omaha, NE - OfferUp",
+          "content": "2022 Honda Odyssey for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$27,950\n2022 Honda Odyssey\n42,000 Miles\n19/28 MPG\nFWD\nAutomatic\n6 cylinders\nRegular Unleaded\nVIN\n5FNRL6H8XNB039134\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nBig O Auto LLC\n4.2\n(Google reviews)\nVerified Auto Dealer\nBusiness Information\n6503 L St\nOmaha, NE 68117, USA\nhttps://www.bigoautollc.com\n(402) 991-2526\nOpen\ntoday\nHours 11:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nMonday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nTuesday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nWednesday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nThursday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nFriday\n9:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSaturday\n10:00\u202fAM\u2009\u2013\u20096:00\u202fPM\nSunday\n11:00\u202fAM\u2009\u2013\u20095:00\u202fPM\nSee hours of operation\nChat\nCall for details\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nVehicle history report\nVinAudit found a salvage record\nNo accidents reported\nBuy VinAudit report for $1.99\nTypical Features\nContact the seller to confirm vehicle details\nPush Button Ignition\nRemote Start\nTraction Control\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDescription\nQuality used Cars, Autos, Minvans, Pickups/Pick Up Trucks, Sports Cars, Jeeps, & SUVs for sale! We offer used Chevy, Ford, Audi, GMC, Buick, Toyota, Honda, Dodge, Mazda, Subaru, Lincoln & more vehicles! Stop by or call (402) 991-2526 to schedule a test drive today!\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nGood\nColor\ngray\nYear\n2022\nEngine Description\n3.5L V-6 gasoline direct injection, i-VTEC variable valve control, regular unleaded, engine with cylinder deactivation and 280HP\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nRelated searches\nBmw\nHonda civic\nChevy\nChevy silverado\nLexus\nToyota tacoma\nHonda\nFord\nToyota\nAudi\nNissan altima\nJeep wrangler\nJeep\nMazda\nFord ranger\nTruck\nDodge\nNissan\nSubaru\nHonda crv",
+          "category": "general",
+          "word_count": 456
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/a826e26f-7265-3fe7-af96-e17a2911a2aa",
+          "depth": 3,
+          "title": "Women\u2019s Coat for Sale in Omaha, NE - OfferUp",
+          "content": "Women\u2019s Coat for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$30\nWomen\u2019s Coat\nPosted about 2 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nBrianna Leigh\nJoined Apr 2023\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nWater resistant, wind protection and stretchable. Clean has no stains or tears still has the belt. Never worn.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nOpen Box (never used)\nSize Type\nRegular\nSize\nXL\nBrand\nCalvin Klein\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 281
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/c2452016-da55-3c03-a677-81b24b461a1a",
+          "depth": 3,
+          "title": "Toddler Size 18months for Sale in Omaha, NE - OfferUp",
+          "content": "Toddler Size 18months for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$60\nToddler Size 18months\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nLakeevia Johnson\nJoined Sep 2025\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\n$10 for each all size 18 months\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nNew\nBrand\nNike adidas\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 263
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/2efeaaa2-8fd7-3dc5-b5cd-62d984fee810",
+          "depth": 3,
+          "title": "Jordan 1 Lows Size 6 for Sale in Omaha, NE - OfferUp",
+          "content": "Jordan 1 Lows Size 6 for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$50\nJordan 1 Lows Size 6\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nVintagecasher\nJoined Oct 2025\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nUsed a few times but the leather is mostly in good condition\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nColor\nPurple\nBrand\nNike\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 274
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/cb260458-2653-3f20-b42b-d7a022a8de17",
+          "depth": 3,
+          "title": "Nike Dunk Low Retro (Black/Black/White/ White) for Sale in Omaha, NE - OfferUp",
+          "content": "Nike Dunk Low Retro (Black/Black/White/ White) for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$85\nNike Dunk Low Retro (Black/Black/White/ White)\nPosted about 23 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nTanji\nJoined May 2017\n|\n(\n1\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nThey say if you buy a man shoes, he\u2019ll use them to walk out of your life. Well he did, but at least I got the shoes back. Somebody else might as well walk into something good. \ud83d\udc5f\n- Brand: Nike Dunk Low Retros\n- Color: Black/White\n- Size: M 9.5 / W 11\n- Condition: Lightly worn, minor creasing on the toe\n- Proof of purchase included \u2705\n- Authenticity confirmed, bought new from retailer. \u2705\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSize\n9.5\nColor\nBlack\nActivity\nBasketball\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nAdditional details\nBrand\nNike\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 386
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/51127b48-7812-3e6a-85a9-b6f53e42aa05",
+          "depth": 3,
+          "title": "HP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver for Sale in Omaha, NE - OfferUp",
+          "content": "HP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$225\n$240\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\nLast updated about 12 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nQuentin\nJoined Jul 2025\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nLightly used laptop. In very good condition. Cash acceptance only!\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nLaptop\nGaming computer\nComputer monitor\nHp laptop\nDesktop computer\nRouters\nComputer parts\nLenovo laptop\nModem router\nWifi router\nRefurbished laptops\nNotebook\nComputer keyboard\nToshiba laptops\nModem\nCurved monitor\nAsus router\nHp notebook\nWireless mouse\nChromebooks",
+          "category": "general",
+          "word_count": 305
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/11",
+          "depth": 3,
+          "title": "New and Used Wedding for Sale - OfferUp",
+          "content": "New and Used Wedding for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nWedding\nJewelry\nInvitations & Paper\nGifts & Mementos\nDecorations\nAccessories\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nWedding\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\nVVS MOISSANITE TWO-TONE ROLLIE\n$1,200\nOmaha, NE\nASOS Wedding Dress\n$200\nBellevue, NE\nWedding 12\u00d712 Scrapbooking Papers\n$15\nBellevue, NE\nWhite/Brown Flower Vases \ud83e\udd0e\ud83c\udf39\u203c\ufe0fSALE\u203c\ufe0f 6 for $150.\n$150\nNorwalk, CA\nWedding Day Items\n$15\nBellevue, NE\nWedding Bird Cage  18in High\n$39\nPapillion, NE\nVVS Moissanite Watch\n$1,500\nOmaha, NE\nUsed Wedding Dress\n$500\nOmaha, NE\nGlass Pearls\n$8\nOmaha, NE\nWelcome To Pappy's Place Sign\n$5\nOmaha, NE\nDavid\u2019s Bridal Dress\n$50\nBellevue, NE\nBest Gift Fairy Crystal\n$8\nOmaha, NE\nGold Mini Flask\n$12\nPlattsmouth, NE\nOwala 32oz Cup $25\n$25\nFontana, CA\nHeart Candle Holders\n$5\nOmaha, NE\n0.5 CT Earrings\n$90\nBellevue, NE\nMisc Wedding Decor\n$50\nOmaha, NE\nWedding Dress\n$900\nOmaha, NE\nVVS Moissanite Watch\n$1,400\nCouncil Bluffs, IA\nVVS MOISSANITE CARTI (TWO TONE)\n$1,300\nOmaha, NE\nVVS MOISSANITE AP\n$1,400\nOmaha, NE\nGlass vases\n$10\nPapillion, NE\nGlass vases\n$10\nLa Vista, NE\nFinally divorced sash. Brand new!\n$5\nMccombs, KY\nWedding Dress\n$400\nOmaha, NE\nVNTG Vases\n$14\nPlattsmouth, NE\nGold Foil Acrylic Drinks Coasters\n$20\nOmaha, NE\nWedding/Event Wood Chairs $10each\n$10\nOmaha, NE\nLanterns\n$60\nCouncil Bluffs, IA\nLanterns\n$10\nCouncil Bluffs, IA\nWedding Dress\n$250\nBellevue, NE\nVVS MOISSANITE CARTIER BUSTDOWN\n$2,500\nOmaha, NE\nVeil\n$70\nOmaha, NE\nVVS MOISSANITE CARTIER\n$600\nOmaha, NE\nessence of australia wedding dress\n$1,100\nPapillion, NE\nVVS Moissanite Bracelet\n$150\nOmaha, NE\nVVS Moissanite Bracelet\n$150\nOmaha, NE\nNever Been Worn: Bridal Earrings\n$35\nOmaha, NE\nWedding Gown\n$275\nGretna, NE\nWomen's Short Sleeve Bridesmaid Or Mother Of The Groom/bride Dress\n$60\nPapillion, NE\nEncanto Party Supplies\n$35\nCouncil Bluffs, IA\n2CT Black Diamond Ring - Zales Disney Villains Maleficent\n$1,800\nOmaha, NE\n24 ProV1s Reserved\n$25\nOmaha, NE\nVVS Moissanite Diamond Chain 16cm\n$120\nOmaha, NE\nWedding Arch\n$100\nBellevue, NE\nValentine\u2019s Day Gift Bags\n$75\nOmaha, NE\nValentine\u2019s Gift Bags\n$100\nOmaha, NE\nWedding dresses\n$500\nOmaha, NE\nSuitcase/Duffle Bag/ Shoulder Bag/ WEDDING STUFF\n$100\nOmaha, NE\nDRESS! New! David\u2019s bridal\n$90\nOmaha, NE",
+          "category": "general",
+          "word_count": 494
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/9",
+          "depth": 3,
+          "title": "New and Used Pet supplies for Sale - OfferUp",
+          "content": "New and Used Pet supplies for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nPet supplies\nPet collars & Leashes\nPet clothing, Accessories, & Shoes\nPet toys\nPet feeding\nPet bedding\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nPet supplies\nSort by\n:\nRecent first (Default)\nSub categories\nFish tanks\nDog house\nDog kennel\nDog crate\nBird cages\nDog strollers\nDog collars\nAquarium filter\nFish tank decorations\nDog couch\nSelected filters\nCurrent listings\n2 55gal AQUARIUMS  No Leake\n$80\nCouncil Bluffs, IA\n35 Gallon Fish Tank + Stand + Accessories\n$250\nOmaha, NE\nBurt's Bees For Dogs Fresh Breath Toothpaste With Peppermint Oil 2.5.oz Mint\n$5\nOmaha, NE\nQPets 62\u201d Cat Tree Tower For Big Cats CT-203\n$90\nYorba Linda, CA\nRetractable Pet Leash\n$10\nOmaha, NE\nThe Purr Black and White Cat Salt & Pepper Shakers\n$15\nPlattsmouth, NE\nBeta Falls\n$20\nOmaha, NE\nFiltered Pump Quiet For Aquarium\n$29\nBennington, NE\nEcological Turtle Tank\n$12\nCouncil Bluffs, IA\nSmall 2 Door Dog Crate\n$30\nPapillion, NE\nIndoor Rabbit/Guinea pig Hutch on Locking Casters $30\n$0\nOmaha, NE\nLarger Pet Carrier\n$7\nOmaha, NE\nPet Taxi Carrier\n$20\nOmaha, NE\nTank\n$150\nGuadalupe, AZ\nSlow Feed Pet Bowls\n$5\nOmaha, NE\nFish Tank Full Kit Everything Provided\n$100\nOmaha, NE\nBig N birdhouse\n$25\nOmaha, NE\nReptile Enclosure\n$200\nOmaha, NE\nDog House\n$280\nOmaha, NE\nVNTG Resin Black White Springer Spaniel 10\u201dtall Pup\n$14\nPlattsmouth, NE\nFerret Cage\n$90\nOmaha, NE\n\ud83d\udc36 Modern Luxury Dog House \u2013 Insulated | Electric | Architectural Design\n$1,000\nBennington, NE\nBird Cage (LARGE)\n$250\nPapillion, NE\nLarge Size Memory Foam Dog Bed\n$75\nYorba Linda, CA\nExtra Large Outdoor Dog Kennel\n$150\nOmaha, NE\nOutside Dog House\n$20\nOmaha, NE\nDog life jacket\n$20\nBellevue, NE\n75 Gallon Tank With Stand\n$400\nOmaha, NE\nDog Carrier\n$25\nOmaha, NE\nLarge Pet Carrier\n$20\nLa Vista, NE\nLooney Tune Tie 55\u201dx4\u201d\n$15\nPlattsmouth, NE\n75 Gallon Fish Tank\n$200\nOmaha, NE\nPurina Pro Plan Veterinary Supplements FortiFlora Dog Probiotic Supplement, Canine Nutritional Supplement - 30 ct. Box\n$15\nBell Gardens, CA\nLeopard Gecko W/ Tank\n$100\nOmaha, NE\nDog Bark Collar\n$35\nOmaha, NE\nDog Playpen\n$30\nOmaha, NE\nDog House For Outdoors\n$45\nOmaha, NE\n2 Large Dog Houses\n$50\nOmaha, NE\nDog Crate Extra Large 48 Inches\n$75\nOmaha, NE\nFish Tank With Stand\n$180\nOmaha, NE\nAll The Stuff You Need For An Aquarium\n$25\nCouncil Bluffs, IA\nPremium Cat Carrier\n$60\nOmaha, NE\nFRONTLINE Gold Flea & Tick Treatment for Large Dogs Up to 45 to 88 lbs., Pack of 6\n$40\nBell Gardens, CA\nCat Tree\n$35\nOmaha, NE\nNew Uncut Pattern Fish\n$9\nPlattsmouth, NE\nBone Shape Leash Holder\n$13\nPlattsmouth, NE\nVNTG Rosy Fruit Crate\n$25\nPlattsmouth, NE\nDog crate - extra large, with bed\n$90\nOmaha, NE\nMedium/Large Dog Crate \u2013 Excellent Condition!\n$60\nOmaha, NE",
+          "category": "general",
+          "word_count": 601
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/7bae39b0-e00b-3555-9b86-8a26bc59c728?cid=13",
+          "depth": 3,
+          "title": "3 Tickets To Monster Trucks for Sale in Council Bluffs, IA - OfferUp",
+          "content": "3 Tickets To Monster Trucks for Sale in Council Bluffs, IA - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$55\n3 Tickets To Monster Trucks\nPosted over 1 year ago\nin Council Bluffs, IA\nListed in categories:\nBack to main\nSold by\nDULCE\nJoined Apr 2018\n|\n(\n104\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nDescription\nHello I purchased 3 tickets to the monster truck show thinking it was in my state and it turns out it's in Iowa! Purchased on Groupon for a great price of $57 for all three. Please don't let these go to waste. Buy them off me. I will give my Groupon log in info for access to the g-passes.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nEvent Name\nHot wheels monster truck glow party iowa\nEvent Date\nMarch 8th 2024\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.",
+          "category": "general",
+          "word_count": 307
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/a85ac4b0-ce83-3f9d-bc57-152bc0479d7f?cid=13",
+          "depth": 3,
+          "title": "New kc Beenie for Sale in Omaha, NE - OfferUp",
+          "content": "New kc Beenie for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$25\nNew kc Beenie\nPosted over 5 years ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nKevin\nJoined Mar 2018\n|\n(\n68\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nNew and only one available. Tags still on selling for 25 dollars these are new era nfl beenies. Very nice\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nNew\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.",
+          "category": "general",
+          "word_count": 251
+        }
+      ],
+      "categories": {
+        "general": 40
+      },
+      "total_content_words": 15319
+    },
+    "blog_data": {
+      "found": false,
+      "articles": []
+    },
+    "linkedin_data": {
+      "found": false,
+      "posts": []
+    },
+    "youtube_data": {
+      "found": false,
+      "videos": []
+    },
+    "jobs_data": {
+      "found": false,
+      "careers_url": null,
+      "jobs": [],
+      "tech_stack_detected": {}
+    },
+    "data_architecture": {
+      "error": "Invalid JSON response: Unterminated string starting at: line 1515 column 19 (char 57945)",
+      "entities": [],
+      "warehouse_design": {},
+      "tech_stack": {}
+    }
+  }
+}

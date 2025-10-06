@@ -1,0 +1,1188 @@
+{
+  "metadata": {
+    "test_url": "https://www.offerup.com",
+    "model": "gemini-2.5-pro",
+    "timestamp": "2025-10-05T16:47:53.248682",
+    "duration_seconds": 142.03359,
+    "configuration": {
+      "max_pages": 30,
+      "max_depth": 3,
+      "enable_blog": true,
+      "enable_linkedin": true,
+      "enable_youtube": true
+    }
+  },
+  "business_analysis": {
+    "company_name": "OfferUp",
+    "industry": "Online Marketplace",
+    "company_type": "C2C Marketplace",
+    "business_domain": "OfferUp is a mobile-first local marketplace that simplifies the process for individuals and businesses to buy and sell a wide variety of new and used goods.",
+    "business_model": "OfferUp likely generates revenue through a combination of service fees for sellers on shipped items, fees for promoting listings to increase visibility, and potentially subscription services for professional sellers like car dealerships.",
+    "key_products_services": [
+      "Online marketplace platform for local and shipped goods",
+      "Mobile application for buying and selling",
+      "Categorized listings for various product types",
+      "In-app messaging between buyers and sellers"
+    ],
+    "target_customers": "The platform targets individual consumers looking to buy or sell second-hand items locally (C2C), as well as small businesses (e.g., used car dealers) who want to reach a local customer base (B2C).",
+    "key_entities": [
+      {
+        "name": "Users",
+        "description": "Individuals who can act as both buyers and sellers on the platform. They have profiles, ratings, and transaction histories.",
+        "importance": "high",
+        "relationships": [
+          "Listings",
+          "Transactions",
+          "Messages"
+        ]
+      },
+      {
+        "name": "Listings",
+        "description": "Advertisements for items being sold by users. Each listing has a price, description, category, location, and photos.",
+        "importance": "high",
+        "relationships": [
+          "Users",
+          "Categories",
+          "Transactions"
+        ]
+      },
+      {
+        "name": "Transactions",
+        "description": "The record of a completed sale between a buyer and a seller, including the final price and date.",
+        "importance": "high",
+        "relationships": [
+          "Users",
+          "Listings"
+        ]
+      },
+      {
+        "name": "Categories",
+        "description": "A hierarchical structure used to organize listings, such as 'Vehicles', 'Electronics & Media', and 'Home & Garden'.",
+        "importance": "medium",
+        "relationships": [
+          "Listings"
+        ]
+      }
+    ],
+    "data_products": [],
+    "technologies_detected": [
+      "Not specified in the provided intelligence"
+    ],
+    "data_types": {
+      "transactional": [
+        "sales_records",
+        "payment_details",
+        "shipping_fees",
+        "promotion_fees"
+      ],
+      "behavioral": [
+        "user_searches",
+        "listing_views",
+        "clicks",
+        "session_data",
+        "messages_sent",
+        "app_usage"
+      ],
+      "operational": [
+        "listing_status",
+        "user_profiles",
+        "moderation_flags",
+        "support_inquiries"
+      ],
+      "analytical": [
+        "aggregated_sales_metrics",
+        "user_segments",
+        "category_performance_data",
+        "geospatial_analysis"
+      ]
+    },
+    "primary_use_cases": [
+      "Marketplace liquidity analysis (supply vs. demand)",
+      "User behavior analysis and segmentation",
+      "Search and recommendation engine optimization",
+      "Fraud detection and prevention",
+      "Category performance and trend analysis",
+      "Geospatial analysis of local market activity"
+    ],
+    "kpis": [
+      "Gross Merchandise Volume (GMV)",
+      "Number of Active Listings",
+      "Number of Transactions",
+      "Average Transaction Value (ATV)",
+      "Listing-to-Sale Conversion Rate",
+      "Monthly Active Users (MAU)",
+      "User Acquisition Cost (UAC)",
+      "Seller and Buyer Retention Rates"
+    ],
+    "business_questions": [
+      "Which product categories are most popular in different geographic regions?",
+      "What is the average time-to-sell for an item by category and price point?",
+      "What are the behavioral differences between casual users and power sellers?",
+      "How do promoted listings impact the final sale price and time-to-sell?",
+      "Can we predict user churn based on their activity patterns?",
+      "What search terms have high volume but low conversion, indicating a supply gap?",
+      "Which user actions are strong indicators of fraudulent activity?"
+    ],
+    "demo_opportunities": [
+      "Build a marketplace health dashboard tracking GMV, listings, and transactions in real-time.",
+      "Showcase user segmentation to identify 'power sellers' for a loyalty program.",
+      "Demonstrate geospatial analysis by mapping supply and demand for specific categories (e.g., 'furniture') across a city.",
+      "Create a fraud detection model that flags suspicious listings or user interactions.",
+      "Analyze search query data to provide insights into market trends and inventory gaps."
+    ],
+    "additional_context": {
+      "company_size": "enterprise",
+      "data_maturity": "advanced",
+      "geographic_focus": "US",
+      "notable_features": [
+        "Strong emphasis on local, in-person transactions.",
+        "Mobile-first platform design.",
+        "Extensive range of product categories, including high-value items like vehicles and collectibles."
+      ]
+    }
+  },
+  "v2_intelligence": {
+    "website_crawl": {
+      "base_url": "https://www.offerup.com",
+      "pages_crawled": 30,
+      "pages": [
+        {
+          "url": "https://www.offerup.com",
+          "depth": 0,
+          "title": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp",
+          "content": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nThe simpler way to buy and sell locally!\nScan to download the app\nCurrent listings\n300 Srixon Golf Balls\n$175\nOmaha, NE\n350 Top Flight Used Golf Balls\n$175\nOmaha, NE\n275 Used Bridgestone Golf Balls\n$125\nOmaha, NE\nCE Tech 1,000 ft. riser cable, Cat 6 23-4.\n$50\nLa Mesa, CA\n200 TaylorMade Used Golf Balls\n$125\nOmaha, NE\n400 Callaway Used Golf Balls\n$175\nOmaha, NE\n2012 Toyota RAV4\n$9,950\nOmaha, NE\n2019 Ford Fiesta\n$8,950\nOmaha, NE\n2016 Ford Edge\n$11,950\nOmaha, NE\n1998 Lincoln Town Car\n$1,850\nOmaha, NE\n2016 Nissan Rogue\n$9,990\nOmaha, NE\nGucci Cloth Sandals\n$100\nOmaha, NE\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nHome Decorators Collection Heritage Point 25 in. Indoor/Covered Outdoor Matte Black Fandelier Ceiling Fan.\n$80\nLa Mesa, CA\nAdidas Running shoes size 6 mens/ 8 womens\n$20\nOmaha, NE\nmortal Kombat 1\n$45\nOmaha, NE\nWomen\u2019s Coat\n$30\nOmaha, NE\nWoman\u2019s Winter Coat\n$20\nOmaha, NE\nYoung Boys Heavy Winter Coat\n$15\nOmaha, NE\nBoys PlayStation Jacket\n$15\nOmaha, NE\nBoys Jordan Jacket\n$20\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n**New**Instax Mini 41 **New**\n$90\nCouncil Bluffs, IA\nApple AirPods Pro 2 - New & Sealed - I Can Ship\n$60\nTwin Peaks, CA\nDigital Electric Smokehouse Stand\n$30\nCarter Lake, IA\nNintendo Switch Oled And Wii With Preloaded Games\n$400\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\nTall Ring Light\n$25\nOmaha, NE\nHover 1 Kids Hover Bored\n$70\nOmaha, NE\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nmyra bag cowhide\n$85\nOmaha, NE\nCoach Handbags\n$85\nOmaha, NE\nIPHONE 17 PRO MAX \u2728\n$200\nAsheboro, NC\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\nAir-Powered Nail Guns PASLODE Framing Nailer: Framing, 30\u2026 PASLODE Framing Nailer: Framing, 30\u00b0, Strip, Selectable/Sequential, 3/8 in NPT, Strip Colla\n$220\nLa Mesa, CA\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nMetal Bookshelf\n$40\nOmaha, NE\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\n$225\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\nBlack Wire Loom Over 50 Ft Each\n$100\nLos Angeles, CA\nPs5 Games\n$20\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nSurron 2025 Ultra Bee\n$7,000\nBennington, NE\niPhone 14 Pro 256gb\n$400\nCouncil Bluffs, IA\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\nNike Dunk Low Retro (Black/Black/White/ White)\n$85\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\nloveseat\n$25\nOmaha, NE\nDurham 7 door dresser\n$15\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\n2 10\u201d JL Audio W1s\n$350\nBellevue, NE\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n2025 Honda Pilot\n$37,950\nOmaha, NE\nElite M2 Gaming Mouse\n$20\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n$2 Each Onesies 4 Pack $8\n$14\nOmaha, NE\nToddler Size 18months\n$60\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nTodo En $300\n$300\nOmaha, NE\nSubwoofer 12  Pulgadas  SKAR Audio  Con Amp\n$300\nOmaha, NE\nGreen, Orange, Purple, & Gold chain Print Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nBlue & Yellow Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nPink & Yellow Floral African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\n$25\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nGrey Nike Dunks\n$130\nOmaha, NE\nBlack Converse Size 8\n$35\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nThunder Skateboard Trucks Size 8\n$20\nOmaha, NE\nRacks And Reels Long Sleeve Size L\n$7\nOmaha, NE\nFresh Laundry Size M\n$8\nOmaha, NE\nView more\nSearch for items by city\nAtlanta, GA\nAustin, TX\nBaltimore, MD\nBoston, MA\nChicago, IL\nCleveland, OH\nColumbus, OH\nDallas, TX\nDenver, CO\nDetroit, MI\nHouston, TX\nLas Vegas, NV\nLos Angeles, CA\nMiami, FL\nNashville, TN\nNew York, NY\nOrlando, FL\nPhiladelphia, PA\nPittsburgh, PA\nPhoenix, AZ\nPortland, OR\nSalt Lake City, UT\nSan Diego, CA\nSan Francisco, CA\nSeattle, WA\nSt. Louis, MO\nTampa, FL\nSee more",
+          "category": "general",
+          "word_count": 979
+        },
+        {
+          "url": "https://www.offerup.com/explore/state",
+          "depth": 1,
+          "title": "New and Used Items for Sale by State - OfferUp",
+          "content": "New and Used Items for Sale by State - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale by state\nAlaska\nAlabama\nArkansas\nArizona\nCalifornia\nColorado\nConnecticut\nDelaware\nFlorida\nGeorgia\nHawaii\nIowa\nIdaho\nIllinois\nIndiana\nKansas\nKentucky\nLouisiana\nMassachusetts\nMaryland\nMaine\nMichigan\nMinnesota\nMissouri\nMississippi\nMontana\nNorth Carolina\nNorth Dakota\nNebraska\nNew Hampshire\nNew Jersey\nNew Mexico\nNevada\nNew York\nOhio\nOklahoma\nOregon\nPennsylvania\nRhode Island\nSouth Carolina\nSouth Dakota\nTennessee\nTexas\nUtah\nVirginia\nVermont\nWashington\nWisconsin\nWest Virginia\nWyoming",
+          "category": "general",
+          "word_count": 165
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/511d7097-5d0e-3ea7-a303-7ea8ba326613",
+          "depth": 1,
+          "title": "VTech Baby Toy Set for Sale in Omaha, NE - OfferUp",
+          "content": "VTech Baby Toy Set for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$10\nVTech Baby Toy Set\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nXJ\nJoined Nov 2018\n|\n(\n4\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nIncludes interactive kiss and care cows toys.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nStroller\nDouble stroller\nDiapers\nChanging tables\nKids toys\nBooster seat\nHello kitty\nPampers\nHuggies\nKids clothes\nKids desk\nStuffed bears\nCostume\nKids chair\nSnow boots kids\nMoana\nNewborn diapers\nTrolls",
+          "category": "technology",
+          "word_count": 273
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/11",
+          "depth": 1,
+          "title": "New and Used Wedding for Sale - OfferUp",
+          "content": "New and Used Wedding for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nWedding\nJewelry\nInvitations & Paper\nGifts & Mementos\nDecorations\nAccessories\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nWedding\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\nVVS MOISSANITE TWO-TONE ROLLIE\n$1,200\nOmaha, NE\nASOS Wedding Dress\n$200\nBellevue, NE\nWedding 12\u00d712 Scrapbooking Papers\n$15\nBellevue, NE\nWhite/Brown Flower Vases \ud83e\udd0e\ud83c\udf39\u203c\ufe0fSALE\u203c\ufe0f 6 for $150.\n$150\nNorwalk, CA\nWedding Day Items\n$15\nBellevue, NE\nWedding Bird Cage  18in High\n$39\nPapillion, NE\nVVS Moissanite Watch\n$1,500\nOmaha, NE\nUsed Wedding Dress\n$500\nOmaha, NE\nGlass Pearls\n$8\nOmaha, NE\nWelcome To Pappy's Place Sign\n$5\nOmaha, NE\nDavid\u2019s Bridal Dress\n$50\nBellevue, NE\nBest Gift Fairy Crystal\n$8\nOmaha, NE\nGold Mini Flask\n$12\nPlattsmouth, NE\nOwala 32oz Cup $25\n$25\nFontana, CA\nHeart Candle Holders\n$5\nOmaha, NE\n0.5 CT Earrings\n$90\nBellevue, NE\nMisc Wedding Decor\n$50\nOmaha, NE\nWedding Dress\n$900\nOmaha, NE\nVVS Moissanite Watch\n$1,400\nCouncil Bluffs, IA\nVVS MOISSANITE CARTI (TWO TONE)\n$1,300\nOmaha, NE\nVVS MOISSANITE AP\n$1,400\nOmaha, NE\nGlass vases\n$10\nPapillion, NE\nGlass vases\n$10\nLa Vista, NE\nFinally divorced sash. Brand new!\n$5\nMccombs, KY\nWedding Dress\n$400\nOmaha, NE\nVNTG Vases\n$14\nPlattsmouth, NE\nGold Foil Acrylic Drinks Coasters\n$20\nOmaha, NE\nWedding/Event Wood Chairs $10each\n$10\nOmaha, NE\nLanterns\n$60\nCouncil Bluffs, IA\nLanterns\n$10\nCouncil Bluffs, IA\nWedding Dress\n$250\nBellevue, NE\nVVS MOISSANITE CARTIER BUSTDOWN\n$2,500\nOmaha, NE\nVeil\n$70\nOmaha, NE\nVVS MOISSANITE CARTIER\n$600\nOmaha, NE\nessence of australia wedding dress\n$1,100\nPapillion, NE\nVVS Moissanite Bracelet\n$150\nOmaha, NE\nVVS Moissanite Bracelet\n$150\nOmaha, NE\nNever Been Worn: Bridal Earrings\n$35\nOmaha, NE\nWedding Gown\n$275\nGretna, NE\nWomen's Short Sleeve Bridesmaid Or Mother Of The Groom/bride Dress\n$60\nPapillion, NE\nEncanto Party Supplies\n$35\nCouncil Bluffs, IA\n2CT Black Diamond Ring - Zales Disney Villains Maleficent\n$1,800\nOmaha, NE\n24 ProV1s Reserved\n$25\nOmaha, NE\nVVS Moissanite Diamond Chain 16cm\n$120\nOmaha, NE\nWedding Arch\n$100\nBellevue, NE\nValentine\u2019s Day Gift Bags\n$75\nOmaha, NE\nValentine\u2019s Gift Bags\n$100\nOmaha, NE\nWedding dresses\n$500\nOmaha, NE\nSuitcase/Duffle Bag/ Shoulder Bag/ WEDDING STUFF\n$100\nOmaha, NE\nDRESS! New! David\u2019s bridal\n$90\nOmaha, NE",
+          "category": "general",
+          "word_count": 494
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/f8e69a96-559c-3304-b2c9-065ea1a61425",
+          "depth": 1,
+          "title": "Whalen Xavier 3-in-1 Television Stand for Sale in Omaha, NE - OfferUp",
+          "content": "Whalen Xavier 3-in-1 Television Stand for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$50\nWhalen Xavier 3-in-1 Television Stand\nPosted about 22 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nCole Richard\nJoined Feb 2020\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nDescription\nnice tv stand can fit up to 70inch tv\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nColor\nBlack\nMaterial\nGlass, Metal\nBrand\nWhalen xavier\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nDresser\nDining table\nDesk\nBedroom set\nCoffee table\nCouch\nSofa\nTv stand\nTable\nBed frame\nChair\nSectional couch\nMirror\nKitchen table\nTwin bed\nBunk beds\nBookshelves\nFuton\nShelves",
+          "category": "general",
+          "word_count": 273
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/58dadc28-76c4-35a5-8dd5-3b88c4d4bb67",
+          "depth": 1,
+          "title": "Adidas Running shoes size 6 mens/ 8 womens for Sale in Omaha, NE - OfferUp",
+          "content": "Adidas Running shoes size 6 mens/ 8 womens for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$20\nAdidas Running shoes size 6 mens/ 8 womens\nPosted about 3 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nRylie Richardson\nJoined Apr 2021\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDetails\nCondition\nUsed (normal wear)\nSize\n6 Mens/ 8 Womens\nBrand\nAdidas\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 241
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/e2c92a21-677f-3f60-8760-900813f4a58a",
+          "depth": 1,
+          "title": "400 Callaway Used Golf Balls for Sale in Omaha, NE - OfferUp",
+          "content": "400 Callaway Used Golf Balls for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$175\n400 Callaway Used Golf Balls\nPosted about 2 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nJared Kush\nJoined Jun 2022\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nDescription\n400 Callaway golf balls, all near mint. Includes Chrome Soft, Supersoft, ERC Soft, and other premium models.\n\u2705 Lightly used and washed\n\u2705 Perfect for casual or competitive play\nTake your pick or grab all 400 for the best deal!\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nFishing\nSurfboard\nBackpack\nBasketball hoops\nFishing rod\nCooler\nSnowmobile\nFishing reels\nBaseball glove\nBaseball bats\nDuffle bag\nSleeping bag\nPatriots jersey\nCurl bar\nTennis rackets\nSpeed bag\nHiking backpack\nTreadmill nordictrack\nSoftball glove",
+          "category": "general",
+          "word_count": 301
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/e8311e96-1621-3c68-89b2-f08fad78525b",
+          "depth": 1,
+          "title": "Nike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C for Sale in Omaha, NE - OfferUp",
+          "content": "Nike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$25\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nTanji\nJoined May 2017\n|\n(\n1\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nWorn authentic Nike Air Jordan 1 Retro High Toddler sneakers in the black, grey, and white colorway with iconic elephant print detailing. Gently used. Some signs of wear on the uppers and soles, but overall great structure and plenty of life left\nToddler size: 7C\nCondition:\nFair/Used \u2013 well worn but still wearable, sold as-is.\nStyle: High-top silhouette with leather, suede, and textured overlays.\nColorway: Black/White/Grey Elephant Print\nAuthenticity: 100% authentic\nI just need these off my hands. I\u2019m just wanting  to clear out space. Great for daycare, outdoor play, or everyday kicks.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nColor\nBlack\nStyle\nSneakers\nBrand\nNike\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots",
+          "category": "general",
+          "word_count": 380
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/2061f6d4-cfd2-34ac-b351-dc07f5b49169",
+          "depth": 1,
+          "title": "Fisher-Price Little People Toy Garage Playset for Sale in Omaha, NE - OfferUp",
+          "content": "Fisher-Price Little People Toy Garage Playset for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$12\nFisher-Price Little People Toy Garage Playset\nPosted 1 day ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nXJ\nJoined Nov 2018\n|\n(\n4\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nFisher-Price Little People Toddler Toy Garage Playset with Spiral Ramp & 2 Cars\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nSwing sets\nNerf guns\nLol surprise\nBarbies\nBoard games\nLol dolls\nDoll\nGirl doll\nTeddy bear\nShopkins\nStuffed animals\nKids games\nPuzzle games\nCaptain america\nPlushies\nAir hockey tables",
+          "category": "general",
+          "word_count": 282
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/82dadde4-441d-31d3-9a02-95f44e083c7c",
+          "depth": 1,
+          "title": "Tall Ring Light for Sale in Omaha, NE - OfferUp",
+          "content": "Tall Ring Light for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$25\nTall Ring Light\nPosted about 17 hours ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\n402.Snker\nJoined Oct 2024\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nTall ring light\nWorks great\nDelivery available \u2705\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nKate spade\nGold chain\nSilver\nRing\nCoach\nSunglasses\nWallets\nBag\nBracelet\nGucci bag\nLouis vuitton bag\nBean bag\nTiffany\nDiamond earrings\nChanel bag\nGucci wallet\nTote bag\nHeavy bag\nCharms\nMessenger bag",
+          "category": "general",
+          "word_count": 268
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/227aa27c-b5be-3e68-b4b0-1f0653e11d81",
+          "depth": 1,
+          "title": "Bill Russell 1957 TOPPS for Sale in Omaha, NE - OfferUp",
+          "content": "Bill Russell 1957 TOPPS for Sale in Omaha, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$7,500\nBill Russell 1957 TOPPS\nPosted 2 days ago\nin Omaha, NE\nListed in categories:\nBack to main\nSold by\nT\nJoined Mar 2019\n|\n(\n9\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nBill Russell 1957 TOPPS Rookie\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nPlayer\nBill russell\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.\nRelated searches\nPokemon\nDisney\nAction figures\nBaseball cards\nCollectible statues\nCollectible glass\nPrecious moments\nToy figures\nCollectible toys\nDisney pins\nBeanie babies\nNightmare before christmas\nCollectible action figures\nZippo\nLongaberger\nLladro figurines\nDragonball z\nSailor moon",
+          "category": "general",
+          "word_count": 278
+        },
+        {
+          "url": "https://www.offerup.com/",
+          "depth": 2,
+          "title": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp",
+          "content": "Buy & Sell Locally - OfferUp - Buy. Sell. Simple. - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nThe simpler way to buy and sell locally!\nScan to download the app\nCurrent listings\n300 Srixon Golf Balls\n$175\nOmaha, NE\n350 Top Flight Used Golf Balls\n$175\nOmaha, NE\n275 Used Bridgestone Golf Balls\n$125\nOmaha, NE\nCE Tech 1,000 ft. riser cable, Cat 6 23-4.\n$50\nLa Mesa, CA\n200 TaylorMade Used Golf Balls\n$125\nOmaha, NE\n400 Callaway Used Golf Balls\n$175\nOmaha, NE\n2012 Toyota RAV4\n$9,950\nOmaha, NE\n2019 Ford Fiesta\n$8,950\nOmaha, NE\n2016 Ford Edge\n$11,950\nOmaha, NE\n1998 Lincoln Town Car\n$1,850\nOmaha, NE\n2016 Nissan Rogue\n$9,990\nOmaha, NE\nGucci Cloth Sandals\n$100\nOmaha, NE\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nHome Decorators Collection Heritage Point 25 in. Indoor/Covered Outdoor Matte Black Fandelier Ceiling Fan.\n$80\nLa Mesa, CA\nAdidas Running shoes size 6 mens/ 8 womens\n$20\nOmaha, NE\nmortal Kombat 1\n$45\nOmaha, NE\nWomen\u2019s Coat\n$30\nOmaha, NE\nWoman\u2019s Winter Coat\n$20\nOmaha, NE\nYoung Boys Heavy Winter Coat\n$15\nOmaha, NE\nBoys PlayStation Jacket\n$15\nOmaha, NE\nBoys Jordan Jacket\n$20\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n**New**Instax Mini 41 **New**\n$90\nCouncil Bluffs, IA\nApple AirPods Pro 2 - New & Sealed - I Can Ship\n$60\nTwin Peaks, CA\nDigital Electric Smokehouse Stand\n$30\nCarter Lake, IA\nNintendo Switch Oled And Wii With Preloaded Games\n$400\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\nTall Ring Light\n$25\nOmaha, NE\nHover 1 Kids Hover Bored\n$70\nOmaha, NE\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nmyra bag cowhide\n$85\nOmaha, NE\nCoach Handbags\n$85\nOmaha, NE\nIPHONE 17 PRO MAX \u2728\n$200\nAsheboro, NC\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\nAir-Powered Nail Guns PASLODE Framing Nailer: Framing, 30\u2026 PASLODE Framing Nailer: Framing, 30\u00b0, Strip, Selectable/Sequential, 3/8 in NPT, Strip Colla\n$220\nLa Mesa, CA\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nMetal Bookshelf\n$40\nOmaha, NE\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nHP - 15.6\" Touch-Screen Laptop - Intel Core i3 - 8GB Memory - 256GB SSD - Natural Silver\n$225\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\nBlack Wire Loom Over 50 Ft Each\n$100\nLos Angeles, CA\nPs5 Games\n$20\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nSurron 2025 Ultra Bee\n$7,000\nBennington, NE\niPhone 14 Pro 256gb\n$400\nCouncil Bluffs, IA\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\nNike Dunk Low Retro (Black/Black/White/ White)\n$85\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\nloveseat\n$25\nOmaha, NE\nDurham 7 door dresser\n$15\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\n2 10\u201d JL Audio W1s\n$350\nBellevue, NE\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n2025 Honda Pilot\n$37,950\nOmaha, NE\nElite M2 Gaming Mouse\n$20\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n$2 Each Onesies 4 Pack $8\n$14\nOmaha, NE\nToddler Size 18months\n$60\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nTodo En $300\n$300\nOmaha, NE\nSubwoofer 12  Pulgadas  SKAR Audio  Con Amp\n$300\nOmaha, NE\nGreen, Orange, Purple, & Gold chain Print Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nBlue & Yellow Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nPink & Yellow Floral African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\n$25\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nGrey Nike Dunks\n$130\nOmaha, NE\nBlack Converse Size 8\n$35\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nThunder Skateboard Trucks Size 8\n$20\nOmaha, NE\nRacks And Reels Long Sleeve Size L\n$7\nOmaha, NE\nFresh Laundry Size M\n$8\nOmaha, NE\nView more\nSearch for items by city\nAtlanta, GA\nAustin, TX\nBaltimore, MD\nBoston, MA\nChicago, IL\nCleveland, OH\nColumbus, OH\nDallas, TX\nDenver, CO\nDetroit, MI\nHouston, TX\nLas Vegas, NV\nLos Angeles, CA\nMiami, FL\nNashville, TN\nNew York, NY\nOrlando, FL\nPhiladelphia, PA\nPittsburgh, PA\nPhoenix, AZ\nPortland, OR\nSalt Lake City, UT\nSan Diego, CA\nSan Francisco, CA\nSeattle, WA\nSt. Louis, MO\nTampa, FL\nSee more",
+          "category": "general",
+          "word_count": 979
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/ks",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Kansas - OfferUp",
+          "content": "New and Used Items for Sale in Kansas - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Kansas\nHutchinson\nPittsburg\nTopeka\nWichita",
+          "category": "general",
+          "word_count": 109
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/me",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Maine - OfferUp",
+          "content": "New and Used Items for Sale in Maine - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Maine\nAuburn\nBangor\nPortland\nPresque Isle",
+          "category": "general",
+          "word_count": 110
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/mo",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Missouri - OfferUp",
+          "content": "New and Used Items for Sale in Missouri - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Missouri\nCape Girardeau\nClayton\nColumbia\nFlorissant\nHannibal\nIndependence\nJefferson City\nJoplin\nKansas City\nKirksville\nSpringfield\nSt. Joseph\nSt. Louis\nUniversity City",
+          "category": "general",
+          "word_count": 125
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/ri",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Rhode Island - OfferUp",
+          "content": "New and Used Items for Sale in Rhode Island - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Rhode Island\nCranston\nPawtucket\nProvidence",
+          "category": "general",
+          "word_count": 110
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/tx",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Texas - OfferUp",
+          "content": "New and Used Items for Sale in Texas - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Texas\nAbilene\nAddison\nAmarillo\nArlington\nAustin\nBaytown\nBeaumont\nBrownsville\nBryan\nCarrollton\nCedar Hill\nChannelview\nConroe\nCorpus Christi\nDallas\nDenton\nDuncanville\nEl Paso\nEuless\nFarmers Branch\nFort Worth\nFrisco\nGarland\nGrand Prairie\nHarlingen\nHouston\nHumble\nIrving\nKaty\nKilleen\nLaredo\nLewisville\nLongview\nLubbock\nLufkin\nMansfield\nMcallen\nMcKinney\nMesquite\nMidland\nMidlothian\nNacogdoches\nOdessa\nPearland\nPflugerville\nPlano\nPort Arthur\nRichardson\nRound Rock\nSan Angelo\nSan Antonio\nSan Marcos\nSherman\nStafford\nSugar Land\nSweetwater\nTemple\nTomball\nTyler\nVictoria\nWaco\nWeslaco\nWichita Falls",
+          "category": "general",
+          "word_count": 181
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/8",
+          "depth": 2,
+          "title": "New and Used Collectibles & Art for Sale - OfferUp",
+          "content": "New and Used Collectibles & Art for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nCollectibles & Art\nArt\nArts & Crafts supplies\nAntiques\nCollectibles\nHandmade\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nCollectibles & Art\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\nOriginal Artwork (mixed media)\n$50\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nOriginal Artwork (painting)\n$100\nOmaha, NE\nBabylock Valiant 10 needle Embroidery\nMachine\n$1,200\nParamount, CA\nHandmade Hanging Seashell Chandelier\n$100\nOmaha, NE\nMiscellaneous Signs\n$10\nOmaha, NE\nBill Russell 1957 TOPPS\n$7,500\nOmaha, NE\nVintage Windows (12 Total) In Various Sizes For Crafting and Decoration\n$50\nOmaha, NE\nOriginal Theodore De groot Wood Art\n$500\nOmaha, NE\nFootball Crochet Cousy\n$10\nOmaha, NE\nGolf Print And Desk Sign\n$10\nBennington, NE\nVintage Ducks Unlimited Empty Jim Beam Decanter Bottle\n$25\nPlattsmouth, NE\nCrochet Pumpkins\n$8\nOmaha, NE\nSwarovski 1990s Malachite Kingfishers Orange Beaks On Frosted Tree 623323, 3.75\u201d\n$97\nNatick, MA\nCrochet Fall Pumpkin\n$10\nOmaha, NE\n1980 Jim Beam Ducks Unlimited Blue Winged Teal Ducks Empty Whiskey Decanter\n$25\nPlattsmouth, NE\nSilver Knife\n$5\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon\n$10\nOmaha, NE\nSilver Spoon Made In 1899\n$10\nOmaha, NE\nToyo-Sasaki Glass Handmade Wind Chime | Japanese \u201cMatsuri\u201d Summer Festival\n$25\nOmaha, NE\nVintage Eva Zeisel by Hallcraft, Fantasy series Plates And Servings Dishes\n$650\nChandler, AZ\nBreast Cancer Awareness Lot\n$10\nOmaha, NE\nVintage Candy Bowl\n$10\nOmaha, NE\nPok\u00e9mon Card Collection\n$800\nOmaha, NE\nCrochet Unicorn Doll\n$90\nOmaha, NE\n100 Snowy Day Forever Stamps\n$139\nOmaha, NE\n1000 FLOWERS FROM THE GARDEN FOREVER STAMPS\n$138\nOmaha, NE\n1000 CHRISTMAS CAROLS US FOREVER Stamps\n$135\nOmaha, NE\nCoca Cola Bear Good Condition $5.00\n$5\nOmaha, NE\n\ud83d\uddbc\ufe0fD. MORGAN SEASHELL PAINTING PRINT SIGNED\ud83d\uddbc\ufe0f\n$20\nOswego, IL\nJayden Daniels Kaboom!\n$1,500\nBoys Town, NE\nHalloween Boo Porch Sign\n$15\nOmaha, NE\nOriginal Halloween Decor Art\n$15\nOmaha, NE\n1000 Stamps 2023 LUNAR NEW YEAR OF THE RABBIT FOREVER STAMPS\n$135\nOmaha, NE\nJapanese Charizard Rare card\n$200\nOmaha, NE\nVNTG 1960\u2019s Reindeer Fawn With Box\n$25\nPlattsmouth, NE\nHomemade Front Door Wreaths\n$50\nOmaha, NE\n\ud83c\udfa8Tombow Dual Brush Pens \u2013 Primary Palette \u2013 Brand New!\n$10\nOmaha, NE\nHof Harmon Kilibrew Card 1955 Card\n$205\nOmaha, NE\nAnimal Crossing Inspired Paper Squishies\n$25\nSan Antonio, TX\n1989 Mark Mcgwire Famous Error Card\n$95\nOmaha, NE\n1925 S Peace Dollar\n$61\nOmaha, NE\n. Raggedy Ann by Johnny Gruelle24\u201dAndy Knickerbocker19\u201d dolls(319)\n$70\nPlattsmouth, NE\nCal Ripken Jr Rookie Card\n$41\nOmaha, NE\n2 Hof 1960s Players Palmer And Kaline\n$51\nOmaha, NE\n2 Hof Cards Rod Carew Rc And Harmon Kilibrew 1960\n$67\nOmaha, NE\nThe Rooks Patrick Mahomes Rookie Mint\n$75\nOmaha, NE",
+          "category": "general",
+          "word_count": 587
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/sd",
+          "depth": 2,
+          "title": "New and Used Items for Sale in South Dakota - OfferUp",
+          "content": "New and Used Items for Sale in South Dakota - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in South Dakota\nMitchell\nRapid City\nSioux Falls",
+          "category": "general",
+          "word_count": 112
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/hi",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Hawaii - OfferUp",
+          "content": "New and Used Items for Sale in Hawaii - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Hawaii\nHonolulu",
+          "category": "general",
+          "word_count": 106
+        },
+        {
+          "url": "https://www.offerup.com/explore/state/ne",
+          "depth": 2,
+          "title": "New and Used Items for Sale in Nebraska - OfferUp",
+          "content": "New and Used Items for Sale in Nebraska - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nNew and used items for sale in Nebraska\nHastings\nKearney\nLincoln\nNorth Platte\nOmaha\nScottsbluff",
+          "category": "general",
+          "word_count": 112
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/5",
+          "depth": 2,
+          "title": "New and Used Vehicles for Sale - OfferUp",
+          "content": "New and Used Vehicles for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nVehicles\nCars & Trucks\nMotorcycles\nCampers & RVs\nBoats & Marine\nPowersport vehicles\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nVehicles\nSort by\n:\nRecent first (Default)\nSelected filters\nCurrent listings\n2012 Toyota RAV4\n$9,950\nOmaha, NE\n2019 Ford Fiesta\n$8,950\nOmaha, NE\n2016 Ford Edge\n$11,950\nOmaha, NE\nBlack Wire Loom Over 50 Ft Each\n$100\nLos Angeles, CA\n1998 Lincoln Town Car\n$1,850\nOmaha, NE\n2016 Nissan Rogue\n$9,990\nOmaha, NE\n2021 Nissan Sentra\n$12,990\nOmaha, NE\n2010 Chevy Colorado Lt\n$7,000\nOmaha, NE\n2023 Honda Ridgeline\n$28,950\nOmaha, NE\n2021 Honda Pilot\n$23,950\nOmaha, NE\n2023 Chevrolet Traverse\n$27,950\nOmaha, NE\n2024 Subaru Crosstrek\n$23,950\nOmaha, NE\n2020 Ford Expedition\n$28,950\nOmaha, NE\nPART 2023 2024 HYUNDAI TUCSON LIMITED PART\n$2\nFort Lauderdale, FL\n2011 Toyota Camry\n$7,950\nOmaha, NE\n2022 Volkswagen Atlas Cross Sport\n$26,950\nOmaha, NE\n2024 Ford Bronco\n$39,950\nOmaha, NE\n2019 Jeep Cherokee Trailhawk\n$16,500\nOmaha, NE\n2016 Volkswagen Tiguan\n$8,995\nOmaha, NE\n2025 Chevrolet Silverado 1500\n$39,950\nOmaha, NE\n2015 Nissan Rogue\n$12,490\nOmaha, NE\n2015 Nissan Altima\n$6,350\nOmaha, NE\n98 Yamaha Waverunner\n$2,000\nBellevue, NE\nD2 Coilovers: No Credit Check/only $40 Down-payment\n$40\nQueens, NY\n2019 GMC Yukon XL\n$26,950\nOmaha, NE\n2021 Lexus NX 300\n$24,950\nOmaha, NE\n2022 Honda Odyssey\n$27,950\nOmaha, NE\n2024 Lincoln Navigator\n$69,950\nOmaha, NE\n2025 Honda Pilot\n$37,950\nOmaha, NE\n2018 Chevrolet Equinox\n$12,490\nOmaha, NE\n2018 Mazda Mazda3\n$8,995\nOmaha, NE\n2014 Ford Focus\n$9,950\nOmaha, NE\nCar Batteries 24f H5 34 78 65 48 49 47 H6 H7 51r 94r 86 H8 H9 Truck SUV And Car Battery with Warranty. FIRM Price is $59.99 Bateria Carro Car Battery\n$60\nDiamond Bar, CA\n2015 Chevrolet Malibu\n$9,990\nOmaha, NE\n2017 Nissan Rogue Sport\n$10,990\nOmaha, NE\n2018 Ford Edge\n$14,950\nOmaha, NE\n2020 Toyota Camry\n$20,950\nOmaha, NE\n2013 Chrysler Town & Country\n$9,950\nOmaha, NE\n2014 Jeep Wrangler\n$17,950\nOmaha, NE\n2017 Buick Enclave\n$12,950\nOmaha, NE\n2019 Chevrolet Traverse\n$12,950\nOmaha, NE\n2020 Chevrolet Malibu\n$10,950\nOmaha, NE\n4 Camera Screen Splitter, Auto, RV\n$20\nRedlands, CA\n2013 Ford Edge\n$5,990\nOmaha, NE\n2017 Ford Transit-150\n$12,450\nOmaha, NE\n2016 Chevrolet Colorado\n$17,950\nOmaha, NE\n2022 Chevrolet Tahoe\n$49,950\nOmaha, NE\n2024 Nissan Kicks\n$14,990\nOmaha, NE\n2000 Ford Mustang\n$1,100\nOmaha, NE\n2013 Nissan Frontier\n$7,950\nOmaha, NE",
+          "category": "general",
+          "word_count": 522
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/3",
+          "depth": 2,
+          "title": "New and Used Clothing, Shoes, & Accessories for Sale - OfferUp",
+          "content": "New and Used Clothing, Shoes, & Accessories for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nClothing, Shoes, & Accessories\nWomen's clothing\nMen's clothing\nWomen's shoes\nMen's shoes\nJewelry & Accessories\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nClothing, Shoes, & Accessories\nSort by\n:\nRecent first (Default)\nSub categories\nMichael kors\nJordan\nGucci\nSupreme\nNike\nVans\nJordan 1\nBoots\nDress\nProm dress\nAdidas\nNike shoes\nBurberry\nWork boots\nPatagonia\nHeels\nBape\nClothes\nJordan retro\nRain boots\nSelected filters\nCurrent listings\nGucci Cloth Sandals\n$100\nOmaha, NE\nAdidas Running shoes size 6 mens/ 8 womens\n$20\nOmaha, NE\nWomen\u2019s Coat\n$30\nOmaha, NE\nBundle Bag Baby Clothes\n$124\nBeaumont, TX\nWoman\u2019s Winter Coat\n$20\nOmaha, NE\nYoung Boys Heavy Winter Coat\n$15\nOmaha, NE\nBoys PlayStation Jacket\n$15\nOmaha, NE\nBoys Jordan Jacket\n$20\nOmaha, NE\nTall Ring Light\n$25\nOmaha, NE\nmyra bag cowhide\n$85\nOmaha, NE\nCoach Handbags\n$85\nOmaha, NE\nyeezy slides\n$20\nCouncil Bluffs, IA\nNike Dunk Low Retro (Black/Black/White/ White)\n$85\nOmaha, NE\nEarrings Shape X Diamonds Real 10k Gold\n$1,090\nTampa, FL\n$2 Each Onesies 4 Pack $8\n$14\nOmaha, NE\nToddler Size 18months\n$60\nOmaha, NE\nGreen, Orange, Purple, & Gold chain Print Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nBlue & Yellow Authentic African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nPink & Yellow Floral African Ankara Toddler Dress (2T\u20133T)\n$40\nOmaha, NE\nNike Air Jordan 1 Retro High TD \u201cBlack/Grey Elephant Print\u201d Toddler Size 7C\n$25\nOmaha, NE\nGrey Nike Dunks\n$130\nOmaha, NE\nBlack Converse Size 8\n$35\nOmaha, NE\nRacks And Reels Long Sleeve Size L\n$7\nOmaha, NE\nEarrings Hello kitty \ud83d\udc31 White Gold Diamonds \ud83d\udc8e Real\n$1,099\nTampa, FL\nFresh Laundry Size M\n$8\nOmaha, NE\n501s Levi's Jean's Size 34x32\n$30\nOmaha, NE\nNike Zoom Airs Size 8 In Woman's\n$12\nOmaha, NE\nJordan 1 Lows Size 7\n$25\nOmaha, NE\nJordan 1 Lows Size 6\n$50\nOmaha, NE\nConverse Chuck Taylor's Size 8\n$15\nOmaha, NE\nAir Force 1s, Size 8\n$60\nOmaha, NE\n\ud835\ude91\ud835\ude8a\ud835\ude97\ud835\ude8d\ud835\ude96\ud835\ude8a\ud835\ude8d\ud835\ude8e \ud835\ude9c\ud835\ude92\ud835\ude97\ud835\ude90\ud835\ude95\ud835\ude8e \ud835\ude8c\ud835\ude9b\ud835\ude98\ud835\ude8c\ud835\ude91\ud835\ude8e\ud835\ude9d \ud835\ude96\ud835\ude92\ud835\ude95\ud835\ude9d\ud835\ude92\ud835\ude8c\ud835\ude98\ud835\ude95\ud835\ude98\ud835\ude9b\ud835\ude8e\ud835\ude8d \ud835\ude9d\ud835\ude8a\ud835\ude97\ud835\ude94\ud835\ude9d\ud835\ude98\ud835\ude99\n$20\nBellevue, NE\nJesus Face Gold 10k\n$1,730\nTampa, FL\nAdidas Shoes Size 7 In Boys\n$25\nOmaha, NE\nMetallica Hoodie Size S\n$30\nOmaha, NE\nECKO Hoodie Size M\n$15\nOmaha, NE\nAir Jordan  6 Retro\n$100\nOmaha, NE\nStar studded bag from Avon\n$30\nOmaha, NE\nAvon Shot of Love gift set\n$10\nOmaha, NE\nAvon silvertone gift set\n$10\nOmaha, NE\nAvon ornament gift set\n$10\nOmaha, NE\nAvon Fall Harvest Wishbone Gift set\n$10\nOmaha, NE\nWomen's Nike Zoom Huperfuse Size 6.5 Brand New\n$35\nSan Antonio, TX\nLeBron James Nikes\n$120\nOmaha, NE\nOg Black Spider Hoodie Size Small In Mens\n$110\nPapillion, NE\nWhite And Blue Dress\n$25\nOmaha, NE\nWomens Casual Dress\n$15\nOmaha, NE\nWomens Black Dress - Large\n$25\nOmaha, NE\nOg Black Spider Hoodie\n$100\nPapillion, NE\nCarhartt Insulated Jacket\n$60\nOmaha, NE",
+          "category": "general",
+          "word_count": 609
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/9",
+          "depth": 2,
+          "title": "New and Used Pet supplies for Sale - OfferUp",
+          "content": "New and Used Pet supplies for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nPet supplies\nPet collars & Leashes\nPet clothing, Accessories, & Shoes\nPet toys\nPet feeding\nPet bedding\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nPet supplies\nSort by\n:\nRecent first (Default)\nSub categories\nFish tanks\nDog house\nDog kennel\nDog crate\nBird cages\nDog strollers\nDog collars\nAquarium filter\nFish tank decorations\nDog couch\nSelected filters\nCurrent listings\n2 55gal AQUARIUMS  No Leake\n$80\nCouncil Bluffs, IA\n35 Gallon Fish Tank + Stand + Accessories\n$250\nOmaha, NE\nBurt's Bees For Dogs Fresh Breath Toothpaste With Peppermint Oil 2.5.oz Mint\n$5\nOmaha, NE\nQPets 62\u201d Cat Tree Tower For Big Cats CT-203\n$90\nYorba Linda, CA\nRetractable Pet Leash\n$10\nOmaha, NE\nThe Purr Black and White Cat Salt & Pepper Shakers\n$15\nPlattsmouth, NE\nBeta Falls\n$20\nOmaha, NE\nFiltered Pump Quiet For Aquarium\n$29\nBennington, NE\nEcological Turtle Tank\n$12\nCouncil Bluffs, IA\nSmall 2 Door Dog Crate\n$30\nPapillion, NE\nIndoor Rabbit/Guinea pig Hutch on Locking Casters $30\n$0\nOmaha, NE\nLarger Pet Carrier\n$7\nOmaha, NE\nPet Taxi Carrier\n$20\nOmaha, NE\nTank\n$150\nGuadalupe, AZ\nSlow Feed Pet Bowls\n$5\nOmaha, NE\nFish Tank Full Kit Everything Provided\n$100\nOmaha, NE\nBig N birdhouse\n$25\nOmaha, NE\nReptile Enclosure\n$200\nOmaha, NE\nDog House\n$280\nOmaha, NE\nVNTG Resin Black White Springer Spaniel 10\u201dtall Pup\n$14\nPlattsmouth, NE\nFerret Cage\n$90\nOmaha, NE\n\ud83d\udc36 Modern Luxury Dog House \u2013 Insulated | Electric | Architectural Design\n$1,000\nBennington, NE\nBird Cage (LARGE)\n$250\nPapillion, NE\nLarge Size Memory Foam Dog Bed\n$75\nYorba Linda, CA\nExtra Large Outdoor Dog Kennel\n$150\nOmaha, NE\nOutside Dog House\n$20\nOmaha, NE\nDog life jacket\n$20\nBellevue, NE\n75 Gallon Tank With Stand\n$400\nOmaha, NE\nDog Carrier\n$25\nOmaha, NE\nLarge Pet Carrier\n$20\nLa Vista, NE\nLooney Tune Tie 55\u201dx4\u201d\n$15\nPlattsmouth, NE\n75 Gallon Fish Tank\n$200\nOmaha, NE\nPurina Pro Plan Veterinary Supplements FortiFlora Dog Probiotic Supplement, Canine Nutritional Supplement - 30 ct. Box\n$15\nBell Gardens, CA\nLeopard Gecko W/ Tank\n$100\nOmaha, NE\nDog Bark Collar\n$35\nOmaha, NE\nDog Playpen\n$30\nOmaha, NE\nDog House For Outdoors\n$45\nOmaha, NE\n2 Large Dog Houses\n$50\nOmaha, NE\nDog Crate Extra Large 48 Inches\n$75\nOmaha, NE\nFish Tank With Stand\n$180\nOmaha, NE\nAll The Stuff You Need For An Aquarium\n$25\nCouncil Bluffs, IA\nPremium Cat Carrier\n$60\nOmaha, NE\nFRONTLINE Gold Flea & Tick Treatment for Large Dogs Up to 45 to 88 lbs., Pack of 6\n$40\nBell Gardens, CA\nCat Tree\n$35\nOmaha, NE\nNew Uncut Pattern Fish\n$9\nPlattsmouth, NE\nBone Shape Leash Holder\n$13\nPlattsmouth, NE\nVNTG Rosy Fruit Crate\n$25\nPlattsmouth, NE\nDog crate - extra large, with bed\n$90\nOmaha, NE\nMedium/Large Dog Crate \u2013 Excellent Condition!\n$60\nOmaha, NE",
+          "category": "general",
+          "word_count": 601
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/12",
+          "depth": 2,
+          "title": "New and Used Business equipment for Sale - OfferUp",
+          "content": "New and Used Business equipment for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nBusiness equipment\nFarming & Agriculture\nBuilding materials & Supplies\nCleaning & Janitorial supplies\nElectrical equipment & Supplies\nFacility maintenance & Safety\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nBusiness equipment\nSort by\n:\nRecent first (Default)\nSub categories\nOffice chairs\nOffice furniture\nPrinter\nBobcat\nForklift\nFiling cabinets\nExcavator\nFloor scrubber\nMetal shelving\nRolling backpack\nUltrasonic cleaner\nDust mop\nSelected filters\nCurrent listings\nStihl 16\" Concrete/ Cut-off Saw\n$800\nOmaha, NE\nGenerator\n$800\nOmaha, NE\nSmart BBQ 14\u201d Digital Reader BBQ Temperature Fork w/LED Light (New Sealed)\n$13\nPlattsmouth, NE\nCE Tech 1,000 ft. riser cable, Cat 6 23-4.\n$50\nLa Mesa, CA\n\ud835\ude9d\ud835\ude91\ud835\ude8e \ud835\ude9b\ud835\ude8e\ud835\ude90\ud835\ude9e\ud835\ude95\ud835\ude8a\ud835\ude9b \ud835\ude91\ud835\ude8a\ud835\ude97\ud835\ude9c\ud835\ude96\ud835\ude8a\ud835\ude9c\ud835\ude8e \ud835\ude96\ud835\ude92\ud835\ude95\ud835\ude9d\ud835\ude92\ud835\ude8c\ud835\ude98\ud835\ude95\ud835\ude98\ud835\ude9b\ud835\ude8e\ud835\ude8d  \ud835\ude9c\ud835\ude8c\ud835\ude8a\ud835\ude9b\ud835\ude8f\n$20\nBellevue, NE\nElectric Tiller + Cultivator Brand New\n$200\nOmaha, NE\n3200 Psi Pressure Washer\n$300\nOmaha, NE\nToshiba Sanrio Cinnamoroll Alarm Buzzer | 80dB Personal Safety Alarm\n$25\nOmaha, NE\nComputer Desk with hutch ( 55Wx65Hx23.6D )\n$100\nOmaha, NE\n18pk Of Fresh Eggs\n$4\nPlattsmouth, NE\nDesk\n$30\nPapillion, NE\nGenerator\n$350\nOmaha, NE\nWash Machine\n$25\nBellevue, NE\nAir-Powered Nail Guns PASLODE Framing Nailer: Framing, 30\u2026 PASLODE Framing Nailer: Framing, 30\u00b0, Strip, Selectable/Sequential, 3/8 in NPT, Strip Colla\n$220\nLa Mesa, CA\nMoney Tree For Sale!\n$250\nOmaha, NE\nMetal Sign\n$8\nOmaha, NE\nGlass Display Case With Parts Display Case\n$300\nOmaha, NE\nOven Trays\n$5\nOmaha, NE\nWater Tank Good Condition $200.00 Or Best Offer\n$200\nOmaha, NE\nHonda Pressure Washer\n$175\nOmaha, NE\nOffice Set\n$100\nOmaha, NE\nSe vende (For Sale)\n$65\nOmaha, NE\nChampion 7850/6250 Generator\n$500\nCouncil Bluffs, IA\nNew And Used Pallet Racks Beams Uprights Wire Deck\n$20\nFort Lauderdale, FL\nStihl MS 661- Magnum\n$400\nOmaha, NE\nWe R Banner Punch Board And Punch Board\n$20\nBellevue, NE\nConcrete Installation\n$1,000\nCouncil Bluffs, IA\nVC 7210-10 Vending Machine\n$7,295\nOmaha, NE\nVC 8010-5S Black Vending Machine\n$4,795\nOmaha, NE\nICE Coorel 8 Fan Laptop Cooler/stand\n$30\nOmaha, NE\n$3\n$3\nPlattsmouth, NE\nTons Of Fixtures And Storage Cases\n$123\nOmaha, NE\n2 Heavy Duty Gorilla Ladders Both Rated 300lbs\n$150\nSeattle, WA\nGray Shield Cement Finish\n$90\nOmaha, NE\nPaper Weight\n$15\nPlattsmouth, NE\nHilmor Copper Tubing Bender\n$250\nOmaha, NE\nRefrigerant Leaker Detector\n$150\nOmaha, NE\nMannequins\n$50\nCouncil Bluffs, IA\nCub Cadet 33in Walk Behind\n$800\nOmaha, NE\n8 Ft Or 6 Ft Wood Treated Panel Fence X 6 Ft Tall\n$69\nBennington, NE\nLabels Good Condition $5.00 Each\n$5\nOmaha, NE\n17 Vinyl Wall Shelving 6 Inches Deep 4 Or 5 Ft Long\n$5\nBennington, NE\n3D Printing machine\n$450\nHesperia, CA\n2 TV Copier Stands Each Hunt Brand Wood. Top  Metal\n$49\nBennington, NE\nOak White Stand For TV Or Copier Or Kids Desk\n$49\nBennington, NE\nUniversal Meat  Grinder\n$39\nBennington, NE\n2 Steel Framed arm  Office Chairs\n$49\nBennington, NE\nSod Rolls For Sale\n$1\nOmaha, NE\nJohn Deere Rider Mower 48 Deck Hitch Attachment For Blade\n$3,999\nBennington, NE\nNewer Digital Ringer less Stainless Steel Tub Washer\n$399\nBennington, NE",
+          "category": "general",
+          "word_count": 630
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/4",
+          "depth": 2,
+          "title": "New and Used Baby & Kids for Sale - OfferUp",
+          "content": "New and Used Baby & Kids for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nBaby & Kids\nGirls' accessories\nBoys' accessories\nBathing & Skincare\nCar seats & Accessories\nDiapering\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nBaby & Kids\nSort by\n:\nRecent first (Default)\nSub categories\nStroller\nDouble stroller\nDiapers\nChanging tables\nKids toys\nBooster seat\nHello kitty\nPampers\nHuggies\nKids clothes\nKids desk\nStuffed bears\nCostume\nKids chair\nSnow boots kids\nMoana\nNewborn diapers\nTrolls\nSelected filters\nCurrent listings\nFisher-Price Baby Toys Set\n$10\nOmaha, NE\nVTech Baby Toy Set\n$10\nOmaha, NE\nSize 2c\n$20\nOmaha, NE\nMobile Closet\n$60\nFairfield, CA\n2 In 1 Convertible Car Seat\n$60\nOmaha, NE\nOwlet Dream Sock\n$100\nBellevue, NE\nKid Chair Good Condition $10.00\n$10\nOmaha, NE\nStroller Wagon\n$250\nOmaha, NE\nPush Toy Good Condition $7.00\n$7\nOmaha, NE\nBaby Car Seat\n$50\nOmaha, NE\nPottery Barn Kids Foam Chair - Originally Paid $150 Retail\n$40\nCouncil Bluffs, IA\nDuel Glider 2 seater stroller\n$200\nOmaha, NE\nBedside Bassinet\n$25\nOmaha, NE\nBotas para bebe uggs\n$80\nSan Leandro, CA\nHalo Bassinest Bassinet Like New\n$60\nPapillion, NE\nLittle Tikes Blue Car Toddler Bed\n$100\nOmaha, NE\nNCVI Breast Pumps\n$45\nBellevue, NE\nBaby Buddha Pumps\n$100\nOmaha, NE\nMomcozy Portable Pumps\n$100\nOmaha, NE\nHands Free Breast Pump\n$75\nOmaha, NE\nStroller/wagon\n$150\nBellevue, NE\nMomcozy Wearable Breast Pump\n$80\nOmaha, NE\nBaby Bathtub With Changing Table\n$80\nOmaha, NE\nPLAYERA LACOSTE y playera de polo De beb\u00e9 de un a\u00f1o\n$30\nCastro Valley, CA\nSpectra\n$65\nOmaha, NE\nPuramino Baby Formula\n$80\nOmaha, NE\nReceiving Blankets, Bibs, Burp Rags\n$20\nCouncil Bluffs, IA\nBaby Bassinet\n$40\nCouncil Bluffs, IA\nBoys\n$10\nOmaha, NE\nWipe Warmer\n$15\nOmaha, NE\nTiny Time Water Matt\n$15\nOmaha, NE\nBaby Bouncer\n$45\nOmaha, NE\nCybex-Gazelle-S-Double-Stroller\n$325\nIndianapolis, IN\nElectric Double Breast Pump\n$70\nOmaha, NE\nBaby Bottles Dr Browns\n$10\nOmaha, NE\nGRACO PACK-N\u2014PLAY\n$40\nOmaha, NE\n2 Car Seats\n$10\nOmaha, NE\nBaby Rocker\n$15\nOmaha, NE\nDiaper Genie\n$20\nBellevue, NE\nBaby Wipe Warmer\n$25\nBellevue, NE\nHalo Swivel Baby Bassinet\n$150\nBellevue, NE\nInfant Walker\n$15\nOmaha, NE\nBoon Baby Bottle Grass Drying Rack With Flowers For Nipples\n$10\nParadise Valley, AZ\nInfantino Infant Carrier\n$20\nOmaha, NE\nBaby Mat Good Condition $6.00\n$6\nOmaha, NE\nParent's Choice Breast Milk Storage Bags\n$5\nOmaha, NE\nTommee Tippee Bottles 9oz And 5oz\n$10\nOmaha, NE\nWhite Wood Crib To Toddler Bed\n$35\nOmaha, NE\nWhite Wicker Bassinet On Legs\n$49\nBennington, NE\nBaby Sock Bundle\n$5\nOmaha, NE",
+          "category": "general",
+          "word_count": 551
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/2",
+          "depth": 2,
+          "title": "New and Used Home & Garden for Sale - OfferUp",
+          "content": "New and Used Home & Garden for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nHome & Garden\nFurniture\nHousehold\nAppliances\nKitchen & Dining\nBathroom\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nHome & Garden\nSort by\n:\nRecent first (Default)\nSub categories\nPatio furniture\nShed\nLawn mower\nBbq grill\nHot tub\nTractor\nPlants\nRiding lawn mower\nTents\nPool\nGarage door\nCamping gear\nFountain\nFake plants\nFlower pots\nSprinklers\nSucculents\nPlant pots\nPorch swing\nFlower vase\nSelected filters\nCurrent listings\nRotorRazor SAW\n$60\nCouncil Bluffs, IA\nWindow Air Conditioner Works Good$75.00\n$75\nOmaha, NE\nMetal Frame Wood Top Table With Wine Rack\n$200\nOmaha, NE\nHome Decorators Collection Heritage Point 25 in. Indoor/Covered Outdoor Matte Black Fandelier Ceiling Fan.\n$80\nLa Mesa, CA\nMetal Bookshelf\n$40\nOmaha, NE\nTable & Chairs (2)\n$75\nOmaha, NE\nWhalen Xavier 3-in-1 Television Stand\n$50\nOmaha, NE\nDELIVERY AVAILABLE \ud83d\ude9a\ud83d\ude9b\ud83d\ude9a Super Nice 3 Piece Gray Sectional\n$660\nOmaha, NE\nTable Lamp Good Condition $10.00\n$10\nOmaha, NE\nWicker Chair Good Condition $15.00\n$15\nOmaha, NE\nTall Table Good Condition $20.00\n$20\nOmaha, NE\nloveseat\n$25\nOmaha, NE\nDurham 7 door dresser\n$15\nOmaha, NE\nDeWalt Impact\n$125\nByron, GA\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nDeep Freezer Good Condition $200.00\n$200\nOmaha, NE\nTall Shelf Good Condition $50.00\n$50\nOmaha, NE\nTall Shelf Good Condition $50.00\n$50\nOmaha, NE\nFireplace Good Condition $65.00\n$65\nOmaha, NE\nTable Shelf Good Condition $25.00\n$25\nOmaha, NE\nFile Cabinet Good Condition $55.00\n$55\nOmaha, NE\nSilver Curtains\n$20\nOmaha, NE\nWindow Curtains\n$20\nOmaha, NE\nStatewood 70 in. Indoor LED Brushed Nickel Ceiling Fan with Light Kit, Downrod, Remote Control and 6 Reversible Blades\n$90\nLa Mesa, CA\nPurple Curtains\n$20\nOmaha, NE\nCapiz Angel Christmas Tree Topper\n$10\nOmaha, NE\nLighted Black Tinsel Top Hat Christmas Tree Topper\n$10\nOmaha, NE\nMeadow Creek Fall Outdoor Garden Flag featuring Halloween Gnomes\n$10\nOmaha, NE\nHeart-shaped ceramic dish manufactured by Jay Imports\n$20\nOmaha, NE\nOneida Angela Staehling Sweets Collection\n$60\nOmaha, NE\nMirrors Good Condition $25.00 Each\n$25\nOmaha, NE\nBar Stools Brand New\n$100\nOmaha, NE\n\ud83d\udee0\ufe0f RYOBI 18V KIT \ud83d\udee0\ufe0f\n$60\nOswego, IL\nGarage Sale\n$10\nOmaha, NE\nWall Sconce Antique Bronze Dual Light Indoor Industrial Wall Light Fixture\n$40\nOmaha, NE\nTable Shelf Good Condition 23\"Across $40.00\n$40\nOmaha, NE\nMirrors 2 Of Them $30.00 Each ,40\" Across\n$30\nOmaha, NE\nTall Wooden Desk Good Condition $75.00\n$75\nOmaha, NE\nChairs For Sale Brand New\n$60\nOmaha, NE\nNew Milwaukee 16 in. Chainsaw Chain - Model 49-16-2715 With 7 Used Chains\n$25\nCouncil Bluffs, IA\nFire Place Good Condition $75.00\n$75\nOmaha, NE\nMetal Tall File Cabinet Good Condition $75.00\n$75\nOmaha, NE\nArtika Essence 5-pendant LED light fixture.\n$90\nLa Mesa, CA\nTall Plant Stand With Spider Plant $20.00 For Both\n$20\nOmaha, NE\nQueen Size And Full Size Bed Frame Only\n$200\nOmaha, NE\nFingerprint Lock And Knob\n$90\nOmaha, NE\nAir Fryer\n$85\nPapillion, NE\nNorwex Dry Mop\n$10\nBennington, NE\nRustic French Decor\n$7\nBennington, NE\nQueen Size Air Mattress\n$10\nBennington, NE",
+          "category": "general",
+          "word_count": 635
+        },
+        {
+          "url": "https://www.offerup.com/explore/k/6",
+          "depth": 2,
+          "title": "New and Used Toys, Games, & Hobbies for Sale - OfferUp",
+          "content": "New and Used Toys, Games, & Hobbies for Sale - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nCategories\nAll Categories\nToys, Games, & Hobbies\nToys\nGames & Puzzles\nOutdoor toys & Games\nStuffed animals & Plush\nDress up & Pretend\n+ Show more\nFilters\nPrice range\nMinimum\nto\nMaximum\nGo\nCondition\nNew\nUnused, sealed box, undamaged\nOpen box\nUnused, undamaged\nReconditioned\nRestored by seller or a third party\nUsed\nWorks perfectly, may show signs of wear\nFor parts\nOther\nSee item details\nToys, Games, & Hobbies\nSort by\n:\nRecent first (Default)\nSub categories\nSwing sets\nNerf guns\nLol surprise\nBarbies\nBoard games\nLol dolls\nDoll\nGirl doll\nTeddy bear\nShopkins\nStuffed animals\nKids games\nPuzzle games\nCaptain america\nPlushies\nAir hockey tables\nSelected filters\nCurrent listings\nHover 1 Kids Hover Bored\n$70\nOmaha, NE\nTraxxas High Voltage Amplifier\n$25\nOmaha, NE\nPaw Patrol Training Center Playset\n$8\nOmaha, NE\nDr Seuss The Cat In The Hat\n$25\nPhoenix, AZ\nDisney Mickey Mouse Playset\n$8\nOmaha, NE\nFisher-Price Little People Toy Garage Playset\n$12\nOmaha, NE\nLeapFrog Smart BBQ Grill\n$15\nOmaha, NE\n2002 Pok\u00e9mon Shining  Charizard Psa 10\n$6,500\nOmaha, NE\n2002 POKEMON MEWTWO PSA 9\n$1,200\nOmaha, NE\nFramed Ravensburger Disney Magical Storybook Puzzle\n$20\nOmaha, NE\nFramed Blue Crab Bounty jigsaw puzzle\n$20\nOmaha, NE\nFramed Modern Jigsaw Puzzle\n$20\nOmaha, NE\nFramed Darrell Bush Canoe Lake Jigsaw Puzzle\n$20\nOmaha, NE\nMonster Jam\n$5\nWestminster, CA\nFramed Chicago-themed jigsaw puzzle\n$20\nOmaha, NE\n\ud83c\udfb8 Electric Guitar Starter Pack \u2013 Guitar + Amp + Cable \u2013 Ready to Play!\n$120\nPlattsmouth, NE\nC Pap AIR 11\n$400\nOmaha, NE\nBarbie Lot\n$20\nOmaha, NE\nD&D players, handbook, monster manual, and dungeons, Master guide and Dice set\n$100\nCouncil Bluffs, IA\nTotoro 100dB Personal Safety Alarm Plush | Studio Ghibli Official Buzzer\n$20\nOmaha, NE\n88 Honda Crx Hot Wheel\n$3\nBellevue, NE\nLot Of Various Hot Wheels Mystery Mdlodel Chase Cars\n$35\nBellevue, NE\nBatman Justice League Cowl\n$25\nOmaha, NE\nDr Seuss\n$25\nPhoenix, AZ\nToy Cars Good Condition $3.00 Each\n$3\nOmaha, NE\nToy Truck Good Condition $6.00\n$6\nOmaha, NE\nTyranitar Ex Rare Card\n$200\nOmaha, NE\nMamoswine Rare Card\n$75\nOmaha, NE\nHellboy With Sword Funko Pop #14 Signed By Ron Perlman At 2023 Planet Comicon\n$85\nOmaha, NE\nConstruction Toy Lot With Cat 3 Wheeled Scooter - Bobcat Caterpillar And Tonka Truck\n$60\nCouncil Bluffs, IA\nCrossword Puzzle Books Good Condition $1.00 Each\n$1\nOmaha, NE\nBrett Favre Rc\n$13\nOmaha, NE\n2024 Jayson Tatum Vertical Gold Kaboom 8/10\n$620\nCalabasas, CA\nFuture Hof Bobby Witt Jr Rc Amd Hof Mariano Rivera Rc\n$25\nOmaha, NE\nHot Wheels Ultra Hots Blast Launch Face-Off Track Set - Folding Portable Race Track\n$25\nCouncil Bluffs, IA\nHot Wheels Scorpion Monster Truck Race Track With Battery Operated Speed Booster\n$40\nCouncil Bluffs, IA\nHot Wheels Disney and Pixar Buzz Lightyear Hyper Loop Challenge Playset\n$25\nCouncil Bluffs, IA\nFisher-Price Blaze and the Monster Machines Toy Cars Playset, Mud Pit Race Track with Blaze And Crusher\n$20\nCouncil Bluffs, IA\nHot Wheels Battery Operated Controller Race Track - Portable\n$25\nCouncil Bluffs, IA\nFunko Lot\n$0\nOmaha, NE\nDemon slayer\n$100\nOmaha, NE\nPatrick Mahomes Rc In Focus Card\n$45\nOmaha, NE\nDr Seuss Horton Hears A Who!\n$15\nPhoenix, AZ\nLego Technic Cars\n$200\nOmaha, NE\nTable Games\n$15\nBellevue, NE\n2 Glass Blocks  For $10 ,5 Each\n$10\nBellevue, NE\nDuck Hunter Game\n$30\nPapillion, NE\nJuguetes de dinosaurios\n$5\nOmaha, NE\nNebraska Husker Gear\n$20\nOmaha, NE\n2006 Drew Brees Playoff Prestige\n$1\nCouncil Bluffs, IA",
+          "category": "general",
+          "word_count": 684
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/9df45f3a-9150-3870-9572-0e66a27668fc?cid=11",
+          "depth": 2,
+          "title": "Glass vases for Sale in Papillion, NE - OfferUp",
+          "content": "Glass vases for Sale in Papillion, NE - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$10\nGlass vases\nLast updated 18 days ago\nin Papillion, NE\nListed in categories:\nBack to main\nSold by\nDesi\nJoined Jun 2017\n|\n(\n35\n)\noffer up reviews\nAsk\nMake offer\nGet a second opinion\nSee what others say\nChat securely on the app\nAdditional images\nSkip additional images\nDescription\nGlass vases, big & medium sizes,\nPu: 48/capehart, Bellevue & Papillion\nCash, Venmo, Zelle or PayPal.\nNo pet & no smokers in the house.\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nUsed (normal wear)\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.",
+          "category": "documentation",
+          "word_count": 255
+        },
+        {
+          "url": "https://www.offerup.com/item/detail/8a4724b7-8234-318a-a530-f882f7567394?cid=11",
+          "depth": 2,
+          "title": "Finally divorced sash. Brand new! for Sale in Mccombs, KY - OfferUp",
+          "content": "Finally divorced sash. Brand new! for Sale in Mccombs, KY - OfferUp\nElectronics & Media\nHome & Garden\nClothing, Shoes, & Accessories\nBaby & Kids\nVehicles\nToys, Games, & Hobbies\nSports & Outdoors\nCollectibles & Art\nPet supplies\nHealth & Beauty\nWedding\nBusiness equipment\nTickets\nGeneral\nNavigate Categories by tabbing to the major areas. Use the Down key to open the subcategory and then use the Down key once more to enter it. Navigate the subcategory using the Up and down keys. Once on the subcategory you are interested in. Use the Enter key to navigate to that page.\nTake action\nBack to main\n$5\nFinally divorced sash. Brand new!\nShips for $4.49\nPosted 7 days ago\nin Mccombs, KY\nListed in categories:\nBack to main\nSold by\nbns bns\nJoined Aug 2019\n|\n(\n179\n)\noffer up reviews\nAsk\nMake offer\nBuy now\nGet a second opinion\nSee what others say\nChat securely on the app\n2-Day Purchase Protection\nItems shipped through OfferUp come with a 2-day purchase protection.\nLearn more\nDescription\nFinally divorced sash. Brand new!\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nDetails\nCondition\nNew\nSee more\nAll content is available to screen readers from the outset. The See more button is for visual users only to expose content incrementally that is already available to you\nItem location map\nMap is approximate to keep seller\u2019s location private.",
+          "category": "general",
+          "word_count": 255
+        }
+      ],
+      "categories": {
+        "general": 28,
+        "technology": 1,
+        "documentation": 1
+      },
+      "total_content_words": 11207
+    },
+    "blog_data": {
+      "found": false,
+      "articles": []
+    },
+    "linkedin_data": {
+      "found": false,
+      "posts": []
+    },
+    "youtube_data": {
+      "found": false,
+      "videos": []
+    },
+    "jobs_data": {
+      "found": false,
+      "careers_url": null,
+      "jobs": [],
+      "tech_stack_detected": {}
+    },
+    "data_architecture": {
+      "company_profile": {
+        "name": "OfferUp",
+        "industry": "Online Marketplace",
+        "data_maturity_level": "advanced"
+      },
+      "core_entities": [
+        {
+          "table_name": "users",
+          "entity_type": "dimension",
+          "description": "Stores information about individual users who can be both buyers and sellers. Contains profile information, trust metrics, and status.",
+          "estimated_rows": "50M-100M",
+          "update_frequency": "real-time",
+          "key_fields": [
+            {
+              "name": "user_id",
+              "type": "UUID",
+              "description": "Primary key, unique user identifier"
+            },
+            {
+              "name": "username",
+              "type": "STRING",
+              "description": "Publicly visible username"
+            },
+            {
+              "name": "email_hash",
+              "type": "STRING",
+              "description": "Hashed user email for identification without exposing PII"
+            },
+            {
+              "name": "phone_hash",
+              "type": "STRING",
+              "description": "Hashed phone number"
+            },
+            {
+              "name": "profile_image_url",
+              "type": "STRING",
+              "description": "URL to user's profile picture in cloud storage"
+            },
+            {
+              "name": "avg_rating",
+              "type": "FLOAT64",
+              "description": "Aggregated average rating from transactions"
+            },
+            {
+              "name": "total_ratings",
+              "type": "INT64",
+              "description": "Total number of ratings received"
+            },
+            {
+              "name": "is_verified",
+              "type": "BOOLEAN",
+              "description": "Flag indicating if user has completed verification steps"
+            },
+            {
+              "name": "city",
+              "type": "STRING",
+              "description": "User's primary city"
+            },
+            {
+              "name": "state",
+              "type": "STRING",
+              "description": "User's primary state"
+            },
+            {
+              "name": "zip_code",
+              "type": "STRING",
+              "description": "User's primary zip code"
+            },
+            {
+              "name": "created_at",
+              "type": "TIMESTAMP",
+              "description": "Timestamp of account creation"
+            },
+            {
+              "name": "last_seen_at",
+              "type": "TIMESTAMP",
+              "description": "Timestamp of last user activity"
+            }
+          ],
+          "relationships": [
+            {
+              "related_table": "listings",
+              "relationship_type": "one-to-many",
+              "join_key": "user_id"
+            },
+            {
+              "related_table": "transactions",
+              "relationship_type": "many-to-many",
+              "join_key": "user_id (as buyer_id and seller_id)"
+            },
+            {
+              "related_table": "messages",
+              "relationship_type": "one-to-many",
+              "join_key": "user_id (as sender_id and receiver_id)"
+            }
+          ],
+          "data_sensitivity": "PII"
+        },
+        {
+          "table_name": "listings",
+          "entity_type": "dimension",
+          "description": "Represents an item posted for sale by a user. Contains all details about the item.",
+          "estimated_rows": "500M-1B+",
+          "update_frequency": "real-time",
+          "key_fields": [
+            {
+              "name": "listing_id",
+              "type": "UUID",
+              "description": "Primary key, unique listing identifier"
+            },
+            {
+              "name": "seller_id",
+              "type": "UUID",
+              "description": "Foreign key to the users table"
+            },
+            {
+              "name": "title",
+              "type": "STRING",
+              "description": "Title of the listing"
+            },
+            {
+              "name": "description",
+              "type": "STRING",
+              "description": "Detailed description of the item"
+            },
+            {
+              "name": "price_usd",
+              "type": "NUMERIC",
+              "description": "Asking price in USD"
+            },
+            {
+              "name": "category_id",
+              "type": "INT64",
+              "description": "Foreign key to the categories table"
+            },
+            {
+              "name": "listing_status",
+              "type": "STRING",
+              "description": "e.g., 'active', 'sold', 'archived', 'pending'"
+            },
+            {
+              "name": "location_geopoint",
+              "type": "GEOGRAPHY",
+              "description": "WKT representation of the listing's location for geospatial queries"
+            },
+            {
+              "name": "is_shippable",
+              "type": "BOOLEAN",
+              "description": "Flag indicating if the seller offers shipping"
+            },
+            {
+              "name": "created_at",
+              "type": "TIMESTAMP",
+              "description": "Timestamp when the listing was created"
+            },
+            {
+              "name": "updated_at",
+              "type": "TIMESTAMP",
+              "description": "Timestamp of the last update to the listing"
+            }
+          ],
+          "relationships": [
+            {
+              "related_table": "users",
+              "relationship_type": "many-to-one",
+              "join_key": "seller_id"
+            },
+            {
+              "related_table": "categories",
+              "relationship_type": "many-to-one",
+              "join_key": "category_id"
+            },
+            {
+              "related_table": "transactions",
+              "relationship_type": "one-to-one",
+              "join_key": "listing_id"
+            }
+          ],
+          "data_sensitivity": "public"
+        },
+        {
+          "table_name": "transactions",
+          "entity_type": "fact",
+          "description": "Records a completed sale between a buyer and a seller for a specific listing.",
+          "estimated_rows": "100M-250M",
+          "update_frequency": "real-time",
+          "key_fields": [
+            {
+              "name": "transaction_id",
+              "type": "UUID",
+              "description": "Primary key"
+            },
+            {
+              "name": "listing_id",
+              "type": "UUID",
+              "description": "Foreign key to the listings table"
+            },
+            {
+              "name": "buyer_id",
+              "type": "UUID",
+              "description": "Foreign key to the users table"
+            },
+            {
+              "name": "seller_id",
+              "type": "UUID",
+              "description": "Foreign key to the users table"
+            },
+            {
+              "name": "final_price_usd",
+              "type": "NUMERIC",
+              "description": "The agreed-upon final sale price"
+            },
+            {
+              "name": "transaction_status",
+              "type": "STRING",
+              "description": "e.g., 'completed', 'cancelled', 'disputed'"
+            },
+            {
+              "name": "payment_method",
+              "type": "STRING",
+              "description": "e.g., 'cash', 'in-app_payment'"
+            },
+            {
+              "name": "completed_at",
+              "type": "TIMESTAMP",
+              "description": "Timestamp when the transaction was finalized"
+            }
+          ],
+          "relationships": [
+            {
+              "related_table": "listings",
+              "relationship_type": "one-to-one",
+              "join_key": "listing_id"
+            },
+            {
+              "related_table": "users",
+              "relationship_type": "many-to-one",
+              "join_key": "buyer_id"
+            },
+            {
+              "related_table": "users",
+              "relationship_type": "many-to-one",
+              "join_key": "seller_id"
+            }
+          ],
+          "data_sensitivity": "confidential"
+        },
+        {
+          "table_name": "categories",
+          "entity_type": "dimension",
+          "description": "Hierarchical structure for organizing listings.",
+          "estimated_rows": "1k-5k",
+          "update_frequency": "weekly",
+          "key_fields": [
+            {
+              "name": "category_id",
+              "type": "INT64",
+              "description": "Primary key"
+            },
+            {
+              "name": "category_name",
+              "type": "STRING",
+              "description": "Name of the category, e.g., 'Electronics'"
+            },
+            {
+              "name": "parent_category_id",
+              "type": "INT64",
+              "description": "Self-referencing key for hierarchy"
+            },
+            {
+              "name": "category_level",
+              "type": "INT64",
+              "description": "Depth of the category in the hierarchy"
+            }
+          ],
+          "relationships": [
+            {
+              "related_table": "listings",
+              "relationship_type": "one-to-many",
+              "join_key": "category_id"
+            }
+          ],
+          "data_sensitivity": "public"
+        }
+      ],
+      "warehouse_design": {
+        "architecture_pattern": "star",
+        "fact_tables": [
+          {
+            "name": "fact_transactions",
+            "grain": "One row per completed transaction",
+            "measures": [
+              "final_price_usd",
+              "is_shipped_transaction",
+              "payment_fee_usd"
+            ],
+            "dimensions": [
+              "listing_key",
+              "buyer_key",
+              "seller_key",
+              "transaction_date_key",
+              "transaction_time_key"
+            ],
+            "estimated_rows": "100M+",
+            "partitioning": "PARTITION BY DATE(completed_at)"
+          },
+          {
+            "name": "fact_user_events",
+            "grain": "One row per user interaction (view, click, search, message)",
+            "measures": [
+              "session_duration_seconds"
+            ],
+            "dimensions": [
+              "user_key",
+              "listing_key",
+              "device_key",
+              "location_key",
+              "event_date_key",
+              "event_time_key"
+            ],
+            "estimated_rows": "100B+",
+            "partitioning": "PARTITION BY DATE(event_timestamp), CLUSTER BY event_type, user_key"
+          },
+          {
+            "name": "fact_listings_snapshot",
+            "grain": "One row per listing per day",
+            "measures": [
+              "price_usd",
+              "view_count",
+              "message_count",
+              "days_on_market"
+            ],
+            "dimensions": [
+              "listing_key",
+              "seller_key",
+              "category_key",
+              "snapshot_date_key"
+            ],
+            "estimated_rows": "10B+",
+            "partitioning": "PARTITION BY snapshot_date"
+          }
+        ],
+        "dimension_tables": [
+          {
+            "name": "dim_users",
+            "type": "SCD Type 2",
+            "attributes": [
+              "user_id",
+              "username",
+              "avg_rating",
+              "is_verified",
+              "city",
+              "state",
+              "zip_code",
+              "valid_from",
+              "valid_to",
+              "is_current"
+            ],
+            "estimated_rows": "60M"
+          },
+          {
+            "name": "dim_listings",
+            "type": "SCD Type 2",
+            "attributes": [
+              "listing_id",
+              "title",
+              "category_name",
+              "is_shippable",
+              "listing_status",
+              "valid_from",
+              "valid_to",
+              "is_current"
+            ],
+            "estimated_rows": "600M"
+          },
+          {
+            "name": "dim_categories",
+            "type": "SCD Type 1",
+            "attributes": [
+              "category_id",
+              "category_name",
+              "parent_category_name",
+              "category_level_1",
+              "category_level_2",
+              "category_level_3"
+            ],
+            "estimated_rows": "5k"
+          },
+          {
+            "name": "dim_date",
+            "type": "SCD Type 1",
+            "attributes": [
+              "date_key",
+              "full_date",
+              "day_of_week",
+              "month",
+              "quarter",
+              "year",
+              "is_weekend"
+            ],
+            "estimated_rows": "5k"
+          }
+        ],
+        "data_marts": [
+          {
+            "name": "marketplace_health_mart",
+            "purpose": "Analyze supply, demand, liquidity, and pricing trends.",
+            "source_tables": [
+              "fact_listings_snapshot",
+              "fact_transactions",
+              "dim_listings",
+              "dim_categories"
+            ]
+          },
+          {
+            "name": "user_analytics_mart",
+            "purpose": "For user segmentation, behavior analysis, LTV, and churn prediction.",
+            "source_tables": [
+              "fact_user_events",
+              "fact_transactions",
+              "dim_users"
+            ]
+          },
+          {
+            "name": "trust_and_safety_mart",
+            "purpose": "Fraud detection, content moderation, and dispute analysis.",
+            "source_tables": [
+              "fact_user_events",
+              "dim_users",
+              "fact_transactions",
+              "unstructured_data_metadata"
+            ]
+          }
+        ]
+      },
+      "tech_stack": {
+        "operational_databases": [
+          {
+            "type": "PostgreSQL (Cloud SQL)",
+            "purpose": "Primary OLTP database for core entities like users, listings, and transactions requiring strong consistency.",
+            "rationale": "Robust, reliable, and well-supported relational database. Cloud SQL offers managed service benefits.",
+            "estimated_size_gb": 2048
+          },
+          {
+            "type": "MongoDB (Atlas) or Firestore",
+            "purpose": "Storing user messages and potentially user profiles due to flexible schema and high write throughput.",
+            "rationale": "Document-based model is ideal for chat conversations and evolving user profile structures.",
+            "estimated_size_gb": 5120
+          },
+          {
+            "type": "Elasticsearch",
+            "purpose": "Powering the search and recommendation engine.",
+            "rationale": "Specialized for full-text search, filtering, and geospatial queries, crucial for marketplace functionality.",
+            "estimated_size_gb": 1024
+          }
+        ],
+        "data_warehouse": {
+          "platform": "BigQuery",
+          "rationale": "Serverless architecture handles spiky marketplace traffic well. Excellent integration with GCP services (GCS, Vertex AI), native GEOGRAPHY type, and unparalleled performance on massive datasets. Separation of storage and compute is cost-effective.",
+          "estimated_size_tb": 250,
+          "query_concurrency": "high"
+        },
+        "streaming": {
+          "platform": "Google Cloud Pub/Sub",
+          "use_cases": [
+            "Ingesting real-time user behavioral events from mobile/web apps",
+            "Change Data Capture (CDC) from operational databases",
+            "Triggering downstream processing like image analysis"
+          ],
+          "estimated_throughput": "500,000+ events/sec"
+        },
+        "etl_orchestration": {
+          "tools": [
+            "Airflow (Cloud Composer)",
+            "dbt",
+            "Fivetran/Airbyte"
+          ],
+          "pipeline_count_estimate": 200,
+          "schedule_frequency": "real-time (streaming), hourly, daily"
+        },
+        "analytics_tools": [
+          "Looker",
+          "Tableau",
+          "Jupyter Notebooks (Vertex AI Workbench)"
+        ],
+        "cloud_provider": {
+          "primary": "GCP",
+          "rationale": "The choice of BigQuery as the warehouse makes GCP the logical primary provider. The tight integration between GCS, Pub/Sub, Dataflow, Vertex AI, and BigQuery creates a powerful, cohesive data ecosystem ideal for OfferUp's use cases, especially unstructured data analysis."
+        },
+        "data_lake": {
+          "present": true,
+          "storage": "GCS",
+          "layers": [
+            "raw (unmodified source data)",
+            "staged (cleaned, typed)",
+            "curated (DWH tables)",
+            "analytics (data marts)"
+          ]
+        }
+      },
+      "data_flows": [
+        {
+          "flow_name": "Real-time User Event Ingestion",
+          "source": "Mobile App, Web App",
+          "ingestion_method": "streaming",
+          "frequency": "real-time",
+          "transformations": [
+            "Pub/Sub pushes events to a Dataflow pipeline for sessionization, enrichment with user data, and schema validation."
+          ],
+          "destination": "BigQuery `fact_user_events` table",
+          "latency_requirement": "< 1 minute"
+        },
+        {
+          "flow_name": "Operational Database Sync",
+          "source": "Cloud SQL (PostgreSQL)",
+          "ingestion_method": "CDC",
+          "frequency": "real-time",
+          "transformations": [
+            "Debezium captures row-level changes, publishes to Pub/Sub. A Dataflow job reads from Pub/Sub, performs light transformations (e.g., PII masking), and MERGEs into staging tables in BigQuery. dbt then runs on a schedule to update core dimension and fact tables."
+          ],
+          "destination": "BigQuery Staging Layer, then DWH tables",
+          "latency_requirement": "< 5 minutes"
+        },
+        {
+          "flow_name": "Listing Image Processing",
+          "source": "User image uploads",
+          "ingestion_method": "event-driven",
+          "frequency": "real-time",
+          "transformations": [
+            "Image uploaded to GCS triggers a Cloud Function. The function calls Vertex AI Vision API to generate labels, detect unsafe content, and extract text (OCR). Metadata is written to a BigQuery table."
+          ],
+          "destination": "GCS (raw image), BigQuery (metadata)",
+          "latency_requirement": "< 10 seconds"
+        }
+      ],
+      "analytics_use_cases": [
+        {
+          "use_case": "Marketplace Liquidity Analysis",
+          "business_question": "What is the supply/demand ratio by category and location? How long does it take for an item to sell?",
+          "data_sources": [
+            "fact_listings_snapshot",
+            "fact_transactions",
+            "dim_categories",
+            "dim_date"
+          ],
+          "complexity": "intermediate",
+          "techniques": [
+            "Ratio analysis",
+            "survival analysis (time-to-sell)",
+            "geospatial aggregation"
+          ],
+          "stakeholders": [
+            "Product Managers",
+            "Marketing Team"
+          ]
+        },
+        {
+          "use_case": "Fraudulent Listing Detection",
+          "business_question": "Can we automatically flag listings that are likely scams or violate our policies?",
+          "data_sources": [
+            "listing descriptions",
+            "listing images",
+            "user historical data",
+            "message content"
+          ],
+          "complexity": "advanced",
+          "techniques": [
+            "NLP on descriptions",
+            "Image classification (prohibited items)",
+            "Anomaly detection on user behavior"
+          ],
+          "stakeholders": [
+            "Trust & Safety Team",
+            "Operations"
+          ]
+        },
+        {
+          "use_case": "Dynamic Pricing and Fee Optimization",
+          "business_question": "Can we recommend an optimal price for a new listing? How can we adjust shipping/service fees to maximize revenue?",
+          "data_sources": [
+            "fact_transactions",
+            "fact_listings_snapshot",
+            "dim_categories"
+          ],
+          "complexity": "advanced",
+          "techniques": [
+            "Regression models (XGBoost)",
+            "Price elasticity modeling",
+            "A/B testing"
+          ],
+          "stakeholders": [
+            "Finance Team",
+            "Product Managers"
+          ]
+        }
+      ],
+      "data_governance": {
+        "pii_fields": [
+          "user_id",
+          "email_hash",
+          "phone_hash",
+          "precise_location_geopoint",
+          "message_content"
+        ],
+        "retention_policies": [
+          {
+            "data_type": "raw_user_events",
+            "retention_days": 180
+          },
+          {
+            "data_type": "inactive_user_pii",
+            "retention_days": 1095,
+            "action": "Anonymization"
+          },
+          {
+            "data_type": "sold_listing_images",
+            "retention_days": 2555
+          }
+        ],
+        "compliance_requirements": [
+          "CCPA/CPRA",
+          "PCI-DSS (if processing payments directly)",
+          "COPPA (Children's Online Privacy Protection Act)"
+        ],
+        "data_quality_checks": [
+          "Referential integrity between facts and dimensions",
+          "Freshness checks on all source data pipelines",
+          "Anomaly detection on key business metrics (e.g., sudden drop in listings)",
+          "Schema validation on streaming event data"
+        ]
+      },
+      "scale_estimates": {
+        "daily_data_volume_gb": 750,
+        "total_warehouse_size_tb": 250,
+        "monthly_query_count": 250000,
+        "concurrent_users": 200,
+        "annual_growth_rate_percent": 40
+      },
+      "data_products": [
+        {
+          "name": "Seller Performance Dashboard",
+          "description": "An internal BI product for account managers to track power sellers' performance, including sales volume, revenue, and customer ratings.",
+          "consumers": [
+            "Account Management",
+            "Marketing"
+          ],
+          "update_frequency": "hourly"
+        },
+        {
+          "name": "Search Relevance API",
+          "description": "An internal API that provides personalized search rankings to the main application, powered by ML models trained in the data warehouse.",
+          "consumers": [
+            "Application Backend"
+          ],
+          "update_frequency": "real-time"
+        }
+      ],
+      "unstructured_data": {
+        "types_present": [
+          {
+            "data_type": "images",
+            "description": "User-uploaded photos for listings and user profiles. The most critical unstructured data asset.",
+            "estimated_volume_tb": 150,
+            "business_criticality": "high"
+          },
+          {
+            "data_type": "text",
+            "description": "Listing titles, descriptions, user reviews, and in-app messages between buyers and sellers.",
+            "estimated_volume_tb": 20,
+            "business_criticality": "high"
+          }
+        ],
+        "current_storage": {
+          "primary_location": "Google Cloud Storage (GCS)",
+          "storage_classes": [
+            "Standard",
+            "Nearline",
+            "Coldline",
+            "Archive"
+          ],
+          "total_size_tb": 170,
+          "growth_rate_tb_per_month": 5
+        },
+        "business_value_opportunities": [
+          {
+            "use_case": "Automated Listing Moderation",
+            "value": "Automatically detect and flag prohibited items (e.g., weapons, drugs) from images and text, reducing manual review workload by 80%.",
+            "implementation": "Vertex AI Vision and Natural Language APIs called via Cloud Functions.",
+            "estimated_impact": "Significant reduction in operational costs and improved platform safety."
+          },
+          {
+            "use_case": "Visual Search",
+            "value": "Allow users to upload an image to find visually similar items for sale, improving discovery and engagement.",
+            "implementation": "Generate image embeddings using a vision model, store in BigQuery, and use Vector Search for fast similarity lookups.",
+            "estimated_impact": "5-10% increase in user conversion rate from search."
+          }
+        ],
+        "bigquery_integration_strategy": {
+          "object_tables": "Create BigQuery Object Tables over GCS buckets containing images. This allows querying file metadata (size, timestamp) and passing GCS URIs to ML models directly from SQL.",
+          "metadata_extraction": "A Cloud Function, triggered on image upload, calls Vertex AI Vision API. It extracts labels, dominant colors, text (OCR), and safety attributes. This structured metadata is stored in a BigQuery table, linked to the original image URI.",
+          "ml_models": [
+            "Use BigQuery ML to create remote models that point to pre-trained or custom-trained models in Vertex AI (e.g., Vision, NLP).",
+            "Use `ML.PREDICT` in SQL to perform inference on new data (e.g., classify images, analyze text sentiment).",
+            "Use `ML.GENERATE_EMBEDDING` to create vector embeddings from images and text for similarity search."
+          ],
+          "query_patterns": [
+            "SELECT user_id, ML.PREDICT(MODEL `image_classifier`, (SELECT ARRAY_AGG(gcs_uri) FROM `image_metadata`)) FROM `users`",
+            "SELECT a.listing_id, b.listing_id AS similar_listing FROM `listing_embeddings` a, `listing_embeddings` b WHERE ML.DISTANCE(a.embedding, b.embedding, 'COSINE') < 0.2"
+          ]
+        },
+        "ml_ai_use_cases": [
+          {
+            "use_case": "Smart Categorization",
+            "data_sources": [
+              "listing_images",
+              "listing_title",
+              "listing_description"
+            ],
+            "approach": "A multi-modal model in Vertex AI that uses both image features and text embeddings to predict the most accurate product category.",
+            "bigquery_feature": "Remote model inference via `ML.PREDICT`."
+          },
+          {
+            "use_case": "Scam/Harassment Detection in Messages",
+            "data_sources": [
+              "in-app_message_text"
+            ],
+            "approach": "Fine-tune a language model on known scam/harassment patterns. Use NLP API for sentiment and entity recognition to flag suspicious conversations.",
+            "bigquery_feature": "BigQuery ML text classification models or remote models pointing to Vertex AI NLP."
+          },
+          {
+            "use_case": "Duplicate Listing Detection",
+            "data_sources": [
+              "listing_images",
+              "listing_description"
+            ],
+            "approach": "Generate image embeddings (perceptual hashes) and text embeddings (e.g., from USE or BERT). Find listings with very high similarity scores across both modalities.",
+            "bigquery_feature": "BigQuery Vector Search on combined image and text embeddings."
+          }
+        ],
+        "data_lake_architecture": {
+          "raw_layer": "GCS bucket `offerup-raw-images` with original, unmodified user uploads.",
+          "processed_layer": "GCS bucket `offerup-processed-assets` containing thumbnails, standardized formats, and extracted video frames.",
+          "feature_store": "Vertex AI Feature Store to store and serve reusable ML features like user embeddings, listing embeddings, and historical user activity aggregates.",
+          "metadata_catalog": "BigQuery table `listing_image_metadata` containing GCS URIs, image dimensions, EXIF data, and AI-generated labels/tags.",
+          "integration_pattern": "BigQuery Object Tables provide the queryable interface to the data lake (GCS), while remote functions provide the ML processing capabilities on that data."
+        },
+        "cost_optimization": {
+          "storage_lifecycle": "Set GCS lifecycle policy: move objects from Standard to Nearline after 60 days, to Coldline after 365 days, and to Archive after 5 years.",
+          "compression": "Use WebP for images and AV1 for video to reduce storage size without significant quality loss.",
+          "deduplication": "On ingestion, compute a SHA-256 hash of the file. Before storing, check if the hash already exists to prevent storing duplicate files.",
+          "estimated_monthly_cost_usd": 25000,
+          "optimization_potential_percent": 40
+        },
+        "technical_requirements": [
+          "BigQuery Object Tables for querying file metadata directly from GCS.",
+          "BigQuery Remote Functions to invoke Vertex AI models from SQL.",
+          "BigQuery Vector Search for enabling similarity and recommendation use cases.",
+          "Cloud Functions for event-driven preprocessing pipelines (image resizing, metadata extraction).",
+          "Pub/Sub to decouple ingestion from processing.",
+          "Vertex AI for training, deploying, and managing custom ML models."
+        ]
+      },
+      "recommendations": [
+        "Prioritize building a robust CDC pipeline from operational databases to BigQuery to establish a near real-time source of truth.",
+        "Implement the `trust_and_safety_mart` first, leveraging unstructured data analysis for content moderation to immediately improve platform integrity and reduce operational overhead.",
+        "Adopt dbt for all in-warehouse transformations to ensure modularity, testability, and documentation of business logic.",
+        "Start with pre-trained Vertex AI models (Vision, NLP) via remote functions for quick wins in categorization and moderation before investing in custom model development.",
+        "Build out a comprehensive feature store in Vertex AI to accelerate ML experimentation and prevent redundant feature engineering efforts.",
+        "Establish a formal data governance council to oversee PII management, data quality standards, and compliance requirements across the platform."
+      ]
+    }
+  }
+}

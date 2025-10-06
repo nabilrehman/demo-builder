@@ -1,0 +1,24 @@
+{
+  "agent": "03_data_modeling",
+  "timestamp": "2025-10-06T02:11:06.620371",
+  "state": {
+    "customer_url": "https://www.stripe.com/",
+    "project_id": "bq-demos-469816",
+    "customer_info": {},
+    "demo_story": {
+      "demo_title": null,
+      "golden_queries": [],
+      "executive_summary": null,
+      "business_challenges": null,
+      "talking_track": null
+    },
+    "schema": {
+      "tables": []
+    },
+    "dataset_id": null,
+    "dataset_full_name": null,
+    "capi_agent_id": null,
+    "capi_yaml_file": null
+  },
+  "description": "Output state after 03_data_modeling execution"
+}

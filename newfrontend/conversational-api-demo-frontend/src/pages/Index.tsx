@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 // Configure your API endpoint here
 // For local development: "http://localhost:8000/api/chat"
 // For production: "https://your-api-domain.com/api/chat"
-const API_ENDPOINT = "http://localhost:8000/api/chat";
+const API_ENDPOINT = "/api/chat";
 
 // Vega-Lite specification from Google Conversational Analytics API
 interface ChartData {
@@ -338,15 +338,22 @@ const Index = () => {
     try {
       // Show loading states
       setLoadingMessage("Analyzing your question...");
-      
-      // Call your custom API endpoint
+
+      // Get provisioned agent_id and dataset_id from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const agentId = urlParams.get('agent_id') || urlParams.get('agentId');
+      const datasetId = urlParams.get('dataset_id') || urlParams.get('datasetId');
+
+      // Call your custom API endpoint with dynamic IDs
       const response = await fetch(API_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: content
+          message: content,
+          agent_id: agentId,      // Use provisioned agent if available
+          dataset_id: datasetId   // Use provisioned dataset if available
         })
       });
 

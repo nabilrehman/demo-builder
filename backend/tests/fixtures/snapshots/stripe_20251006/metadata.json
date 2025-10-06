@@ -1,0 +1,20 @@
+{
+  "snapshot_name": "stripe_20251006",
+  "job_id": "c4fda613-c6dc-44c7-8955-d15ce8f28e00",
+  "customer_url": "https://www.stripe.com/",
+  "status": "completed",
+  "captured_at": "2025-10-06T02:11:06.621225",
+  "agents_captured": [
+    "01_research",
+    "02_demo_story",
+    "03_data_modeling",
+    "04_synthetic_data",
+    "05_infrastructure",
+    "06_capi_instructions",
+    "07_validation"
+  ],
+  "dataset_id": null,
+  "agent_id": null,
+  "total_tables": null,
+  "total_rows": null
+}

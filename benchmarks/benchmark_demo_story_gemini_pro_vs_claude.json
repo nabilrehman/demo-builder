@@ -1,0 +1,20 @@
+{
+  "company": "OfferUp",
+  "claude_sonnet_45": {
+    "time_seconds": 92.34555673599243,
+    "golden_queries": 6,
+    "story_scenes": 4,
+    "data_entities": 8
+  },
+  "gemini_25_pro": {
+    "time_seconds": 43.33477067947388,
+    "golden_queries": 6,
+    "story_scenes": 4,
+    "data_entities": 8
+  },
+  "comparison": {
+    "faster_model": "Gemini 2.5 Pro",
+    "speedup": 2.130980625674182,
+    "time_difference_seconds": 49.010786056518555
+  }
+}

@@ -1,0 +1,39 @@
+# Future Plan: Dynamic Provisioning Architecture
+
+This document outlines the plan to evolve the application from a boilerplate to a dynamic provisioning service that configures itself based only on a user-provided Project ID.
+
+## Core Requirement
+
+The end-user will only provide their Google Cloud Project ID. The application must automatically create, configure, and manage all necessary resources on the fly.
+
+## Proposed Architecture Changes
+
+### 1. New Provisioning Endpoint
+
+-   Create a new API endpoint in `backend/api.py`, for example: `/api/setup`.
+-   This endpoint will accept a JSON payload containing the `project_id`.
+
+### 2. Automated Resource Creation Logic
+
+When `/api/setup` is called, the backend will execute the following steps:
+
+1.  **Generate Unique IDs:** Create a unique identifier for the new customer/deployment (e.g., based on a company name provided in the setup call or a UUID). This ID will be used to name all subsequent resources (e.g., `dataset_acme_corp`, `agent_acme_corp`).
+
+2.  **Refactor Data Generation:** Move the data generation logic from `scripts/generate_synthetic_data.py` into a function within the main backend application. This allows the backend to generate the data in-memory without executing an external script.
+
+3.  **Add BigQuery Client:** Add `google-cloud-bigquery` to `backend/requirements.txt` to give the application direct control over BigQuery.
+
+4.  **Implement BigQuery Provisioning:** The `/api/setup` endpoint will use the BigQuery client to:
+    -   Create a new BigQuery dataset (e.g., `project_id.dataset_acme_corp`).
+    -   Load the data generated in-memory directly into new tables within the new dataset.
+
+5.  **Implement Data Agent Provisioning:** The endpoint will then call the Conversational Analytics API to create a **new** Data Agent, configured to use the newly created BigQuery dataset and tables.
+
+6.  **Store Configuration:** The mapping between the user's `project_id` and the newly created `dataset_id` and `data_agent_id` needs to be stored. A simple BigQuery table could serve as a lookup for this.
+
+### 3. Modify Chat Logic for Multi-Tenancy
+
+-   The `/api/chat` endpoint will need to be modified.
+-   It will need to accept the `project_id` or the unique customer ID with each chat request.
+-   Before processing the chat, it will look up the correct `data_agent_id` from the configuration storage.
+-   It will then use this agent ID to serve the chat request, ensuring each user interacts with their own dedicated data and agent.

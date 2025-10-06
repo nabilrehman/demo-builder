@@ -1,0 +1,16 @@
+{
+  "original": {
+    "model": "Claude Sonnet 4.5",
+    "time_seconds": 43.42377519607544,
+    "tables_generated": 6
+  },
+  "optimized": {
+    "model": "Gemini 2.0 Flash",
+    "time_seconds": 10.767920732498169,
+    "tables_generated": 3
+  },
+  "improvement": {
+    "speedup": 4.032698259471778,
+    "time_saved_seconds": 32.65585446357727
+  }
+}

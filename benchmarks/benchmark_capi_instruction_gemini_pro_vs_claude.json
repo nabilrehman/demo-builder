@@ -1,0 +1,22 @@
+{
+  "test_dataset": "OfferUp (3 tables)",
+  "claude_sonnet_45": {
+    "time_seconds": 83.93611025810242,
+    "yaml_size_chars": 24294,
+    "yaml_size_lines": 591,
+    "table_count": 33,
+    "has_golden_queries": true
+  },
+  "gemini_25_pro": {
+    "time_seconds": 66.56180429458618,
+    "yaml_size_chars": 12410,
+    "yaml_size_lines": 324,
+    "table_count": 0,
+    "has_golden_queries": false
+  },
+  "comparison": {
+    "faster_model": "Gemini 2.5 Pro",
+    "speedup": 1.261025165222713,
+    "time_difference_seconds": 17.374305963516235
+  }
+}

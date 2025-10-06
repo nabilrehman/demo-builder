@@ -1,0 +1,22 @@
+{
+  "test_url": "https://www.offerup.com",
+  "claude_sonnet_45": {
+    "time_seconds": 262.82237124443054,
+    "company_name": "OfferUp",
+    "industry": "Online Classifieds & Marketplace",
+    "key_entities": 8,
+    "data_entities": 12
+  },
+  "gemini_25_pro": {
+    "time_seconds": 131.71507573127747,
+    "company_name": "OfferUp",
+    "industry": "Online Marketplace",
+    "key_entities": 5,
+    "data_entities": 5
+  },
+  "comparison": {
+    "faster_model": "Gemini 2.5 Pro",
+    "speedup": 1.9953856442419364,
+    "time_difference_seconds": 131.10729551315308
+  }
+}

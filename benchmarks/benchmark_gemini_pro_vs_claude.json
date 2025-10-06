@@ -1,0 +1,15 @@
+{
+  "claude_sonnet_45": {
+    "time_seconds": 42.10661721229553,
+    "tables_generated": 6
+  },
+  "gemini_25_pro": {
+    "time_seconds": 40.444881439208984,
+    "tables_generated": 3
+  },
+  "comparison": {
+    "faster_model": "Gemini 2.5 Pro",
+    "speedup": 1.041086429579086,
+    "time_difference_seconds": 1.6617357730865479
+  }
+}

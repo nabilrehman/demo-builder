@@ -1,0 +1,203 @@
+{
+  "job_id": "c4fda613-c6dc-44c7-8955-d15ce8f28e00",
+  "snapshot_name": "stripe_20251006",
+  "captured_at": "2025-10-06T02:11:06.619187",
+  "job_data": {
+    "job_id": "c4fda613-c6dc-44c7-8955-d15ce8f28e00",
+    "customer_url": "https://www.stripe.com/",
+    "status": "completed",
+    "current_phase": "Demo Validator",
+    "overall_progress": 100,
+    "mode": "default",
+    "created_at": "2025-10-06T02:02:39.519830",
+    "updated_at": "2025-10-06T02:10:15.020006",
+    "agents": [
+      {
+        "name": "Research Agent",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 128,
+        "start_time": "2025-10-06T02:02:39.730116",
+        "end_time": "2025-10-06T02:04:48.198686",
+        "error_message": null
+      },
+      {
+        "name": "Demo Story Agent",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 49,
+        "start_time": "2025-10-06T02:04:48.200126",
+        "end_time": "2025-10-06T02:05:37.413115",
+        "error_message": null
+      },
+      {
+        "name": "Data Modeling Agent",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 66,
+        "start_time": "2025-10-06T02:05:37.414570",
+        "end_time": "2025-10-06T02:06:44.025764",
+        "error_message": null
+      },
+      {
+        "name": "Synthetic Data Generator",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 1,
+        "start_time": "2025-10-06T02:06:44.027098",
+        "end_time": "2025-10-06T02:06:45.360019",
+        "error_message": null
+      },
+      {
+        "name": "Infrastructure Agent",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 5,
+        "start_time": "2025-10-06T02:06:45.363210",
+        "end_time": "2025-10-06T02:06:50.770389",
+        "error_message": null
+      },
+      {
+        "name": "CAPI Instruction Generator",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 203,
+        "start_time": "2025-10-06T02:06:50.772414",
+        "end_time": "2025-10-06T02:10:14.235407",
+        "error_message": null
+      },
+      {
+        "name": "Demo Validator",
+        "status": "completed",
+        "progress_percentage": 100,
+        "elapsed_seconds": 0,
+        "start_time": "2025-10-06T02:10:14.236689",
+        "end_time": "2025-10-06T02:10:15.016593",
+        "error_message": null
+      }
+    ],
+    "recent_logs": [
+      {
+        "timestamp": "2025-10-06T02:06:49.777375",
+        "phase": "infrastructure agent optimized",
+        "level": "INFO",
+        "message": "  \u2705 support_tickets: 3,000 rows (0.27 MB)"
+      },
+      {
+        "timestamp": "2025-10-06T02:06:49.789360",
+        "phase": "infrastructure agent optimized",
+        "level": "INFO",
+        "message": "  \u2705 product_usage: 3,000 rows (0.20 MB)"
+      },
+      {
+        "timestamp": "2025-10-06T02:06:50.579184",
+        "phase": "infrastructure agent optimized",
+        "level": "INFO",
+        "message": "  \u2705 disputes: 3,000 rows (0.21 MB)"
+      },
+      {
+        "timestamp": "2025-10-06T02:06:50.770758",
+        "phase": "infrastructure agent",
+        "level": "INFO",
+        "message": "\u2705 Infrastructure Agent completed successfully"
+      },
+      {
+        "timestamp": "2025-10-06T02:06:50.772571",
+        "phase": "capi instruction generator",
+        "level": "INFO",
+        "message": "Starting CAPI Instruction Generator..."
+      },
+      {
+        "timestamp": "2025-10-06T02:06:50.772781",
+        "phase": "capi instruction generator optimized",
+        "level": "INFO",
+        "message": "\ud83d\udcdd Generating CAPI YAML system instructions..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.234765",
+        "phase": "capi instruction generator optimized",
+        "level": "INFO",
+        "message": "\u2705 CAPI YAML Generated: 55,601 chars in 203.46s"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.235065",
+        "phase": "capi instruction generator optimized",
+        "level": "INFO",
+        "message": "  \ud83d\udcca Tables Documented: 123"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.235243",
+        "phase": "capi instruction generator optimized",
+        "level": "INFO",
+        "message": "  \ud83d\udc8e Golden Queries Included: Yes"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.235552",
+        "phase": "capi instruction generator",
+        "level": "INFO",
+        "message": "\u2705 CAPI Instruction Generator completed successfully"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.236828",
+        "phase": "demo validator",
+        "level": "INFO",
+        "message": "Starting Demo Validator..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:14.237073",
+        "phase": "demo validator optimized",
+        "level": "INFO",
+        "message": "\ud83d\udd0d Validating 5 golden queries IN PARALLEL..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.014730",
+        "phase": "demo validator optimized",
+        "level": "INFO",
+        "message": "\u2705 Validation Complete (OPTIMIZED): 0/5 queries passed in 0.78s"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.015138",
+        "phase": "demo validator optimized",
+        "level": "WARNING",
+        "message": "  \u274c Query 1: What was our Total Payment Volume by product for the last qu..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.015463",
+        "phase": "demo validator optimized",
+        "level": "WARNING",
+        "message": "  \u274c Query 2: Show me the number of new merchants and their TPV in their f..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.015743",
+        "phase": "demo validator optimized",
+        "level": "WARNING",
+        "message": "  \u274c Query 3: Compare monthly Total Payment Volume this year vs last year ..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.016053",
+        "phase": "demo validator optimized",
+        "level": "WARNING",
+        "message": "  \u274c Query 4: What is the average authorization rate and fraud dispute rat..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.016343",
+        "phase": "demo validator optimized",
+        "level": "WARNING",
+        "message": "  \u274c Query 5: Show me the monthly TPV retention cohort for merchants who s..."
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.016863",
+        "phase": "demo validator",
+        "level": "INFO",
+        "message": "\u2705 Demo Validator completed successfully"
+      },
+      {
+        "timestamp": "2025-10-06T02:10:15.019997",
+        "phase": "system",
+        "level": "INFO",
+        "message": "Provisioning completed successfully! Dataset: stripe_capi_demo_20251006"
+      }
+    ],
+    "errors": []
+  }
+}

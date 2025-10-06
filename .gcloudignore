@@ -1,0 +1,23 @@
+# Ignore node_modules to speed up builds
+node_modules/
+frontend/web-app/node_modules/
+newfrontend/conversational-api-demo-frontend/node_modules/
+
+# Ignore build artifacts
+*.pyc
+__pycache__/
+.pytest_cache/
+*.log
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore temp files
+*.tmp
+.DS_Store

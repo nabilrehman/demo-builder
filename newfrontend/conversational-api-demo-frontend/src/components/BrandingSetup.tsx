@@ -26,99 +26,37 @@ export const BrandingSetup = ({ onComplete }: BrandingSetupProps) => {
 
   const extractBrandingFromWebsite = async (url: string): Promise<BrandingData | null> => {
     try {
-      // Normalize URL
-      let normalizedUrl = url.trim();
-      if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
-        normalizedUrl = 'https://' + normalizedUrl;
+      // Call backend API to extract branding (avoids CORS issues)
+      console.log('Calling backend to extract branding from:', url);
+
+      const response = await fetch('/api/extract-branding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          websiteUrl: url
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to extract branding: ${response.status}`);
       }
 
-      const urlObj = new URL(normalizedUrl);
-      const domain = urlObj.hostname.replace('www.', '');
-      
-      // Extract brand name from domain
-      const brandName = domain
-        .split('.')[0]
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+      const data = await response.json();
 
-      // Fetch the actual website to extract logo
-      console.log('Fetching website:', normalizedUrl);
-      
-      let logoUrl = '';
-      let faviconUrl = `${urlObj.protocol}//${urlObj.hostname}/favicon.ico`;
-      
-      try {
-        // Try to fetch the website HTML
-        const response = await fetch(normalizedUrl, {
-          method: 'GET',
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (compatible; LogoExtractor/1.0)'
-          }
-        });
-        
-        if (response.ok) {
-          const html = await response.text();
-          
-          // Extract logo from common meta tags and patterns
-          const logoPatterns = [
-            // Open Graph image
-            /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/i,
-            // Twitter card image
-            /<meta\s+name=["']twitter:image["']\s+content=["']([^"']+)["']/i,
-            // Apple touch icon
-            /<link\s+rel=["']apple-touch-icon["'][^>]*href=["']([^"']+)["']/i,
-            // Standard logo in img tag with logo class/id
-            /<img[^>]*(?:class|id)=["'][^"']*logo[^"']*["'][^>]*src=["']([^"']+)["']/i,
-            // Favicon link
-            /<link\s+rel=["'](?:icon|shortcut icon)["'][^>]*href=["']([^"']+)["']/i,
-          ];
-          
-          for (const pattern of logoPatterns) {
-            const match = html.match(pattern);
-            if (match && match[1]) {
-              let extractedUrl = match[1];
-              
-              // Make URL absolute if it's relative
-              if (extractedUrl.startsWith('//')) {
-                extractedUrl = urlObj.protocol + extractedUrl;
-              } else if (extractedUrl.startsWith('/')) {
-                extractedUrl = `${urlObj.protocol}//${urlObj.hostname}${extractedUrl}`;
-              } else if (!extractedUrl.startsWith('http')) {
-                extractedUrl = `${urlObj.protocol}//${urlObj.hostname}/${extractedUrl}`;
-              }
-              
-              if (!logoUrl && (pattern === logoPatterns[0] || pattern === logoPatterns[1] || pattern === logoPatterns[3])) {
-                logoUrl = extractedUrl;
-              }
-              
-              // Update favicon if found
-              if (pattern === logoPatterns[2] || pattern === logoPatterns[4]) {
-                faviconUrl = extractedUrl;
-              }
-              
-              // Break if we found a logo
-              if (logoUrl) break;
-            }
-          }
-        }
-      } catch (fetchError) {
-        console.log('Could not fetch website, using fallback methods:', fetchError);
+      if (data.error) {
+        throw new Error(data.error);
       }
 
-      // Fallback to common logo paths if nothing found
-      if (!logoUrl) {
-        logoUrl = faviconUrl;
-      }
-
-      console.log('Extracted branding:', { brandName, logoUrl, faviconUrl });
+      console.log('Branding extracted from backend:', data);
 
       return {
-        brandName,
-        logoUrl,
-        websiteUrl: normalizedUrl,
-        faviconUrl,
-        primaryColor: '#8b5cf6'
+        brandName: data.brandName,
+        logoUrl: data.logoUrl,
+        websiteUrl: data.websiteUrl,
+        faviconUrl: data.faviconUrl,
+        primaryColor: data.primaryColor || '#8b5cf6'
       };
     } catch (error) {
       console.error('Error extracting branding:', error);
