@@ -80,3 +80,6 @@ benchmarks/
 
 # Frontend source files are needed for Docker build
 # (Commenting out to allow multi-stage build to work)
+
+# Backend symlink to frontend (causes Docker COPY conflicts)
+backend/newfrontend
