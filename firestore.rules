@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function: Check if user is a Googler (@google.com email)
+    function isGoogler() {
+      return request.auth != null && 
+             request.auth.token.email.matches('.*@google[.]com$');
+    }
+    
+    // Users collection: Each user can only access their own data
+    match /users/{userId} {
+      // Only allow if authenticated AND user is a Googler AND accessing own data
+      allow read, write: if isGoogler() && request.auth.uid == userId;
+      
+      // User profile subcollection
+      match /profile {
+        allow read, write: if isGoogler() && request.auth.uid == userId;
+      }
+      
+      // User's jobs subcollection (each user can only see their own jobs)
+      match /jobs/{jobId} {
+        allow read, write: if isGoogler() && request.auth.uid == userId;
+      }
+    }
+    
+    // Deny all other access by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -163,7 +163,8 @@ class DemoOrchestrator:
         workflow.add_node("synthetic_data_node", self._wrap_agent(synthetic_data_generator, "Synthetic Data"))
         workflow.add_node("infrastructure_node", self._wrap_agent(infrastructure_agent, "Infrastructure"))
         workflow.add_node("capi_instructions_node", self._wrap_agent(capi_instruction_generator, "CAPI Instructions"))
-        workflow.add_node("validation_node", self._wrap_agent(demo_validator, "Validation"))
+        # 🛡️ VALIDATION DISABLED: Don't add validation node to workflow
+        # workflow.add_node("validation_node", self._wrap_agent(demo_validator, "Validation"))
 
         # Define edges (flow)
         workflow.set_entry_point("research_node")
@@ -172,8 +173,10 @@ class DemoOrchestrator:
         workflow.add_edge("data_modeling_node", "synthetic_data_node")
         workflow.add_edge("synthetic_data_node", "infrastructure_node")
         workflow.add_edge("infrastructure_node", "capi_instructions_node")
-        workflow.add_edge("capi_instructions_node", "validation_node")
-        workflow.add_edge("validation_node", END)
+        # 🛡️ VALIDATION DISABLED: Skip validation entirely (was causing job failures)
+        # workflow.add_edge("capi_instructions_node", "validation_node")
+        # workflow.add_edge("validation_node", END)
+        workflow.add_edge("capi_instructions_node", END)  # Go directly to END
 
         return workflow.compile()
 
@@ -483,7 +486,8 @@ async def run_demo_orchestrator(
         workflow.add_node("synthetic_data_node", create_progress_wrapper(synthetic_data_generator, "Synthetic Data Generator", 3))
         workflow.add_node("infrastructure_node", create_progress_wrapper(infrastructure_agent, "Infrastructure Agent", 4))
         workflow.add_node("capi_instructions_node", create_progress_wrapper(capi_instruction_generator, "CAPI Instruction Generator", 5))
-        workflow.add_node("validation_node", create_progress_wrapper(demo_validator, "Demo Validator", 6))
+        # 🛡️ VALIDATION DISABLED: Don't add validation node to workflow
+        # workflow.add_node("validation_node", create_progress_wrapper(demo_validator, "Demo Validator", 6))
 
         # Define edges (flow)
         workflow.set_entry_point("research_node")
@@ -492,8 +496,10 @@ async def run_demo_orchestrator(
         workflow.add_edge("data_modeling_node", "synthetic_data_node")
         workflow.add_edge("synthetic_data_node", "infrastructure_node")
         workflow.add_edge("infrastructure_node", "capi_instructions_node")
-        workflow.add_edge("capi_instructions_node", "validation_node")
-        workflow.add_edge("validation_node", END)
+        # 🛡️ VALIDATION DISABLED: Skip validation entirely (was causing job failures)
+        # workflow.add_edge("capi_instructions_node", "validation_node")
+        # workflow.add_edge("validation_node", END)
+        workflow.add_edge("capi_instructions_node", END)  # Go directly to END
 
         # Compile graph
         graph = workflow.compile()

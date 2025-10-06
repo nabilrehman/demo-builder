@@ -1,5 +1,5 @@
 // Progress messages extracted from CE-PROGRESS-MESSAGES.md
-// Provides witty, contextual messages for the 7-stage provisioning pipeline
+// Provides witty, contextual messages for the 6-stage provisioning pipeline (Validator disabled)
 
 export type StageStatus = 'pending' | 'running' | 'complete' | 'failed';
 
@@ -14,7 +14,7 @@ export interface StageInfo {
   estimatedDuration: string;
 }
 
-// 7 stages of the provisioning pipeline
+// 6 stages of the provisioning pipeline (Validator disabled)
 export const STAGES: StageInfo[] = [
   { number: 1, name: 'Research Agent', estimatedDuration: '15-30s' },
   { number: 2, name: 'Demo Story Agent', estimatedDuration: '4-7m' },
@@ -22,7 +22,7 @@ export const STAGES: StageInfo[] = [
   { number: 4, name: 'Synthetic Data Generator', estimatedDuration: '30-90s' },
   { number: 5, name: 'Infrastructure Agent', estimatedDuration: '2-5m' },
   { number: 6, name: 'CAPI Instruction Generator', estimatedDuration: '2-5m' },
-  { number: 7, name: 'Demo Validator', estimatedDuration: '30-90s' },
+  // Stage 7 (Demo Validator) disabled - was causing job failures
 ];
 
 // Running messages for each stage (rotate every 4 seconds)

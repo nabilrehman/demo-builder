@@ -110,7 +110,8 @@ export const useProvisioningProgress = ({
 
         // Calculate progress percentage
         const completedStages = currentStage - 1;
-        const progressPercentage = Math.floor((completedStages / 7) * 100 + (elapsed / stageDurations[currentStage - 1]) * (100 / 7));
+        const totalStages = STAGES.length; // 6 stages (validator disabled)
+        const progressPercentage = Math.floor((completedStages / totalStages) * 100 + (elapsed / stageDurations[currentStage - 1]) * (100 / totalStages));
 
         return {
           ...prev,
@@ -174,7 +175,7 @@ export const useProvisioningProgress = ({
         stageStartTime = Date.now();
 
         // Check if all stages complete
-        if (currentStage > 7) {
+        if (currentStage > STAGES.length) {
           setState((prev) => ({
             ...prev,
             isComplete: true,
