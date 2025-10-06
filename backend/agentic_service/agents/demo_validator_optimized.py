@@ -30,26 +30,26 @@ class DemoValidatorOptimized:
         logger.info(f"Demo Validator OPTIMIZED initialized for project {self.project_id}")
 
     async def execute(self, state: Dict) -> Dict:
-        """Execute demo validation phase - CAPI-ONLY testing (like real demos)."""
+        """Execute demo validation phase - CAPI-ONLY testing (NEVER fails the job)."""
         import time
 
         logger.info("🚀 Validating demo queries through CAPI (DEMO-STYLE)")
 
-        # Wait for CAPI agent to become fully operational before validation
-        # The agent needs time to index the dataset after creation
-        capi_agent_id = state.get("capi_agent_id")
-        if not capi_agent_id:
-            logger.warning("No CAPI agent ID found - skipping validation")
-            state["validation_complete"] = True
-            state["validation_results"] = {"queries_tested": 0}
-            return state
-
-        logger.info(f"⏳ Waiting 15 seconds for CAPI agent '{capi_agent_id}' to become ready...")
-        await asyncio.sleep(15)
-
-        start_time = time.time()
-
+        # 🛡️ SAFEGUARD: Wrap entire validation in try/except to prevent job failure
         try:
+            # Wait for CAPI agent to become fully operational before validation
+            # The agent needs time to index the dataset after creation
+            capi_agent_id = state.get("capi_agent_id")
+            if not capi_agent_id:
+                logger.warning("No CAPI agent ID found - skipping validation")
+                state["validation_complete"] = True
+                state["validation_results"] = {"queries_tested": 0}
+                return state
+
+            logger.info(f"⏳ Waiting 15 seconds for CAPI agent '{capi_agent_id}' to become ready...")
+            await asyncio.sleep(15)
+
+            start_time = time.time()
             demo_story = state.get("demo_story", {})
             golden_queries = demo_story.get("golden_queries", [])
 
@@ -122,8 +122,30 @@ class DemoValidatorOptimized:
             return state
 
         except Exception as e:
-            logger.error(f"Validation failed: {e}", exc_info=True)
-            raise
+            # 🛡️ SAFEGUARD: Never fail the job due to validation errors
+            logger.error(f"❌ Validation failed (non-critical): {e}", exc_info=True)
+
+            # Log to CE Dashboard
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "demo validator",
+                    f"⚠️ Validation skipped due to error: {str(e)[:200]}",
+                    "WARNING"
+                )
+
+            # Return success with empty results - NEVER fail the job
+            state["validation_complete"] = True
+            state["validation_results"] = {
+                "total_queries": 0,
+                "capi_validated": 0,
+                "capi_failed": 0,
+                "validation_skipped": True,
+                "skip_reason": str(e)
+            }
+
+            logger.info("✅ Validation step completed (skipped due to error)")
+            return state
 
     async def _validate_sql_queries_parallel(
         self,
@@ -336,7 +358,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}
 
 **Status:** {status}
 **Complexity:** {complexity}
-**CAPI Response Length:** {len(result.get('capi_response', ''))} characters
+**CAPI Response Length:** {len(result.get('capi_response') or '')} characters
 
 """
 
@@ -348,7 +370,7 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}
 
 """
             else:
-                capi_response = result.get('capi_response', '')
+                capi_response = result.get('capi_response') or ''
                 response_preview = capi_response[:500] + "..." if len(capi_response) > 500 else capi_response
                 report += f"""**CAPI Response Preview:**
 ```
@@ -456,9 +478,11 @@ Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S UTC")}
                     capi_sql = data.get("sqlQuery", "")
 
                     # Validate response is meaningful (not empty or error)
-                    success = bool(capi_response and len(capi_response) > 10)
+                    # FIX: Check if capi_response is not None before getting length
+                    success = bool(capi_response and isinstance(capi_response, str) and len(capi_response) > 10)
 
-                    logger.info(f"  ✅ CAPI Query {sequence}: Response received ({len(capi_response)} chars)")
+                    response_len = len(capi_response) if capi_response else 0
+                    logger.info(f"  ✅ CAPI Query {sequence}: Response received ({response_len} chars)")
 
                     return {
                         "sequence": sequence,

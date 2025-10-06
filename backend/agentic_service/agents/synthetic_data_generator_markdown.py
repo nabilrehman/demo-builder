@@ -539,20 +539,194 @@ You are an expert data generation specialist tasked with creating REALISTIC, DOM
 **Demo Talking Track/Introduction:**
 {talking_track.get('introduction', talking_track.get('opening', '')) if isinstance(talking_track, dict) and talking_track else '(Standard business analytics demo)'}
 
+## 🎯 CRITICAL - GOLDEN QUERY ANALYSIS & DATA BLUEPRINT
+
+**THE GOLDEN QUERIES ABOVE ARE THE MOST IMPORTANT PART OF THIS DEMO.**
+
+Your data will be queried using the golden queries listed above. Each query MUST return insightful, demo-worthy results.
+
+**BEFORE generating data, analyze EACH golden query and determine:**
+
+"""
+
+            # Add query-specific analysis for each golden query
+            if golden_queries and len(golden_queries) > 0:
+                prompt += "\n"
+                for idx, query in enumerate(golden_queries[:10], 1):
+                    query_text = query.get('question', query.get('query', str(query))) if isinstance(query, dict) else str(query)
+
+                    prompt += f"""**Golden Query #{idx}: "{query_text}"**
+
+📋 **Analysis:**
+   1. What table fields does this query need? (Think about JOINs, WHERE clauses, GROUP BY)
+   2. What data patterns would create an interesting answer?
+   3. What distributions/ranges would make this query reveal insights?
+
+💡 **Data Pattern Blueprint for Query #{idx}:**
+"""
+
+                    # Smart query analysis based on keywords
+                    query_lower = query_text.lower()
+
+                    # Comparison/Ranking queries
+                    if any(word in query_lower for word in ['top', 'best', 'highest', 'most', 'leading', 'largest']):
+                        prompt += f"""   - Create CLEAR WINNERS: Top 3-5 items should dominate (40-60% of total)
+   - Include meaningful spread: Winner has 2-3x more than 2nd place, 5-10x more than average
+   - Long tail: Include 15-20 smaller performers to show contrast
+   - If by category/segment: Each segment should have its own leader
+"""
+
+                    # Trend/Time-based queries
+                    elif any(word in query_lower for word in ['over time', 'trend', 'growth', 'change', 'increase', 'decrease', 'month', 'year', 'quarter']):
+                        prompt += f"""   - Create TEMPORAL PATTERNS: Data should show clear trend (growth, decline, or seasonal)
+   - Spread dates across 6-12 months with realistic monthly/weekly distribution
+   - Growth trend: Recent months should have 20-40% more activity than 6 months ago
+   - Include variation: Not perfectly linear - add realistic noise
+   - Month-over-month changes should be noticeable (not flat)
+"""
+
+                    # Segmentation queries
+                    elif any(word in query_lower for word in ['by region', 'by category', 'by type', 'by segment', 'breakdown', 'distribution']):
+                        prompt += f"""   - Create DISTINCT SEGMENTS: 4-7 segments with different characteristics
+   - Each segment should have unique pattern (e.g., Region A: high volume/low value, Region B: low volume/high value)
+   - Segments should NOT be equal - create interesting imbalances (60/25/10/5 split, not 25/25/25/25)
+   - Use realistic segment names for this industry
+"""
+
+                    # Average/Statistical queries
+                    elif any(word in query_lower for word in ['average', 'mean', 'median', 'typical']):
+                        prompt += f"""   - Create REALISTIC DISTRIBUTION: Follow normal or skewed distribution (not all same value)
+   - Include outliers: A few very high and very low values (5-10% of data)
+   - Mean should differ from median if there are outliers (shows interesting distribution)
+   - Standard deviation should be 20-40% of mean (shows natural variation)
+"""
+
+                    # Comparison between groups
+                    elif any(word in query_lower for word in ['compare', 'versus', 'vs', 'difference between', 'compared to']):
+                        prompt += f"""   - Create CLEAR CONTRAST: Groups being compared should have 30-80% difference (not 5%)
+   - Each group should have distinct characteristics (price, volume, behavior)
+   - Include enough data in EACH group (at least 20-30 items per group)
+   - Make the difference meaningful and demo-worthy
+"""
+
+                    # Problem/Issue detection queries
+                    elif any(word in query_lower for word in ['error', 'failure', 'issue', 'problem', 'alert', 'incident', 'outage']):
+                        prompt += f"""   - Create REALISTIC PROBLEM DISTRIBUTION:
+     * 2-3% critical issues (severe, needs immediate attention)
+     * 8-12% important issues (needs attention soon)
+     * 20-30% minor issues (low priority)
+     * 60-70% no issues (normal operation)
+   - Problems should CORRELATE with factors (e.g., older products more errors, peak times more incidents)
+   - Include temporal clustering: Problems cluster on certain dates/times
+"""
+
+                    # Count/Volume queries
+                    elif any(word in query_lower for word in ['how many', 'count', 'number of', 'total']):
+                        prompt += f"""   - Create MEANINGFUL COUNTS: Not random - should tell a story
+   - If counting by category: Follow power law (few categories dominate)
+   - If counting by time: Show growth or seasonal patterns
+   - Include enough entities for the count to be interesting (not just 3-5)
+"""
+
+                    # Revenue/Financial queries
+                    elif any(word in query_lower for word in ['revenue', 'sales', 'profit', 'cost', 'price', 'value', 'spend']):
+                        prompt += f"""   - Create REALISTIC FINANCIAL PATTERNS:
+     * Premium tier: High price, low volume (10-15% of items, 40-50% of revenue)
+     * Mid tier: Medium price, medium volume (50-60% of items, 35-45% of revenue)
+     * Budget tier: Low price, high volume (25-35% of items, 10-20% of revenue)
+   - Revenue should follow Pareto: Top 20% of products/customers drive 70-80% of revenue
+   - Include price variation within tiers (not all exactly $100)
+"""
+
+                    # Percentage/Ratio queries
+                    elif any(word in query_lower for word in ['percentage', 'percent', 'ratio', 'proportion', 'share']):
+                        prompt += f"""   - Create INTERESTING PROPORTIONS: Not 50/50 splits - create imbalance
+   - Use realistic industry ratios (e.g., enterprise vs SMB: 15/85, not 50/50)
+   - Percentages should reveal insights ("Wow, only 15% of customers drive 65% of revenue!")
+   - Make proportions align with business challenges mentioned in demo story
+"""
+
+                    # Customer/User behavior queries
+                    elif any(word in query_lower for word in ['customer', 'user', 'client', 'buyer', 'subscriber']):
+                        prompt += f"""   - Create DIVERSE CUSTOMER PROFILES:
+     * Company sizes: Enterprise (15%), Mid-market (30%), SMB (40%), Startup (15%)
+     * Industries: Spread across 6-8 industries (not 90% in one industry)
+     * Geography: 12-20 different cities/regions
+     * Activity levels: Very active (10%), Active (30%), Moderate (40%), Inactive (20%)
+   - Customer behavior should correlate: Enterprise customers → higher spend, longer contracts
+"""
+
+                    # Product/Item queries
+                    elif any(word in query_lower for word in ['product', 'item', 'listing', 'sku', 'catalog']):
+                        prompt += f"""   - Create VARIED PRODUCT PORTFOLIO:
+     * Price tiers: Budget (30%), Mid-range (45%), Premium (20%), Luxury (5%)
+     * Categories: Spread across 6-8 categories (not clustered in 1-2)
+     * Popularity: Bestsellers (15%), Popular (30%), Average (40%), Niche (15%)
+     * At least 50-80 truly distinct product names (no "Product 1", "Product 2")
+"""
+
+                    # Generic fallback for other queries
+                    else:
+                        prompt += f"""   - Analyze this query carefully and create data that would make it return insightful results
+   - Think about what fields are needed and what patterns would be interesting
+   - Avoid flat/uniform data - create variation and clustering
+   - Make the answer tell a compelling business story
+"""
+
+                    prompt += "\n"
+
+                prompt += """
+**🎯 SYNTHESIS - Combine All Query Requirements:**
+
+Now that you've analyzed each golden query above, you must generate data that satisfies ALL of them simultaneously.
+
+Key principles:
+- If Query #1 needs price tiers and Query #5 needs category spread, include BOTH
+- If Query #2 needs time trends and Query #4 needs geographic diversity, include BOTH
+- Create data that is "multi-dimensional" - supports multiple types of analysis
+- When in doubt, add MORE variety and MORE patterns (not less)
+
 **🎯 CRITICAL - DATA STORYTELLING REQUIREMENT:**
-Your generated data MUST support the demo narrative above:
-- Create realistic data patterns that make the golden queries return meaningful, insightful answers
-- Ensure values align with the demo scenes and talking points
-- Generate distributions that tell this specific business story (not generic patterns)
-- Include realistic variations, trends, and anomalies that support the narrative
-- Make the data "demo-worthy" - it should reveal interesting patterns when analyzed
+
+Your generated data MUST support the demo narrative above. The golden queries listed above are THE MOST IMPORTANT PART of this demo."""
+
+            else:
+                prompt += """
+
+**🎯 CRITICAL - DATA STORYTELLING REQUIREMENT:**
+
+Your generated data MUST support the demo narrative above. The golden queries listed above are THE MOST IMPORTANT PART of this demo.
+
+## 📊 CRITICAL: DASHBOARD VISUALIZATION CONTEXT
+
+**This data is for VISUALIZATION DASHBOARDS and BUSINESS ANALYTICS.**
+
+Your data will be displayed in charts, graphs, and dashboards. It must have:
+
+1. **HIGH VARIETY**: Generate DISTINCT entities - no duplicate names/titles/items
+   - Every row should be UNIQUE
+   - Create diverse examples across different segments
+   - Aim for 80-150 truly distinct entities in this batch
+
+2. **REALISTIC DISTRIBUTIONS** (for dashboard visualization):
+   - **Power Law Pattern**: 10-15% premium/very popular, 25-30% above-average, 40-45% average, 20-25% budget/niche
+   - **Geographic Variety**: If location-based, include 8-12 different regions/cities
+   - **Category Spread**: If categories exist, spread across 5-8 distinct categories
+   - **Value Range**: Include budget ($), mid-tier ($$), and premium ($$$) options
+   - **Time Patterns**: Vary dates realistically across weeks/months (not all on same day)
+
+3. **BUSINESS STORYTELLING**:
+   - Data should reveal interesting patterns when charted
+   - Create natural clusters and trends that make sense for the business
+   - Include some outliers for visual interest (but keep realistic)
+   - Make data "demo-worthy" - should show surprising insights when analyzed
 
 ## YOUR TASK: Generate Data for Table "{table_name}"
 
 **Table Schema:**
 {chr(10).join(schema_desc)}
 
-**Number of Records to Generate:** {min(row_count, 50)} realistic sample records
+**Number of Records to Generate:** {min(row_count, 200)} realistic sample records
 """
 
             # Add foreign key constraints section if any exist
@@ -621,15 +795,59 @@ Your generated data MUST support the demo narrative above:
    - Service: "Specific service offering name", not random labels
    - Description: "What's included, duration, deliverables", not vague text
 
-5. **VARIETY & DISTRIBUTION:**
-   - Include diverse but realistic values across all fields
-   - Follow realistic statistical distributions (most items in good condition, fewer in poor)
-   - Include edge cases but keep them realistic
-   - Vary values to create interesting analytics patterns
+5. **VARIETY & DISTRIBUTION FOR DASHBOARDS:**
+
+   **CRITICAL - DISTINCT ENTITIES:**
+   - Generate AT LEAST 100-150 TRULY DISTINCT entities (products/customers/items/records)
+   - NO DUPLICATES: Every name/title must be completely different
+   - NO SIMILAR VARIATIONS: Don't generate "Product A", "Product B", "Product C" - make each unique and realistic
+
+   **REALISTIC PATTERNS FOR VISUALIZATION:**
+   - Follow power law distribution: Some items very popular/expensive, long tail of niche items
+   - Geographic diversity: If location fields exist, use 10-15 different cities/regions
+   - Category diversity: Spread evenly across all major business categories (5-8 categories)
+   - Time diversity: Spread dates across weeks/months realistically (not clustered in one day)
+   - Value diversity: Include full range from low to high (e.g., $10 budget to $10,000+ premium)
+
+   **FOR VISUALIZATION QUALITY:**
+   - When this data is charted, it should show interesting, realistic patterns
+   - Bar charts should have varied heights (not all bars similar height)
+   - Pie charts should have meaningful segments (not one slice dominating everything)
+   - Time series should show realistic trends (growth patterns, seasonality if applicable)
+   - Scatter plots should show natural clustering around business segments
+
+   **SPECIFIC EXAMPLES BY TABLE TYPE:**
+
+   📦 **Products/Items Tables:**
+   - Include variety: Budget tier ($10-50), Mid-tier ($50-200), Premium ($200-500), Luxury ($500-2000+)
+   - Categories: Spread across 6-8 product categories (not 90% in one category)
+   - Popularity: 15% bestsellers (high demand), 30% popular, 40% average sellers, 15% niche/specialty
+   - Ensure at least 50-80 distinct product names (not variations like "Nike Shoe 1", "Nike Shoe 2")
+
+   👥 **Customers/Users Tables:**
+   - Company sizes: 15% Enterprise (10,000+ employees), 30% Mid-market (500-10K), 40% SMB (50-500), 15% Startups (<50)
+   - Industries: Include 6-8 different industries (Technology, Finance, Healthcare, Retail, Manufacturing, Education, etc.)
+   - Geography: Use 12-20 different cities from varied regions (US, Europe, APAC, etc.)
+   - Customer lifecycle: 20% new (0-3 months), 30% active (3-12 months), 35% established (1-3 years), 15% loyal (3+ years)
+   - Ensure at least 50-100 distinct customer/company names (realistic business names, not "Customer 1")
+
+   🛒 **Orders/Transactions Tables:**
+   - Order values: Follow Pareto distribution (20% of orders account for 80% of revenue - include high-value orders)
+   - Value ranges: 30% small ($10-100), 40% medium ($100-500), 20% large ($500-2000), 10% very large ($2000+)
+   - Frequency patterns: 10% customers order weekly, 30% monthly, 40% quarterly, 20% rarely/once
+   - Recency: Spread across last 6-12 months with growth trend (more recent orders should be slightly more common)
+   - Status distribution: 75% completed, 15% processing, 7% pending, 3% cancelled/refunded
+
+   📅 **Events/Activities/Sessions Tables:**
+   - Time clustering: Events should cluster during business hours (9am-6pm if B2B), weekdays > weekends
+   - User activity: Follow power law (10% very active users generate 60% of events, long tail of occasional users)
+   - Event types: If event types exist, realistic distribution (70% normal actions, 20% important, 8% high-priority, 2% critical)
+   - Temporal spread: Distribute events across days/weeks realistically (not 100 events all on same day)
+   - Session duration: Most sessions 2-10 minutes, some quick (<2 min), few long sessions (>30 min)
 
 ## OUTPUT FORMAT - CRITICAL:
 
-Return a MARKDOWN TABLE with ALL schema fields as columns. Generate {min(row_count, 50)} realistic rows.
+Return a MARKDOWN TABLE with ALL schema fields as columns. Generate {min(row_count, 200)} realistic rows.
 
 **Format:**
 | field1 | field2 | field3 |
