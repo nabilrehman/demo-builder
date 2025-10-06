@@ -57,6 +57,7 @@ class DemoGenerationState(TypedDict):
     # Infrastructure Agent output
     dataset_id: str
     dataset_full_name: str
+    capi_agent_id: str  # FIX: Added to schema so LangGraph persists it
     table_stats: Dict
     demo_documentation: Dict
     bigquery_provisioned: bool
@@ -86,9 +87,31 @@ class DemoOrchestrator:
         """Build the LangGraph state machine."""
         # Import config system and non-LLM agents
         from agentic_service.config.agent_config import get_agent_class
-        from agentic_service.agents.synthetic_data_generator_optimized import SyntheticDataGeneratorOptimized
+        # USING MARKDOWN VERSION - ALWAYS uses LLM (no keyword filtering, no Faker fallback)
+        from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
         from agentic_service.agents.infrastructure_agent_optimized import InfrastructureAgentOptimized
         from agentic_service.agents.demo_validator_optimized import DemoValidatorOptimized
+
+        # ====================================================================
+        # 🛡️ RUNTIME SAFEGUARD: Verify correct data generator is being used
+        # ====================================================================
+        # Check for environment variable that forces LLM-only data generation
+        FORCE_LLM = os.getenv("FORCE_LLM_DATA_GENERATION", "true").lower() == "true"
+
+        # Verify we're using the correct generator class
+        if "Optimized" in SyntheticDataGeneratorMarkdown.__name__:
+            error_msg = (
+                "❌ CRITICAL ERROR: Accidentally imported SyntheticDataGeneratorOptimized instead of Markdown version!\n"
+                "This version has keyword filtering and will use Faker for most tables.\n"
+                "Fix: Check line 91 in demo_orchestrator.py"
+            )
+            logger.error(error_msg)
+            if FORCE_LLM:
+                raise ValueError(error_msg)
+
+        logger.info(f"✅ Using correct data generator: {SyntheticDataGeneratorMarkdown.__name__}")
+        if FORCE_LLM:
+            logger.info("🔒 FORCE_LLM_DATA_GENERATION=true - Faker fallback is DISABLED")
 
         # ====================================================================
         # LLM-BASED AGENTS (model selection via config)
@@ -123,7 +146,7 @@ class DemoOrchestrator:
         # NON-LLM AGENTS (always use optimized versions)
         # ====================================================================
 
-        synthetic_data_generator = SyntheticDataGeneratorOptimized()  # Parallel generation
+        synthetic_data_generator = SyntheticDataGeneratorMarkdown()  # ALWAYS LLM, no Faker
         infrastructure_agent = InfrastructureAgentOptimized()  # Parallel loading
         demo_validator = DemoValidatorOptimized()  # Parallel validation
 
@@ -349,6 +372,14 @@ async def run_demo_orchestrator(
                         "INFO"
                     )
 
+                    # After Research Agent completes, extract and store company name
+                    if agent_index == 0 and "customer_info" in updated_state:
+                        company_name = updated_state["customer_info"].get("company_name", "Unknown Company")
+                        job = job_manager.get_job(job_id)
+                        if job:
+                            job.company_name = company_name
+                            logger.info(f"📋 Company name set: {company_name}")
+
                     logger.info(f"✅ {stage_name} complete")
                     return updated_state
 
@@ -386,9 +417,21 @@ async def run_demo_orchestrator(
 
         # Import config system and non-LLM agents
         from agentic_service.config.agent_config import get_agent_class
-        from agentic_service.agents.synthetic_data_generator_optimized import SyntheticDataGeneratorOptimized
+        # USING MARKDOWN VERSION - ALWAYS uses LLM (no keyword filtering, no Faker fallback)
+        from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
         from agentic_service.agents.infrastructure_agent_optimized import InfrastructureAgentOptimized
         from agentic_service.agents.demo_validator_optimized import DemoValidatorOptimized
+
+        # ====================================================================
+        # 🛡️ RUNTIME SAFEGUARD: Verify correct data generator is being used
+        # ====================================================================
+        FORCE_LLM = os.getenv("FORCE_LLM_DATA_GENERATION", "true").lower() == "true"
+        if "Optimized" in SyntheticDataGeneratorMarkdown.__name__:
+            error_msg = "❌ CRITICAL: Using SyntheticDataGeneratorOptimized (has keyword filtering, Faker fallback)"
+            logger.error(error_msg)
+            if FORCE_LLM:
+                raise ValueError(error_msg)
+        logger.info(f"✅ Using correct data generator: {SyntheticDataGeneratorMarkdown.__name__}")
 
         # ====================================================================
         # LLM-BASED AGENTS (model selection via config)
@@ -423,7 +466,7 @@ async def run_demo_orchestrator(
         # NON-LLM AGENTS (always use optimized versions)
         # ====================================================================
 
-        synthetic_data_generator = SyntheticDataGeneratorOptimized()
+        synthetic_data_generator = SyntheticDataGeneratorMarkdown()
         infrastructure_agent = InfrastructureAgentOptimized()
         demo_validator = DemoValidatorOptimized()
 
@@ -455,13 +498,31 @@ async def run_demo_orchestrator(
         # Compile graph
         graph = workflow.compile()
 
-        # Initialize state
+        # Initialize state with ALL TypedDict fields for proper state propagation
         initial_state = {
             "customer_url": customer_url,
             "project_id": project_id,
             "current_stage": "Initializing",
             "errors": [],
-            "crazy_frog_context": ""  # Default empty string for default mode
+            "crazy_frog_context": "",  # Default empty string for default mode
+            # Pre-initialize all state fields to ensure LangGraph state propagation
+            "customer_info": {},  # Will be populated by Research Agent
+            "business_domain": "",
+            "demo_story": {},
+            "schema": {},
+            "synthetic_data_files": [],
+            "data_generation_complete": False,
+            "dataset_id": "",
+            "dataset_full_name": "",
+            "capi_agent_id": "",
+            "table_stats": {},
+            "demo_documentation": {},
+            "bigquery_provisioned": False,
+            "capi_system_instructions": "",
+            "capi_yaml_file": "",
+            "capi_instructions_generated": False,
+            "validation_results": {},
+            "validation_complete": False
         }
 
         # Add Crazy Frog context if provided
@@ -555,7 +616,8 @@ async def run_demo_orchestrator(
             "yaml_file_path": final_state.get("capi_yaml_file", ""),
             "executive_summary": demo_story.get("executive_summary", ""),
             "business_challenges": demo_story.get("business_challenges", []),
-            "talking_track": demo_story.get("talking_track", "")
+            "talking_track": demo_story.get("talking_track", ""),
+            "validation_results": validation_results  # FIX: Include validation results for frontend
         }
 
         logger.info(f"Demo orchestrator completed successfully for job {job_id}")

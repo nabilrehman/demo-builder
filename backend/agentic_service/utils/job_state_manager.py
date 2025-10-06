@@ -51,6 +51,9 @@ class JobState:
     current_phase: str = "pending"
     overall_progress: int = 0
 
+    # Company information
+    company_name: Optional[str] = None  # Extracted from research agent
+
     # Mode: "default" or "crazy_frog"
     mode: str = "default"
     crazy_frog_context: Optional[Dict[str, Any]] = None

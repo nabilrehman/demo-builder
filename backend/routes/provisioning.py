@@ -70,6 +70,7 @@ class JobStatusResponse(BaseModel):
     """Current status of a provisioning job."""
     job_id: str
     customer_url: str
+    company_name: Optional[str] = None
     status: str
     current_phase: str
     overall_progress: int
@@ -377,6 +378,7 @@ async def get_provision_status(job_id: str):
     return JobStatusResponse(
         job_id=job.job_id,
         customer_url=job.customer_url,
+        company_name=job.company_name,
         status=job.status,
         current_phase=job.current_phase,
         overall_progress=job.overall_progress,
@@ -571,6 +573,34 @@ async def get_demo_assets(job_id: str):
                 else:
                     talking_track = tt_raw
 
+        # Enrich golden queries with CAPI validation status
+        enriched_golden_queries = []
+        if job.golden_queries:
+            validation_results = job.metadata.get("validation_results", {}) if job.metadata else {}
+            sql_results = validation_results.get("sql_results", [])  # Actually CAPI results now
+
+            for query in job.golden_queries:
+                enriched_query = query.copy()
+
+                # Find matching validation result by sequence
+                seq = query.get("sequence", 0)
+                validation = next((r for r in sql_results if r.get("sequence") == seq), None)
+
+                if validation:
+                    # We're doing CAPI-only validation now
+                    enriched_query["capi_tested"] = True
+                    enriched_query["capi_passed"] = validation.get("capi_success", False)
+                    enriched_query["capi_error"] = validation.get("capi_error")
+                    enriched_query["capi_response_preview"] = validation.get("capi_response", "")[:200]
+                    # No SQL validation anymore
+                    enriched_query["sql_tested"] = False
+                    enriched_query["sql_passed"] = False
+                else:
+                    enriched_query["capi_tested"] = False
+                    enriched_query["sql_tested"] = False
+
+                enriched_golden_queries.append(enriched_query)
+
         logger.info(f"Returning demo assets response")
         return DemoAssetsResponse(
             job_id=job.job_id,
@@ -580,7 +610,7 @@ async def get_demo_assets(job_id: str):
             executive_summary=executive_summary,
             business_challenges=business_challenges,
             talking_track=talking_track,
-            golden_queries=job.golden_queries,
+            golden_queries=enriched_golden_queries if enriched_golden_queries else job.golden_queries,
             schema=job.schema,
             metadata=job.metadata,
             provision_url=job.customer_url,
