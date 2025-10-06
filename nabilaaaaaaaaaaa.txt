@@ -1,0 +1,196 @@
+======================================================================
+BIGQUERY DATA LOADING FAILURE - ROOT CAUSE ANALYSIS
+======================================================================
+Date: 2025-10-06
+Dataset: bq-demos-469816.offerup_capi_demo_20251006
+Issue: Golden queries returning NO RESULTS
+
+======================================================================
+PROBLEM SUMMARY
+======================================================================
+
+Three critical tables have ZERO rows despite CSV files being generated:
+  ❌ users: 0 rows (CSV: 656K with data!)
+  ❌ transactions: 0 rows (CSV: 774K with data!)
+  ❌ search_queries: 0 rows (CSV: 690K with data!)
+
+Other tables loaded successfully:
+  ✅ listing_views: 15,000 rows
+  ✅ messages: 3,500 rows
+  ✅ user_sessions: 3,500 rows
+  ✅ listings: 3,500 rows
+  ✅ categories: 800 rows
+
+======================================================================
+ROOT CAUSE: MALFORMED TIMESTAMPS IN LLM-GENERATED DATA
+======================================================================
+
+The LLM (Gemini via synthetic_data_generator_markdown.py) is generating
+timestamps with INCORRECT formatting that BigQuery rejects:
+
+  ❌ WRONG:   '2024-05-21 T11:20:05 UTC'  (space before T)
+  ✅ CORRECT: '2024-05-21T11:20:05 UTC'   (no space)
+
+BigQuery Error Message:
+-----------------------
+Error while reading data, error message: Could not parse
+'2024-05-21 T11:20:05 UTC' as a timestamp. Required format is YYYY-
+MM-DD HH:MM[:SS[.SSSSSS]] or YYYY/MM/DD HH:MM[:SS[.SSSSSS]];
+line_number: 4 byte_offset_to_start_of_line: 876 column_index: 24
+column_name: "updated_at" column_type: TIMESTAMP
+
+CSV table encountered too many errors, giving up. Rows: 888; errors: 100
+
+======================================================================
+EVIDENCE
+======================================================================
+
+Manual BigQuery Load Test:
+--------------------------
+$ bq load --source_format=CSV --skip_leading_rows=1 --replace \
+  bq-demos-469816:offerup_capi_demo_20251006.users \
+  /tmp/synthetic_data/users.csv
+
+Result: FAILED with 100+ timestamp parsing errors
+
+Sample Malformed Data (users.csv line 4):
+-----------------------------------------
+user_id,user_name,email,phone_number,city,state,zip_code,...,created_at,updated_at
+usr_b5a2c1f0,SeattleHomeGoods,...,2018-11-05 09:12:43 UTC,2024-05-21 T11:20:05 UTC
+                                                           ^^^ SPACE BEFORE T
+
+Row Count Analysis:
+------------------
+$ bq query "SELECT table_name, COUNT(*) FROM ..."
+
++----------------+-----------+
+|   table_name   | row_count |
++----------------+-----------+
+| listing_views  |     15000 |  ✅ LOADED
+| messages       |      3500 |  ✅ LOADED
+| user_sessions  |      3500 |  ✅ LOADED
+| listings       |      3500 |  ✅ LOADED
+| categories     |       800 |  ✅ LOADED
+| search_queries |         0 |  ❌ LOAD FAILED
+| users          |         0 |  ❌ LOAD FAILED
+| transactions   |         0 |  ❌ LOAD FAILED
++----------------+-----------+
+
+======================================================================
+WHY GOLDEN QUERIES FAIL
+======================================================================
+
+All 4 golden queries require data from the EMPTY tables:
+
+1. "What's our gross merchandise volume by category this month?"
+   SQL: SELECT ... FROM transactions JOIN listings JOIN categories
+   Result: EMPTY (transactions has 0 rows)
+
+2. "Show me the average time to sell by category..."
+   SQL: SELECT ... FROM transactions JOIN listings JOIN categories
+   Result: EMPTY (transactions has 0 rows)
+
+3. "Compare sell-through rates for listings..."
+   SQL: SELECT ... FROM listings
+   Result: Returns 0.0 for both groups (no valid data)
+
+4. "Rank our top sellers by GMV this year..."
+   SQL: SELECT ... FROM transactions JOIN users
+   Result: EMPTY (both transactions and users have 0 rows)
+
+======================================================================
+SOURCE OF THE BUG
+======================================================================
+
+File: backend/agentic_service/demo_orchestrator.py
+Lines: 90-91
+
+Current Configuration:
+```python
+# USING MARKDOWN VERSION with foreign key fixes
+from agentic_service.agents.synthetic_data_generator_markdown import \
+    SyntheticDataGeneratorMarkdown as SyntheticDataGeneratorOptimized
+```
+
+The markdown version uses a different JSON extraction method that
+produces malformed timestamps.
+
+======================================================================
+ADDITIONAL ISSUE: DATE RANGES DON'T MATCH QUERIES
+======================================================================
+
+Even if timestamps were correct, there's a second problem:
+
+The synthetic data contains dates from 2023-2024:
+  - transaction_date: 2023-09-28, 2023-10-12, 2023-10-14, 2023-10-15
+  - account_created_date: 2018-11-05, 2019-03-12, 2020-01-20, 2021-06-15
+
+But the golden queries search for CURRENT YEAR (2025) data:
+  - Query 1: WHERE DATE_TRUNC(t1.transaction_date, MONTH) = DATE '2025-10-01'
+  - Query 4: WHERE EXTRACT(YEAR FROM transactions.transaction_date) = 2025
+
+This means even after fixing timestamp formatting, queries will still
+return EMPTY results because data is from 2023-2024, not 2025.
+
+======================================================================
+RECOMMENDED FIXES
+======================================================================
+
+Fix #1: Use Correct Data Generator
+----------------------------------
+Switch back to the optimized version:
+
+File: backend/agentic_service/demo_orchestrator.py
+Change from:
+  from agentic_service.agents.synthetic_data_generator_markdown import \
+      SyntheticDataGeneratorMarkdown as SyntheticDataGeneratorOptimized
+
+Change to:
+  from agentic_service.agents.synthetic_data_generator_optimized import \
+      SyntheticDataGeneratorOptimized
+
+Fix #2: Update LLM Prompt for Current Dates
+--------------------------------------------
+File: backend/agentic_service/agents/synthetic_data_generator_optimized.py
+Line: ~437 (in prompt)
+
+Add instruction to use CURRENT/RECENT dates:
+```
+## CRITICAL DATE REQUIREMENTS:
+- Use CURRENT YEAR (2025) for all date fields
+- transaction_date: Must be within the last 12 months from today
+- created_at: Should range from 2020-2025
+- updated_at: Should be recent (last 6 months)
+- Generate realistic temporal distributions that match CURRENT queries
+```
+
+Fix #3: Add BigQuery Load Error Detection
+------------------------------------------
+File: backend/agentic_service/agents/infrastructure_agent_optimized.py
+Line: ~506 (after load_job.result())
+
+Add error checking:
+```python
+load_job.result()  # Wait for job
+
+# FIX: Check if load actually succeeded
+if load_job.errors:
+    error_msg = f"BigQuery load failed for {table_name}: {load_job.errors}"
+    logger.error(error_msg)
+    raise ValueError(error_msg)
+```
+
+======================================================================
+IMMEDIATE ACTION REQUIRED
+======================================================================
+
+1. ✅ Switch from markdown to optimized synthetic data generator
+2. ⏳ Add date range validation to LLM prompt
+3. ⏳ Add BigQuery load error detection
+4. ⏳ Re-run OfferUp demo generation with fixes
+5. ⏳ Verify tables load correctly with: bq query "SELECT COUNT(*) FROM ..."
+6. ⏳ Test golden queries return meaningful results
+
+======================================================================
+END OF REPORT
+======================================================================
