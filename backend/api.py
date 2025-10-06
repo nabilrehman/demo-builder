@@ -49,6 +49,16 @@ else:
 # --- FastAPI App ---
 app = FastAPI()
 
+# --- Firebase Initialization ---
+# Initialize Firebase Admin SDK on app startup
+from middleware.auth import initialize_firebase
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize Firebase on app startup."""
+    initialize_firebase()
+    logging.info("🔥 Firebase initialization complete")
+
 # --- CORS Middleware ---
 app.add_middleware(
     CORSMiddleware,

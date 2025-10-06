@@ -4,7 +4,7 @@ Provisioning API Endpoints
 Provides REST API for CE Dashboard to manage demo provisioning jobs.
 """
 
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, HttpUrl, Field
 from typing import Optional, List, Dict, Any, AsyncGenerator
@@ -18,6 +18,12 @@ from datetime import datetime
 from agentic_service.utils.job_state_manager import get_job_manager, JobState
 from agentic_service.models.crazy_frog_request import CrazyFrogProvisioningRequest
 from agentic_service.demo_orchestrator import run_demo_orchestrator
+
+# Firebase auth middleware
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from middleware.auth import optional_google_user
+from services.firestore_service import firestore_service
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/provision", tags=["provisioning"])
@@ -115,12 +121,14 @@ async def run_provisioning_workflow(
     customer_url: str,
     project_id: str,
     mode: str = "default",
-    crazy_frog_context: Optional[Dict] = None
+    crazy_frog_context: Optional[Dict] = None,
+    user_id: Optional[str] = None
 ):
     """
     Background task to run the provisioning workflow.
 
     This function runs the 7-agent orchestrator and updates job state.
+    If user_id is provided, also saves to Firestore for persistence.
     """
     try:
         logger.info(f"Starting provisioning workflow for job {job_id}")
@@ -132,6 +140,16 @@ async def run_provisioning_workflow(
             "system",
             f"Starting {mode} mode provisioning for {customer_url}"
         )
+
+        # Save initial job state to Firestore if user is authenticated
+        if user_id:
+            await firestore_service.save_job(user_id, job_id, {
+                "customer_url": customer_url,
+                "project_id": project_id,
+                "mode": mode,
+                "status": "running",
+                "created_at": datetime.utcnow().isoformat()
+            })
 
         # Run the orchestrator
         result = await run_demo_orchestrator(
@@ -177,6 +195,10 @@ async def run_provisioning_workflow(
                 "INFO"
             )
 
+            # Save completed job to Firestore if user is authenticated
+            if user_id:
+                await firestore_service.update_job_status(user_id, job_id, "completed", metadata)
+
         else:
             # Failed
             error_msg = result.get("error", "Unknown error occurred")
@@ -189,6 +211,10 @@ async def run_provisioning_workflow(
                 "ERROR"
             )
 
+            # Save failed job to Firestore if user is authenticated
+            if user_id:
+                await firestore_service.update_job_status(user_id, job_id, "failed", {"error": error_msg})
+
     except Exception as e:
         logger.error(f"Provisioning workflow error for job {job_id}: {str(e)}", exc_info=True)
         job_manager.add_error(job_id, str(e))
@@ -199,6 +225,10 @@ async def run_provisioning_workflow(
             f"Fatal error: {str(e)}",
             "ERROR"
         )
+
+        # Save fatal error to Firestore if user is authenticated
+        if user_id:
+            await firestore_service.update_job_status(user_id, job_id, "failed", {"error": str(e)})
 
 
 def calculate_total_time(job: JobState) -> Optional[str]:
@@ -222,16 +252,25 @@ def calculate_total_time(job: JobState) -> Optional[str]:
 
 @router.post("/start", response_model=ProvisionResponse)
 async def start_default_provision(
-    request: StartProvisionRequest
+    request: StartProvisionRequest,
+    user: Optional[dict] = Depends(optional_google_user)
 ):
     """
     Start a new provisioning job in DEFAULT mode.
 
     Only requires customer URL. Fully autonomous provisioning.
+
+    Optional authentication: If user is signed in with @google.com,
+    job will be saved to Firestore for persistence.
     """
     job_id = str(uuid.uuid4())
     customer_url = str(request.customer_url)
     project_id = request.project_id or os.getenv("DEVSHELL_PROJECT_ID") or "bq-demos-469816"
+
+    # Extract user ID if authenticated
+    user_id = user['uid'] if user else None
+    if user:
+        logger.info(f"Authenticated request from {user['email']} (uid: {user_id})")
 
     # Create job in state manager
     job_manager.create_job(
@@ -246,7 +285,8 @@ async def start_default_provision(
         customer_url=customer_url,
         project_id=project_id,
         mode="default",
-        crazy_frog_context=None
+        crazy_frog_context=None,
+        user_id=user_id
     ))
 
     # Done callback to log exceptions
@@ -275,16 +315,25 @@ async def start_default_provision(
 
 @router.post("/crazy-frog", response_model=ProvisionResponse)
 async def start_crazy_frog_provision(
-    request: CrazyFrogProvisioningRequest
+    request: CrazyFrogProvisioningRequest,
+    user: Optional[dict] = Depends(optional_google_user)
 ):
     """
     Start a new provisioning job in CRAZY FROG mode.
 
     Accepts detailed context for customized demo generation.
+
+    Optional authentication: If user is signed in with @google.com,
+    job will be saved to Firestore for persistence.
     """
     job_id = str(uuid.uuid4())
     customer_url = str(request.customer_url)
     project_id = request.project_id or os.getenv("DEVSHELL_PROJECT_ID") or "bq-demos-469816"
+
+    # Extract user ID if authenticated
+    user_id = user['uid'] if user else None
+    if user:
+        logger.info(f"Authenticated Crazy Frog request from {user['email']} (uid: {user_id})")
 
     # Extract crazy frog context
     crazy_frog_context = {
@@ -311,7 +360,8 @@ async def start_crazy_frog_provision(
         customer_url=customer_url,
         project_id=project_id,
         mode="crazy_frog",
-        crazy_frog_context=crazy_frog_context
+        crazy_frog_context=crazy_frog_context,
+        user_id=user_id
     ))
 
     # Done callback to log exceptions
