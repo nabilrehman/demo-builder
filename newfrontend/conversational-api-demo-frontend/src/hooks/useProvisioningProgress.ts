@@ -267,6 +267,7 @@ export const useProvisioningProgress = ({
 
     return {
       ...prev,
+      customerUrl: data.customer_url || prev.customerUrl, // FIX: Extract customer_url from backend
       stages: newStages,
       currentStage,
       currentMessage: data.current_phase || prev.currentMessage,
