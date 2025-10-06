@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, ChevronUp, Search, Copy, Sparkles, TrendingUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search, Copy, Sparkles, TrendingUp, CheckCircle2, XCircle, HelpCircle } from 'lucide-react';
 import { GoldenQuery } from '@/hooks/useDemoAssets';
 import { toast } from 'sonner';
 
@@ -59,6 +59,60 @@ export const GoldenQueriesDisplay = ({ queries }: GoldenQueriesDisplayProps) => 
   const copySQL = async (sql: string) => {
     await navigator.clipboard.writeText(sql);
     toast.success('SQL copied to clipboard');
+  };
+
+  const getValidationBadge = (query: GoldenQuery) => {
+    const badges = [];
+
+    // SQL validation badge
+    if (query.sql_tested) {
+      if (query.sql_passed) {
+        badges.push(
+          <Badge key="sql" variant="outline" className="bg-green-100 text-green-800 border-green-300">
+            <CheckCircle2 className="h-3 w-3 mr-1" />
+            SQL Validated
+          </Badge>
+        );
+      } else {
+        badges.push(
+          <Badge key="sql" variant="outline" className="bg-red-100 text-red-800 border-red-300">
+            <XCircle className="h-3 w-3 mr-1" />
+            SQL Failed
+          </Badge>
+        );
+      }
+    }
+
+    // CAPI validation badge
+    if (query.capi_tested) {
+      if (query.capi_passed) {
+        badges.push(
+          <Badge key="capi" variant="outline" className="bg-blue-100 text-blue-800 border-blue-300">
+            <CheckCircle2 className="h-3 w-3 mr-1" />
+            CAPI Tested
+          </Badge>
+        );
+      } else {
+        badges.push(
+          <Badge key="capi" variant="outline" className="bg-orange-100 text-orange-800 border-orange-300">
+            <XCircle className="h-3 w-3 mr-1" />
+            CAPI Failed
+          </Badge>
+        );
+      }
+    }
+
+    // Not tested badge
+    if (!query.sql_tested && !query.capi_tested) {
+      badges.push(
+        <Badge key="not-tested" variant="outline" className="bg-gray-100 text-gray-600 border-gray-300">
+          <HelpCircle className="h-3 w-3 mr-1" />
+          Not Tested
+        </Badge>
+      );
+    }
+
+    return badges;
   };
 
   const complexityCounts = queries.reduce((acc, q) => {
@@ -147,13 +201,14 @@ export const GoldenQueriesDisplay = ({ queries }: GoldenQueriesDisplayProps) => 
                 <CardHeader>
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <Badge variant="outline" className="font-mono">
                           #{query.sequence}
                         </Badge>
                         <Badge className={`${COMPLEXITY_COLORS[query.complexity]} border`}>
                           {query.complexity}
                         </Badge>
+                        {getValidationBadge(query)}
                       </div>
                       <CardTitle className="text-lg leading-tight mb-2">
                         {query.question}

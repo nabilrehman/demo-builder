@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useProvisioningProgress } from '@/hooks/useProvisioningProgress';
 import { StageIndicator } from '@/components/StageIndicator';
 import { LiveLogViewer } from '@/components/LiveLogViewer';
+import { LoadingState } from '@/components/LoadingState';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -131,19 +132,23 @@ const ProvisionProgress = () => {
                 !state.isFailed && !state.isComplete && 'border-blue-500 bg-blue-500/10'
               )}
             >
-              <div className="flex items-start gap-3">
-                <Sparkles
-                  className={cn(
-                    'w-5 h-5 mt-0.5',
-                    state.isFailed && 'text-red-500',
-                    state.isComplete && 'text-green-500',
-                    !state.isFailed && !state.isComplete && 'text-blue-500 animate-pulse'
-                  )}
-                />
-                <div className="flex-1">
-                  <div className="font-medium text-sm whitespace-pre-line">{currentMessage}</div>
+              {/* Use witty LoadingState when running, otherwise show stage-specific message */}
+              {!state.isFailed && !state.isComplete ? (
+                <LoadingState />
+              ) : (
+                <div className="flex items-start gap-3">
+                  <Sparkles
+                    className={cn(
+                      'w-5 h-5 mt-0.5',
+                      state.isFailed && 'text-red-500',
+                      state.isComplete && 'text-green-500'
+                    )}
+                  />
+                  <div className="flex-1">
+                    <div className="font-medium text-sm whitespace-pre-line">{currentMessage}</div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </CardContent>
         </Card>

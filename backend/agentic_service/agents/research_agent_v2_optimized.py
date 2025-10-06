@@ -118,6 +118,15 @@ class CustomerResearchAgentV2Optimized:
 
                 # Phase 1: Multi-source data gathering (PARALLEL with shared session)
                 logger.info("📊 Phase 1: Gathering intelligence from multiple sources (PARALLEL)...")
+                # Log to job manager
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "research agent",
+                        "📊 Phase 1: Crawling website and gathering intelligence...",
+                        "INFO"
+                    )
+
                 phase1_start = time.time()
 
                 intelligence_data = await self._gather_intelligence_parallel(url, state, session)
@@ -125,8 +134,25 @@ class CustomerResearchAgentV2Optimized:
                 phase1_time = time.time() - phase1_start
                 logger.info(f"✅ Phase 1 complete in {phase1_time:.2f}s")
 
+                # Log Phase 1 completion
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "research agent",
+                        f"✅ Phase 1 complete in {phase1_time:.2f}s - Data gathered",
+                        "INFO"
+                    )
+
                 # Phase 2: AI-powered business analysis
                 logger.info("🤖 Phase 2: Analyzing business model with Claude...")
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "research agent",
+                        "🤖 Phase 2: Analyzing business model with Claude...",
+                        "INFO"
+                    )
+
                 phase2_start = time.time()
 
                 business_analysis = await self._analyze_business(intelligence_data, state)
@@ -134,8 +160,25 @@ class CustomerResearchAgentV2Optimized:
                 phase2_time = time.time() - phase2_start
                 logger.info(f"✅ Phase 2 complete in {phase2_time:.2f}s")
 
+                # Log Phase 2 completion
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "research agent",
+                        f"✅ Phase 2 complete in {phase2_time:.2f}s - Business model analyzed",
+                        "INFO"
+                    )
+
                 # Phase 3: Data architecture inference
                 logger.info("🏗️ Phase 3: Inferring data architecture...")
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "research agent",
+                        "🏗️ Phase 3: Inferring data architecture...",
+                        "INFO"
+                    )
+
                 phase3_start = time.time()
 
                 architecture = await self._infer_architecture(

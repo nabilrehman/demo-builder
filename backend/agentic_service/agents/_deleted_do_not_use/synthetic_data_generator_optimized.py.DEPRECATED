@@ -1,0 +1,1005 @@
+"""
+⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔
+⛔                                                                    ⛔
+⛔  ❌ DO NOT USE THIS FILE - IT IS BROKEN ❌                         ⛔
+⛔                                                                    ⛔
+⛔  This version has KEYWORD FILTERING that prevents LLM generation  ⛔
+⛔  for most tables (users, listings, transactions, messages, etc.)  ⛔
+⛔                                                                    ⛔
+⛔  ✅ USE: synthetic_data_generator_markdown.py instead             ⛔
+⛔     - ALWAYS uses LLM for ALL tables                              ⛔
+⛔     - No keyword filtering                                        ⛔
+⛔     - No Faker fallback                                           ⛔
+⛔                                                                    ⛔
+⛔  This file has been moved to _deleted_do_not_use/ folder          ⛔
+⛔  Date deprecated: 2025-10-06                                      ⛔
+⛔                                                                    ⛔
+⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔
+
+DEPRECATED - Synthetic Data Generator - OPTIMIZED VERSION WITH LLM.
+
+PROBLEMS WITH THIS VERSION:
+- Line 275-281: Keyword filtering only uses LLM for specific table names
+- Missing keywords: 'user', 'listing', 'transaction', 'message', 'search'
+- Falls back to Faker for 70% of tables
+- Generates unrealistic data
+
+DO NOT USE - Use synthetic_data_generator_markdown.py instead
+"""
+import logging
+import os
+import random
+import asyncio
+import json
+from datetime import datetime, timedelta
+from typing import Dict, List, Set, Tuple, Optional
+import pandas as pd
+from faker import Faker
+import google.generativeai as genai
+
+logger = logging.getLogger(__name__)
+
+# Initialize Faker
+fake = Faker()
+Faker.seed(42)  # Reproducible data
+random.seed(42)
+
+
+class SyntheticDataGeneratorOptimized:
+    """OPTIMIZED: Generates realistic synthetic data with LLM-based domain awareness."""
+
+    def __init__(self):
+        self.output_dir = "/tmp/synthetic_data"
+        os.makedirs(self.output_dir, exist_ok=True)
+
+        # Configure Gemini for data generation (Vertex AI)
+        import vertexai
+        from vertexai.generative_models import GenerativeModel
+
+        project_id = os.environ.get("DEVSHELL_PROJECT_ID", "bq-demos-469816")
+        vertexai.init(project=project_id, location="us-central1")
+
+        self.llm_model = GenerativeModel("gemini-2.0-flash-exp")
+        self.generation_config = {
+            "temperature": 0.7,
+        }
+
+        logger.info(f"Synthetic Data Generator OPTIMIZED initialized with LLM. Output: {self.output_dir}")
+
+    async def execute(self, state: Dict) -> Dict:
+        """Execute synthetic data generation phase with parallel processing."""
+        import time
+
+        # 🔍 CRITICAL DEBUG: Log what state we receive
+        logger.info("🚀 Generating synthetic data with PARALLEL processing")
+        logger.info(f"🔍 DEBUG: State keys received: {list(state.keys())}")
+        customer_info = state.get("customer_info", {})
+        logger.info(f"🔍 DEBUG: customer_info type: {type(customer_info)}, len: {len(customer_info) if isinstance(customer_info, dict) else 'N/A'}")
+        if customer_info:
+            logger.info(f"🔍 DEBUG: customer_info keys: {list(customer_info.keys()) if isinstance(customer_info, dict) else 'not a dict'}")
+            logger.info(f"🔍 DEBUG: Company name: {customer_info.get('company_name', 'MISSING')}")
+        else:
+            logger.error(f"❌ CRITICAL: customer_info is EMPTY or falsy! Value: {customer_info}")
+
+        # ⚠️ CRITICAL: FAIL THE PIPELINE if customer_info is missing
+        # User requirement: "if synthetic data doesn't work, quit at that part and shouldn't continue"
+        if not customer_info or not isinstance(customer_info, dict) or len(customer_info) == 0:
+            error_msg = (
+                "❌ CRITICAL FAILURE: customer_info is missing or empty! "
+                "Cannot generate realistic synthetic data without company context. "
+                "Pipeline aborted to prevent garbage data generation."
+            )
+            logger.error(error_msg)
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "synthetic data generator optimized",
+                    error_msg,
+                    "ERROR"
+                )
+            raise ValueError(error_msg)
+
+        # Log to job manager at START
+        if "job_manager" in state and "job_id" in state:
+            state["job_manager"].add_log(
+                state["job_id"],
+                "synthetic data generator optimized",
+                f"🔍 customer_info check: {bool(customer_info)} (len={len(customer_info) if isinstance(customer_info, dict) else 0})",
+                "WARNING" if not customer_info else "INFO"
+            )
+            state["job_manager"].add_log(
+                state["job_id"],
+                "synthetic data generator optimized",
+                "🚀 Starting LLM-based synthetic data generation...",
+                "INFO"
+            )
+
+        start_time = time.time()
+
+        try:
+            schema = state.get("schema", {})
+            demo_story = state.get("demo_story", {})
+
+            if not schema:
+                raise ValueError("No schema found in state. Run Data Modeling Agent first.")
+
+            # Generate data for all tables IN PARALLEL
+            generated_files = await self._generate_all_tables_parallel(schema, demo_story, state)
+
+            elapsed = time.time() - start_time
+
+            # Update state
+            state["synthetic_data_files"] = generated_files
+            state["data_generation_complete"] = True
+
+            logger.info(f"✅ Data generation complete in {elapsed:.2f}s. {len(generated_files)} CSV files created")
+
+            # Log to CE Dashboard - summary
+            if "job_manager" in state and "job_id" in state:
+                job_manager = state["job_manager"]
+                job_id = state["job_id"]
+
+                total_rows = sum(f.get("row_count", 0) for f in state.get("table_file_metadata", []))
+                job_manager.add_log(
+                    job_id,
+                    "synthetic data generator optimized",
+                    f"✅ Data Generation Complete (OPTIMIZED): {total_rows:,} rows across {len(generated_files)} tables in {elapsed:.2f}s",
+                    "INFO"
+                )
+
+            return state
+
+        except Exception as e:
+            logger.error(f"Data generation failed: {e}", exc_info=True)
+            raise
+
+    async def _generate_all_tables_parallel(
+        self,
+        schema: Dict,
+        demo_story: Dict,
+        state: Dict
+    ) -> List[str]:
+        """
+        OPTIMIZED: Generate data for all tables with parallel processing.
+
+        Strategy:
+        1. Group tables by dependency level
+        2. Generate each level in parallel
+        3. Maintain foreign key integrity
+        """
+        tables = schema.get("tables", [])
+        generated_files = []
+        table_file_metadata = []
+
+        # Optimal row counts by table type
+        volume_strategy = {
+            "dimension_small": 50,      # channels, categories, stores
+            "dimension_medium": 800,    # products, inventory
+            "entity_medium": 3000,      # customers
+            "entity_large": 3500,       # customer_addresses
+            "transaction_medium": 15000, # orders
+            "transaction_large": 40000   # order_items
+        }
+
+        # Track generated IDs for foreign keys
+        id_mappings = {}
+
+        # Group tables by dependency level for parallel processing
+        dependency_levels = self._group_by_dependency(tables)
+
+        # Log start to CE Dashboard
+        if "job_manager" in state and "job_id" in state:
+            job_manager = state["job_manager"]
+            job_id = state["job_id"]
+            job_manager.add_log(
+                job_id,
+                "synthetic data generator optimized",
+                f"🔄 Generating synthetic data for {len(tables)} tables in {len(dependency_levels)} parallel batches...",
+                "INFO"
+            )
+
+        # Process each dependency level in parallel
+        for level_idx, table_batch in enumerate(dependency_levels):
+            logger.info(f"⚡ Processing level {level_idx + 1}/{len(dependency_levels)}: {len(table_batch)} tables in PARALLEL")
+
+            # Generate all tables in this level concurrently
+            tasks = []
+            for table in table_batch:
+                tasks.append(
+                    self._generate_single_table(
+                        table,
+                        volume_strategy,
+                        id_mappings,
+                        demo_story,
+                        state
+                    )
+                )
+
+            # Execute in parallel
+            results = await asyncio.gather(*tasks)
+
+            # Process results
+            for table, df, filename in results:
+                table_name = table["name"]
+                generated_files.append(filename)
+
+                # Store metadata
+                table_file_metadata.append({
+                    "table_name": table_name,
+                    "row_count": len(df),
+                    "filename": filename
+                })
+
+                # Store IDs for foreign key relationships
+                if "id" in df.columns or f"{table_name}_id" in df.columns:
+                    id_col = "id" if "id" in df.columns else f"{table_name}_id"
+                    id_mappings[table_name] = df[id_col].tolist()
+
+                logger.info(f"  ✓ {table_name}: {len(df):,} rows → {filename}")
+
+                # Log each table to CE Dashboard
+                if "job_manager" in state and "job_id" in state:
+                    job_manager = state["job_manager"]
+                    job_id = state["job_id"]
+                    job_manager.add_log(
+                        job_id,
+                        "synthetic data generator optimized",
+                        f"  ✅ {table_name}: {len(df):,} rows generated",
+                        "INFO"
+                    )
+
+        # Store metadata in state for summary logging
+        state["table_file_metadata"] = table_file_metadata
+
+        return generated_files
+
+    async def _generate_single_table(
+        self,
+        table: Dict,
+        volume_strategy: Dict,
+        id_mappings: Dict,
+        demo_story: Dict,
+        state: Dict
+    ) -> Tuple[Dict, pd.DataFrame, str]:
+        """
+        Generate data for a single table (runs in parallel).
+        Tries LLM-based generation first, falls back to Faker.
+
+        Returns:
+            Tuple of (table, dataframe, filename)
+        """
+        table_name = table["name"]
+
+        # Determine row count
+        row_count = self._determine_row_count(table, volume_strategy)
+
+        # Try LLM generation first (for dimension/master data tables)
+        df = None
+        customer_info = state.get("customer_info", {})
+
+        # DEBUGGING: Log what we received
+        has_customer_info = bool(customer_info and len(customer_info) > 0)
+        logger.info(f"📊 Table '{table_name}': customer_info available = {has_customer_info}")
+        if has_customer_info:
+            logger.info(f"   - Company: {customer_info.get('company_name', 'N/A')}")
+        else:
+            logger.warning(f"   - ⚠️ customer_info is EMPTY - will fallback to Faker!")
+
+        # Use LLM for key tables (products, customers, categories, etc.)
+        use_llm = any(keyword in table_name.lower() for keyword in [
+            'product', 'customer', 'category', 'merchant', 'subscription',
+            'plan', 'service', 'feature', 'region', 'channel', 'segment',
+            # FIX: Added missing keywords for common table types
+            'user', 'listing', 'transaction', 'message', 'search', 'metric',
+            'event', 'payment', 'order', 'review', 'rating', 'comment'
+        ])
+
+        if use_llm and customer_info:
+            logger.info(f"🤖 Attempting LLM generation for {table_name}")
+            # Log to job manager
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "synthetic data generator optimized",
+                    f"🤖 Using LLM to generate realistic data for table: {table_name}",
+                    "INFO"
+                )
+            df = await self._generate_table_data_with_llm(
+                table, row_count, customer_info, demo_story, id_mappings, state
+            )
+
+        # Fallback to Faker if LLM failed or wasn't attempted
+        if df is None:
+            logger.info(f"📊 Using Faker generation for {table_name}")
+            # Log to job manager
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "synthetic data generator optimized",
+                    f"⚠️ LLM generation failed for {table_name} - using Faker fallback",
+                    "WARNING"
+                )
+            df = self._generate_table_data(table, row_count, id_mappings, demo_story)
+
+        # Save to CSV (async I/O)
+        filename = f"{self.output_dir}/{table_name}.csv"
+
+        # Use asyncio.to_thread for non-blocking CSV write
+        await asyncio.to_thread(df.to_csv, filename, index=False)
+
+        return (table, df, filename)
+
+    def _group_by_dependency(self, tables: List[Dict]) -> List[List[Dict]]:
+        """
+        Group tables into dependency levels for parallel processing.
+
+        Level 0: Tables with no dependencies (can generate first)
+        Level 1: Tables that depend on level 0
+        Level 2: Tables that depend on level 1, etc.
+
+        Returns:
+            List of table batches, where each batch can be generated in parallel
+        """
+        # Build dependency graph
+        table_deps = {}
+        for table in tables:
+            table_name = table["name"]
+            deps = set()
+
+            # Check for foreign key dependencies
+            for field in table.get("schema", []):
+                field_name = field["name"]
+                # Foreign keys end with _id (except primary key 'id')
+                if field_name.endswith('_id') and field_name != 'id':
+                    # Extract referenced table (simple heuristic)
+                    ref_table = field_name.replace('_id', '')
+                    # Try both singular and plural forms
+                    if any(t["name"] == ref_table for t in tables):
+                        deps.add(ref_table)
+                    elif any(t["name"] == ref_table + 's' for t in tables):
+                        deps.add(ref_table + 's')
+
+            table_deps[table_name] = deps
+
+        # Group into levels
+        levels = []
+        remaining = {t["name"]: t for t in tables}
+        generated = set()
+
+        while remaining:
+            # Find tables with all dependencies satisfied
+            current_level = []
+            for table_name, table in list(remaining.items()):
+                deps = table_deps[table_name]
+                if deps.issubset(generated):
+                    current_level.append(table)
+                    del remaining[table_name]
+                    generated.add(table_name)
+
+            if not current_level:
+                # Circular dependency or unresolved - add all remaining
+                logger.warning(f"Circular dependency detected. Adding {len(remaining)} tables to final batch")
+                current_level = list(remaining.values())
+                remaining.clear()
+
+            levels.append(current_level)
+
+        logger.info(f"📊 Dependency analysis: {len(levels)} levels for parallel processing")
+        for i, level in enumerate(levels):
+            logger.info(f"   Level {i}: {len(level)} tables ({', '.join([t['name'] for t in level])})")
+
+        return levels
+
+    def _determine_row_count(self, table: Dict, strategy: Dict) -> int:
+        """Determine optimal row count for table."""
+        table_name = table["name"]
+        suggested_count = table.get("record_count", 1000)
+
+        # Apply smart volume strategy
+        if suggested_count < 100:
+            return strategy["dimension_small"]
+        elif suggested_count < 1000:
+            return strategy["dimension_medium"]
+        elif suggested_count < 10000:
+            return strategy["entity_medium"]
+        elif suggested_count < 50000:
+            return strategy["entity_large"]
+        elif suggested_count < 100000:
+            return strategy["transaction_medium"]
+        else:
+            return strategy["transaction_large"]
+
+    async def _generate_table_data_with_llm(
+        self,
+        table: Dict,
+        row_count: int,
+        customer_info: Dict,
+        demo_story: Dict,
+        id_mappings: Dict,
+        state: Dict
+    ) -> Optional[pd.DataFrame]:
+        """
+        Generate realistic table data using LLM based on company context.
+
+        Returns None if LLM generation fails (fallback to Faker).
+        """
+        table_name = table["name"]
+        schema_fields = table.get("schema", [])
+
+        try:
+            # Build schema description
+            schema_desc = []
+            for field in schema_fields:
+                schema_desc.append(f"- {field['name']} ({field['type']})")
+
+            # Extract comprehensive context from research and demo story
+            company_name = customer_info.get("company_name", "Unknown Company")
+            industry = customer_info.get("industry", "Unknown")
+            products = customer_info.get("products", [])
+            business_model = customer_info.get("business_model", "")
+            business_description = customer_info.get("business_description", "")
+            target_customers = customer_info.get("target_customers", [])
+            key_features = customer_info.get("key_features", [])
+
+            # Extract full demo story context
+            executive_summary = demo_story.get("executive_summary", "")
+            business_challenges = demo_story.get("business_challenges", [])
+            demo_title = demo_story.get("demo_title", "")
+            key_metrics = demo_story.get("key_metrics", [])
+            scenes = demo_story.get("scenes", [])
+            golden_queries = demo_story.get("golden_queries", [])
+            talking_track = demo_story.get("talking_track", {})
+
+            # Build comprehensive prompt
+            prompt = f"""# ROLE: Expert Data Generation Specialist
+
+You are an expert data generation specialist tasked with creating REALISTIC, DOMAIN-SPECIFIC synthetic data for a business analytics demo. Your data must be authentic and representative of the actual business, not generic placeholder data.
+
+## COMPANY RESEARCH & CONTEXT
+
+**Company:** {company_name}
+**Industry:** {industry}
+**Business Model:** {business_model}
+
+**Business Description:**
+{business_description}
+
+**Key Products/Services:**
+{chr(10).join(f"• {product}" for product in products[:10]) if products else "• Various products and services"}
+
+**Target Customer Segments:**
+{chr(10).join(f"• {customer}" for customer in target_customers[:5]) if target_customers else "• General market"}
+
+**Key Features/Capabilities:**
+{chr(10).join(f"• {feature}" for feature in key_features[:5]) if key_features else "• Standard business operations"}
+
+## DEMO STORY & BUSINESS CONTEXT
+
+**Demo Title:** {demo_title}
+
+**Executive Summary:**
+{executive_summary}
+
+**Business Challenges Being Addressed:**
+{chr(10).join(f"{i+1}. {challenge if isinstance(challenge, str) else challenge.get('challenge', str(challenge))}" for i, challenge in enumerate(business_challenges[:5]))}
+
+**Key Metrics to Support:**
+{chr(10).join(f"• {metric}" for metric in key_metrics[:5]) if key_metrics else "• Revenue, growth, customer satisfaction"}
+
+## DEMO NARRATIVE - YOUR DATA MUST TELL THIS STORY
+
+**Demo Scenes/Flow:**
+{chr(10).join(f"Scene {i+1}: {scene.get('title', scene.get('scene_title', '')) if isinstance(scene, dict) else str(scene)}" for i, scene in enumerate(scenes[:5])) if scenes else "• Standard analytics workflow"}
+
+**Golden Queries This Data Must Answer:**
+{chr(10).join(f"{i+1}. {query.get('question', query.get('query', str(query))) if isinstance(query, dict) else str(query)}" for i, query in enumerate(golden_queries[:10])) if golden_queries else "• Standard business metrics"}
+
+**Demo Talking Track/Introduction:**
+{talking_track.get('introduction', talking_track.get('opening', '')) if isinstance(talking_track, dict) and talking_track else '(Standard business analytics demo)'}
+
+**🎯 CRITICAL - DATA STORYTELLING REQUIREMENT:**
+Your generated data MUST support the demo narrative above:
+- Create realistic data patterns that make the golden queries return meaningful, insightful answers
+- Ensure values align with the demo scenes and talking points
+- Generate distributions that tell this specific business story (not generic patterns)
+- Include realistic variations, trends, and anomalies that support the narrative
+- Make the data "demo-worthy" - it should reveal interesting patterns when analyzed
+
+## YOUR TASK: Generate Data for Table "{table_name}"
+
+**Table Schema:**
+{chr(10).join(schema_desc)}
+
+**Number of Records to Generate:** {min(row_count, 50)} realistic sample records
+
+## CRITICAL REQUIREMENTS - READ CAREFULLY:
+
+1. **DOMAIN AUTHENTICITY:**
+   - Use REAL terminology from {company_name}'s business domain
+   - For product/listing names: Use actual product categories they sell (e.g., for OfferUp: "iPhone 13 Pro 256GB", "Vintage Leather Sofa", not "receive" or "impact")
+   - For descriptions: Write realistic business descriptions, not random words
+   - For categories: Use industry-standard categories relevant to their business
+   - For customer data: Use realistic demographics matching their target market
+
+2. **BUSINESS REALISM:**
+   - Values should reflect real-world business patterns (e.g., prices should be realistic for the product type)
+   - **CRITICAL - DATES**: TODAY IS {datetime.now().strftime('%Y-%m-%d')}. Generate dates ending TODAY and going back 12-18 months for historical data. Most recent data should be from the last 30-90 days. Format: YYYY-MM-DD HH:MM:SS (NO 'T', NO 'UTC')
+   - Dates should follow logical sequences (created_at before updated_at)
+   - Status fields should use industry-standard values (not random words)
+   - Geographic data should be realistic (real cities, valid zip codes)
+   - Quantities and counts should be business-realistic
+
+3. **DATA COHERENCE:**
+   - Data should support the business challenges mentioned above
+   - Values should create meaningful patterns for analytics
+   - Related fields should be logically consistent (e.g., luxury products have higher prices)
+   - Support the key metrics that will be calculated from this data
+
+4. **SPECIFICITY EXAMPLES:**
+
+   ❌ BAD (Generic/Random - DO NOT DO THIS):
+   - Using random words: "receive", "impact", "such", "carry", "she"
+   - Using meaningless descriptions: "really", "let", "number", "gas"
+   - Using nonsensical categories: "enough", "plant", "yes", "tonight"
+   - Using unrelated categories: "Home & Garden" for electronics, "Apparel" for software
+
+   ✅ GOOD (Domain-Specific - DO THIS):
+   - Use actual product/service names relevant to {company_name}'s industry
+   - Write realistic descriptions with proper grammar and business context
+   - Use industry-standard terminology and categories
+   - Match data to the business model described above
+
+   **Example for E-commerce/Marketplace:**
+   - Product: "Specific item name with brand/model", not random words
+   - Description: "Detailed, realistic description of condition/features", not single words
+
+   **Example for SaaS/Software:**
+   - Product: "Software plan tier or feature name", not generic terms
+   - Description: "What the plan includes, pricing model", not placeholder text
+
+   **Example for Services:**
+   - Service: "Specific service offering name", not random labels
+   - Description: "What's included, duration, deliverables", not vague text
+
+5. **VARIETY & DISTRIBUTION:**
+   - Include diverse but realistic values across all fields
+   - Follow realistic statistical distributions (most items in good condition, fewer in poor)
+   - Include edge cases but keep them realistic
+   - Vary values to create interesting analytics patterns
+
+## OUTPUT FORMAT - CRITICAL:
+
+Return ONLY a valid JSON array of objects. Each object must have ALL schema fields listed above.
+
+**Structure:**
+[
+  {{"field1": "realistic_value1", "field2": 123, "field3": "2024-10-06"}},
+  {{"field1": "realistic_value2", "field2": 456, "field3": "2024-10-05"}},
+  ...
+]
+
+**RULES:**
+- NO markdown code blocks (```json)
+- NO explanations or comments
+- NO text before or after the JSON array
+- ONLY the raw JSON array
+- ALL field names must match the schema EXACTLY
+- ALL data types must match (strings in quotes, numbers without quotes, booleans as true/false)
+
+Generate the data now based on {company_name}'s actual business domain:"""
+
+            # Call LLM
+            response = await asyncio.to_thread(
+                self.llm_model.generate_content,
+                prompt,
+                generation_config=self.generation_config
+            )
+
+            # Parse JSON response
+            json_text = response.text.strip()
+
+            # Log raw response for debugging (first 500 chars)
+            logger.debug(f"LLM raw response for {table_name}: {json_text[:500]}...")
+
+            # Clean markdown formatting if present (improved logic)
+            if "```" in json_text:
+                # Extract content between first ``` and last ```
+                parts = json_text.split("```")
+                if len(parts) >= 3:
+                    # Take middle part (between first and last ```)
+                    json_text = parts[1]
+                    # Remove language identifier if present (json, JSON, etc.)
+                    if json_text.strip().lower().startswith("json"):
+                        json_text = json_text.strip()[4:]
+                    json_text = json_text.strip()
+
+            # Remove any leading/trailing non-JSON text
+            # Find first [ or { and last ] or }
+            start_idx = min(
+                json_text.find('[') if '[' in json_text else len(json_text),
+                json_text.find('{') if '{' in json_text else len(json_text)
+            )
+            if start_idx < len(json_text):
+                # Find matching closing bracket
+                if json_text[start_idx] == '[':
+                    end_idx = json_text.rfind(']')
+                else:
+                    end_idx = json_text.rfind('}')
+
+                if end_idx > start_idx:
+                    json_text = json_text[start_idx:end_idx+1]
+
+            json_text = json_text.strip()
+
+            try:
+                data_array = json.loads(json_text)
+            except json.JSONDecodeError as e:
+                logger.warning(f"JSON parse error for {table_name}: {str(e)[:100]}")
+                logger.debug(f"Failed JSON text: {json_text[:500]}")
+                return None
+
+            if not isinstance(data_array, list) or len(data_array) == 0:
+                logger.warning(f"LLM returned invalid data for {table_name}, falling back to Faker")
+                return None
+
+            # If we got fewer rows than needed, replicate with variations
+            while len(data_array) < row_count:
+                # Add variations of existing data
+                base_record = random.choice(data_array[:min(50, len(data_array))])
+                varied_record = base_record.copy()
+                data_array.append(varied_record)
+
+            # Trim to exact row count
+            data_array = data_array[:row_count]
+
+            # Ensure IDs are sequential
+            for i, record in enumerate(data_array, 1):
+                if 'id' in record:
+                    record['id'] = i
+                elif f'{table_name}_id' in record:
+                    record[f'{table_name}_id'] = i
+
+            # Create DataFrame
+            df = pd.DataFrame(data_array)
+
+            # Validate schema match
+            expected_columns = set(f["name"] for f in schema_fields)
+            actual_columns = set(df.columns)
+
+            if expected_columns != actual_columns:
+                logger.warning(f"LLM schema mismatch for {table_name}. Expected: {expected_columns}, Got: {actual_columns}")
+                return None
+
+            # FIX: Clean up timestamps to ensure BigQuery compatibility
+            df = self._fix_bigquery_timestamps(df, schema_fields)
+
+            logger.info(f"✅ LLM generated {len(df)} realistic rows for {table_name}")
+            return df
+
+        except Exception as e:
+            # FIX: Improved error logging to help diagnose LLM failures
+            error_type = type(e).__name__
+            error_msg = str(e)[:200]
+            logger.error(f"LLM generation failed for {table_name}: {error_type} - {error_msg}")
+
+            # Log more details for specific error types
+            if error_type == "JSONDecodeError":
+                logger.error(f"  → JSON parsing failed for {table_name}. Check prompt output format.")
+            elif "quota" in error_msg.lower() or "rate" in error_msg.lower():
+                logger.error(f"  → API quota/rate limit hit for {table_name}")
+
+            # ALWAYS print full error for debugging
+            logger.error(f"Full LLM error for {table_name}: {e}", exc_info=True)
+
+            # Log to job manager with more detail
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "synthetic data generator optimized",
+                    f"⚠️ LLM generation failed for {table_name}: {error_type} (using Faker fallback)",
+                    "WARNING"
+                )
+            return None
+
+    def _generate_table_data(
+        self,
+        table: Dict,
+        row_count: int,
+        id_mappings: Dict,
+        demo_story: Dict
+    ) -> pd.DataFrame:
+        """Generate data for a single table (Faker fallback)."""
+        schema_fields = table.get("schema", [])
+        table_name = table["name"]
+
+        # Build data dictionary
+        data = {}
+
+        for field in schema_fields:
+            field_name = field["name"]
+            field_type = field["type"]
+
+            data[field_name] = self._generate_field_data(
+                field_name,
+                field_type,
+                row_count,
+                table_name,
+                id_mappings,
+                demo_story
+            )
+
+        return pd.DataFrame(data)
+
+    def _generate_field_data(
+        self,
+        field_name: str,
+        field_type: str,
+        row_count: int,
+        table_name: str,
+        id_mappings: Dict,
+        demo_story: Dict
+    ) -> List:
+        """Generate data for a single field with realistic patterns."""
+
+        # Primary keys
+        if field_name in ['id', f'{table_name}_id', 'order_id', 'customer_id', 'product_id', 'store_id']:
+            if field_name == 'id' or field_name == f'{table_name}_id':
+                return list(range(1, row_count + 1))
+
+        # Foreign keys
+        if field_name.endswith('_id') and field_name != 'id':
+            # Extract referenced table name
+            ref_table = field_name.replace('_id', '')
+            # Try plural form first
+            if ref_table + 's' in id_mappings:
+                return random.choices(id_mappings[ref_table + 's'], k=row_count)
+            elif ref_table in id_mappings:
+                return random.choices(id_mappings[ref_table], k=row_count)
+            # Fallback
+            return [random.randint(1, 1000) for _ in range(row_count)]
+
+        # Timestamps
+        if field_type == 'TIMESTAMP' or 'created_at' in field_name or 'updated_at' in field_name or '_at' in field_name:
+            return self._generate_timestamps(row_count, field_name)
+
+        # Dates
+        if field_type == 'DATE' or '_date' in field_name:
+            return [fake.date_between('-12m', 'today') for _ in range(row_count)]
+
+        # Strings
+        if field_type == 'STRING':
+            return self._generate_string_data(field_name, row_count)
+
+        # Numbers
+        if field_type in ['INT64', 'INTEGER']:
+            return self._generate_integer_data(field_name, row_count)
+
+        if field_type in ['FLOAT64', 'NUMERIC', 'DECIMAL']:
+            return self._generate_float_data(field_name, row_count)
+
+        # Booleans
+        if field_type in ['BOOL', 'BOOLEAN']:
+            return [random.choice([True, False]) for _ in range(row_count)]
+
+        # Default
+        return [None] * row_count
+
+    def _generate_timestamps(self, count: int, field_name: str) -> List[datetime]:
+        """Generate timestamps with patterns."""
+        base_date = datetime.now()
+
+        if 'created' in field_name:
+            # Spread over last 12 months with seasonal patterns
+            timestamps = []
+            for _ in range(count):
+                days_ago = random.randint(0, 365)
+                # More recent data is more common
+                if random.random() < 0.3:
+                    days_ago = random.randint(0, 90)  # 30% in last 90 days
+
+                ts = base_date - timedelta(days=days_ago)
+                timestamps.append(ts)
+            return timestamps
+
+        elif 'updated' in field_name:
+            # Updated timestamps are more recent
+            return [base_date - timedelta(days=random.randint(0, 60)) for _ in range(count)]
+
+        else:
+            return [base_date - timedelta(days=random.randint(0, 365)) for _ in range(count)]
+
+    def _generate_string_data(self, field_name: str, count: int) -> List[str]:
+        """Generate string data based on field name."""
+        field_lower = field_name.lower()
+
+        # Names
+        if 'name' in field_lower and 'product' in field_lower:
+            products = ["T-Shirt", "Jeans", "Dress", "Sneakers", "Jacket", "Hoodie",
+                       "Shorts", "Skirt", "Boots", "Sandals", "Hat", "Scarf"]
+            adjectives = ["Classic", "Premium", "Vintage", "Modern", "Casual", "Formal"]
+            return [f"{random.choice(adjectives)} {random.choice(products)}" for _ in range(count)]
+
+        if 'first_name' in field_lower or 'fname' in field_lower:
+            return [fake.first_name() for _ in range(count)]
+
+        if 'last_name' in field_lower or 'lname' in field_lower:
+            return [fake.last_name() for _ in range(count)]
+
+        if 'company' in field_lower or 'merchant' in field_lower:
+            return [fake.company() for _ in range(count)]
+
+        # Contact
+        if 'email' in field_lower:
+            return [fake.email() for _ in range(count)]
+
+        if 'phone' in field_lower:
+            return [fake.phone_number() for _ in range(count)]
+
+        # Address
+        if 'address' in field_lower or 'street' in field_lower:
+            return [fake.street_address() for _ in range(count)]
+
+        if 'city' in field_lower:
+            return [fake.city() for _ in range(count)]
+
+        if 'state' in field_lower or 'province' in field_lower:
+            return [fake.state_abbr() for _ in range(count)]
+
+        if 'country' in field_lower:
+            return [fake.country_code() for _ in range(count)]
+
+        if 'zip' in field_lower or 'postal' in field_lower:
+            return [fake.zipcode() for _ in range(count)]
+
+        # Status fields
+        if 'status' in field_lower:
+            statuses = ["pending", "processing", "completed", "shipped", "delivered", "cancelled", "returned"]
+            # Realistic distribution (most orders are completed)
+            weights = [0.05, 0.10, 0.50, 0.20, 0.10, 0.03, 0.02]
+            return random.choices(statuses, weights=weights, k=count)
+
+        # Channel
+        if 'channel' in field_lower:
+            channels = ["online_store", "pos", "instagram", "facebook", "mobile_app", "amazon", "tiktok"]
+            return random.choices(channels, k=count)
+
+        # Category
+        if 'category' in field_lower:
+            categories = ["Apparel", "Footwear", "Accessories", "Electronics", "Home & Garden",
+                         "Beauty", "Sports", "Books", "Toys", "Food & Beverage"]
+            return random.choices(categories, k=count)
+
+        # Default
+        return [fake.word() for _ in range(count)]
+
+    def _generate_integer_data(self, field_name: str, count: int) -> List[int]:
+        """Generate integer data based on field name."""
+        field_lower = field_name.lower()
+
+        if 'quantity' in field_lower or 'qty' in field_lower:
+            return [random.randint(1, 10) for _ in range(count)]
+
+        if 'count' in field_lower or 'num_of' in field_lower:
+            return [random.randint(1, 5) for _ in range(count)]
+
+        if 'age' in field_lower:
+            return [random.randint(18, 75) for _ in range(count)]
+
+        if 'stock' in field_lower or 'inventory' in field_lower:
+            return [random.randint(0, 500) for _ in range(count)]
+
+        # Default
+        return [random.randint(1, 1000) for _ in range(count)]
+
+    def _generate_float_data(self, field_name: str, count: int) -> List[float]:
+        """Generate float data based on field name."""
+        field_lower = field_name.lower()
+
+        if 'price' in field_lower or 'cost' in field_lower:
+            return [round(random.uniform(10.0, 500.0), 2) for _ in range(count)]
+
+        if 'total' in field_lower or 'amount' in field_lower or 'revenue' in field_lower:
+            return [round(random.uniform(20.0, 2000.0), 2) for _ in range(count)]
+
+        if 'tax' in field_lower:
+            return [round(random.uniform(0.0, 50.0), 2) for _ in range(count)]
+
+        if 'discount' in field_lower:
+            return [round(random.uniform(0.0, 100.0), 2) for _ in range(count)]
+
+        if 'shipping' in field_lower:
+            return [round(random.uniform(0.0, 50.0), 2) for _ in range(count)]
+
+        if 'rate' in field_lower or 'percentage' in field_lower:
+            return [round(random.uniform(0.0, 1.0), 4) for _ in range(count)]
+
+        # Default
+        return [round(random.uniform(0.0, 1000.0), 2) for _ in range(count)]
+
+    def _fix_bigquery_timestamps(self, df: pd.DataFrame, schema_fields: List[Dict]) -> pd.DataFrame:
+        """
+        Fix timestamp formatting issues to ensure BigQuery compatibility.
+
+        Fixes:
+        1. Remove space before 'T': '2024-05-21 T11:20:05' → '2024-05-21T11:20:05'
+        2. Remove ' UTC' suffix: '2024-05-21T11:20:05 UTC' → '2024-05-21 11:20:05'
+        3. Ensure format is 'YYYY-MM-DD HH:MM:SS' (BigQuery standard)
+        4. Update dates to current year (2024) if they're in wrong year
+        """
+        current_year = datetime.now().year
+
+        for field in schema_fields:
+            field_name = field['name']
+            field_type = field['type']
+
+            # Only process TIMESTAMP and DATE fields
+            if field_type not in ['TIMESTAMP', 'DATE', 'DATETIME']:
+                continue
+
+            if field_name not in df.columns:
+                continue
+
+            # Process each value
+            fixed_values = []
+            for val in df[field_name]:
+                if pd.isna(val) or val is None:
+                    fixed_values.append(val)
+                    continue
+
+                val_str = str(val)
+
+                try:
+                    # Fix 1: Remove space before T
+                    val_str = re.sub(r'\s+T', 'T', val_str)
+
+                    # Fix 2: Remove UTC suffix
+                    val_str = val_str.replace(' UTC', '').replace('UTC', '')
+
+                    # Fix 3: Parse and reformat to BigQuery standard
+                    # Try multiple parsing strategies
+                    parsed_dt = None
+
+                    # Try ISO format with T
+                    if 'T' in val_str:
+                        try:
+                            parsed_dt = pd.to_datetime(val_str, format='%Y-%m-%dT%H:%M:%S')
+                        except:
+                            try:
+                                parsed_dt = pd.to_datetime(val_str, format='%Y-%m-%dT%H:%M:%S.%f')
+                            except:
+                                pass
+
+                    # Try standard datetime format
+                    if parsed_dt is None:
+                        try:
+                            parsed_dt = pd.to_datetime(val_str)
+                        except:
+                            logger.warning(f"Could not parse timestamp: {val_str}")
+                            fixed_values.append(val)
+                            continue
+
+                    # Fix 4: Update to current year if needed (for queries searching current year)
+                    if parsed_dt.year < current_year - 1:  # If more than 1 year old
+                        # Shift to current year while keeping month/day
+                        parsed_dt = parsed_dt.replace(year=current_year)
+
+                    # Format based on field type
+                    if field_type == 'TIMESTAMP' or field_type == 'DATETIME':
+                        # BigQuery TIMESTAMP format: YYYY-MM-DD HH:MM:SS
+                        formatted = parsed_dt.strftime('%Y-%m-%d %H:%M:%S')
+                    elif field_type == 'DATE':
+                        # BigQuery DATE format: YYYY-MM-DD
+                        formatted = parsed_dt.strftime('%Y-%m-%d')
+                    else:
+                        formatted = parsed_dt.strftime('%Y-%m-%d %H:%M:%S')
+
+                    fixed_values.append(formatted)
+
+                except Exception as e:
+                    logger.warning(f"Error fixing timestamp '{val}' in field '{field_name}': {e}")
+                    fixed_values.append(val)
+
+            # Update dataframe column
+            df[field_name] = fixed_values
+
+        return df

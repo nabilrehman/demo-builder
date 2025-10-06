@@ -160,6 +160,15 @@ class InfrastructureAgentOptimized:
         """Create CAPI Data Agent programmatically."""
         logger.info("Creating CAPI Data Agent...")
 
+        # Log to job manager if available
+        if "job_manager" in state and "job_id" in state:
+            state["job_manager"].add_log(
+                state["job_id"],
+                "infrastructure agent optimized",
+                "🤖 Creating CAPI Data Agent...",
+                "INFO"
+            )
+
         try:
             # Run blocking CAPI client operations in thread pool
             agent_id = await asyncio.to_thread(
@@ -171,11 +180,45 @@ class InfrastructureAgentOptimized:
 
             if agent_id:
                 logger.info(f"✅ Created CAPI Data Agent: {agent_id}")
+                # Log to job manager
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "infrastructure agent optimized",
+                        f"✅ CAPI Agent Created: {agent_id}",
+                        "INFO"
+                    )
+            else:
+                # Agent ID is empty
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "infrastructure agent optimized",
+                        "⚠️ CAPI Agent creation returned empty ID - creation may have failed",
+                        "WARNING"
+                    )
 
             return agent_id
 
         except Exception as e:
-            logger.error(f"Failed to create CAPI agent: {e}", exc_info=True)
+            error_msg = f"Failed to create CAPI agent: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+
+            # Log to job manager
+            if "job_manager" in state and "job_id" in state:
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "infrastructure agent optimized",
+                    f"❌ CAPI Agent Creation Failed: {str(e)}",
+                    "ERROR"
+                )
+                state["job_manager"].add_log(
+                    state["job_id"],
+                    "infrastructure agent optimized",
+                    "⚠️ Continuing without CAPI agent - must be created manually",
+                    "WARNING"
+                )
+
             # Return empty string on failure - don't fail the whole pipeline
             logger.warning("Continuing without CAPI agent - must be created manually")
             return ""

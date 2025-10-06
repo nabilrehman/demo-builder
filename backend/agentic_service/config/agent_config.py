@@ -44,15 +44,16 @@ AGENT_VARIANTS = {
 # ============================================================================
 
 DEFAULT_CONFIG = {
-    # Research: Gemini 2x faster (131s vs 263s), acceptable quality (5 entities vs 8)
-    # Trade-off: Speed over thoroughness (good for demos/dev)
-    # Benchmark: benchmarks/RESEARCH_V2_GEMINI_PRO_RESULTS.md
+    # Research: Using GEMINI for speed (2x faster: 131s vs 262s)
+    # Note: May occasionally have JSON issues, but much faster for testing
+    # Switch back to "claude" if you need 100% reliability
     "research": "gemini",
 
-    # Demo Story: Gemini 2.13x faster (43s vs 92s), IDENTICAL quality
-    # CLEAR WINNER - no trade-offs (6 queries, 4 scenes, 8 entities)
-    # Benchmark: benchmarks/DEMO_STORY_GEMINI_PRO_RESULTS.md
-    "demo_story": "gemini",
+    # Demo Story: SWITCHED TO CLAUDE due to Gemini JSON reliability issues
+    # Gemini was 2x faster but frequently returns malformed JSON for golden queries
+    # Claude is more reliable with structured JSON outputs
+    # Trade-off: Slower but more reliable (no failed jobs)
+    "demo_story": "claude",
 
     # Data Modeling: Claude (user preference)
     # User quote: "lets stick to Claude Sonnet for now"

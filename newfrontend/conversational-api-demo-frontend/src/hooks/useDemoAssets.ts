@@ -7,6 +7,13 @@ export interface GoldenQuery {
   question: string;
   sql: string;
   businessValue: string;
+  // Validation status
+  sql_tested?: boolean;
+  sql_passed?: boolean;
+  sql_error?: string;
+  capi_tested?: boolean;
+  capi_passed?: boolean;
+  capi_error?: string;
 }
 
 export interface TableField {
@@ -408,8 +415,8 @@ export const useDemoAssets = (jobId?: string) => {
           generationTimestamp: '',
           totalTables: 0
         },
-        // CRITICAL FIX: Point to local chat route with dataset/agent
-        provisionUrl: `/chat?dataset_id=${data.metadata?.datasetId || ''}&agent_id=${data.metadata?.agentId || 'default'}`,
+        // CRITICAL FIX: Point to root (nice UI) with dataset/agent/website params
+        provisionUrl: `/?dataset_id=${data.metadata?.datasetId || ''}&agent_id=${data.metadata?.agentId || 'default'}&website=${encodeURIComponent(data.customerUrl || '')}`,
         totalTime: data.total_time || 'N/A'
       } as DemoAssets;
     },
