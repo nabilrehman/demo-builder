@@ -22,8 +22,9 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<CEDashboard />} />
             <Route path="/ce-dashboard" element={<CEDashboard />} />
+            <Route path="/chatbot" element={<Index />} />
             <Route path="/provision-progress" element={<ProvisionProgress />} />
             <Route path="/demo-assets" element={<DemoAssets />} />
             <Route path="/chat" element={<ChatInterface />} />
