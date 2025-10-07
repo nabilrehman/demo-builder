@@ -205,7 +205,7 @@ const CEDashboard = () => {
       });
 
       // REDIRECT TO PROGRESS PAGE
-      navigate(`/provision-progress?jobId=${data.job_id}`);
+      navigate(`/provision-progress?jobId=${data.job_id}&customer_url=${encodeURIComponent(defaultUrl)}`);
 
     } catch (error) {
       setIsProvisioning(false);
@@ -432,7 +432,11 @@ const CEDashboard = () => {
                 <EnhancedJobHistoryTable
                   jobs={jobs}
                   onDelete={handleDeleteJob}
-                  onViewJob={(jobId) => navigate(`/provision-progress?jobId=${jobId}`)}
+                  onViewJob={(jobId) => {
+                    const job = jobs.find(j => j.id === jobId);
+                    const customerUrl = job?.url || '';
+                    navigate(`/provision-progress?jobId=${jobId}&customer_url=${encodeURIComponent(customerUrl)}`);
+                  }}
                 />
               </>
             )}

@@ -55,8 +55,10 @@ class VertexLLMClient:
             self.gemini_model = genai.GenerativeModel(model_type.value)
             logger.info(f"Initialized Gemini API client: {model_type.value}")
         elif model_type == ModelType.CLAUDE_45:
-            self.claude_client = AnthropicVertex(region=LOCATION, project_id=PROJECT_ID)
-            logger.info(f"Initialized Claude via Vertex AI in project {PROJECT_ID}, region {LOCATION}")
+            # Claude requires us-east5, not "global"
+            claude_location = "us-east5" if LOCATION == "global" else LOCATION
+            self.claude_client = AnthropicVertex(region=claude_location, project_id=PROJECT_ID)
+            logger.info(f"Initialized Claude via Vertex AI in project {PROJECT_ID}, region {claude_location}")
         else:
             raise ValueError(f"Unsupported model type: {model_type}")
 
