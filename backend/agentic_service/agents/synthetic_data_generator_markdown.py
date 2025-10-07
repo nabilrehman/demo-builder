@@ -887,14 +887,41 @@ Generate the markdown table now based on {company_name}'s actual business domain
                 logger.error(f"❌ Gemini API call failed for {table_name}: {type(api_error).__name__}: {str(api_error)}")
                 raise
 
-            # 🔍 LOG: Save raw response to file for debugging
+            # 🔍 LOG: Check response and extract text with detailed error handling
             try:
+                # Log full response object for debugging
+                logger.info(f"📦 Raw response object type: {type(response)}")
+                if hasattr(response, 'prompt_feedback'):
+                    logger.info(f"📋 Prompt feedback: {response.prompt_feedback}")
+                if hasattr(response, 'candidates'):
+                    logger.info(f"📊 Number of candidates: {len(response.candidates)}")
+                    for i, candidate in enumerate(response.candidates):
+                        if hasattr(candidate, 'finish_reason'):
+                            logger.info(f"  Candidate {i} finish_reason: {candidate.finish_reason}")
+                        if hasattr(candidate, 'safety_ratings'):
+                            logger.info(f"  Candidate {i} safety_ratings: {candidate.safety_ratings}")
+
                 response_text = response.text.strip()
             except Exception as text_error:
-                logger.error(f"❌ Failed to extract text from Gemini response for {table_name}: {type(text_error).__name__}: {str(text_error)}")
-                logger.error(f"Response object: {response}")
+                error_type = type(text_error).__name__
+                error_msg = str(text_error)
+                logger.error(f"❌ Failed to extract text from Gemini response for {table_name}")
+                logger.error(f"   Error: {error_type}: {error_msg}")
+                logger.error(f"   Response object: {response}")
                 if hasattr(response, 'prompt_feedback'):
-                    logger.error(f"Prompt feedback (safety filters?): {response.prompt_feedback}")
+                    logger.error(f"   Prompt feedback: {response.prompt_feedback}")
+                if hasattr(response, 'candidates') and len(response.candidates) > 0:
+                    for i, candidate in enumerate(response.candidates):
+                        logger.error(f"   Candidate {i}: {candidate}")
+
+                # Log to job manager with full error details
+                if "job_manager" in state and "job_id" in state:
+                    state["job_manager"].add_log(
+                        state["job_id"],
+                        "synthetic data generator markdown",
+                        f"❌ Gemini blocked/failed for {table_name}: {error_type}: {error_msg}",
+                        "ERROR"
+                    )
                 raise
             response_file = f"/tmp/llm_prompts/{table_name}_response.txt"
             with open(response_file, 'w') as f:
