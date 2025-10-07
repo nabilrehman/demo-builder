@@ -389,12 +389,32 @@ async def start_crazy_frog_provision(
 
 
 @router.get("/status/{job_id}", response_model=JobStatusResponse)
-async def get_provision_status(job_id: str):
+async def get_provision_status(
+    job_id: str,
+    user: Optional[dict] = Depends(optional_google_user)
+):
     """
     Get current status of a provisioning job.
 
+    If authenticated: Verifies user owns the job
+    If not authenticated: Returns job from in-memory state (backwards compatibility)
+
     Returns job metadata, agent progress, recent logs, and errors.
     """
+    # If user is authenticated, verify they own this job
+    if user:
+        user_id = user['uid']
+        firestore_job = await firestore_service.get_job(user_id, job_id)
+
+        if not firestore_job:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Job {job_id} not found for user {user['email']}"
+            )
+
+        # Job exists in Firestore for this user, now get current status from job_manager
+        # (which has real-time progress updates)
+
     job = job_manager.get_job(job_id)
 
     if not job:
@@ -532,12 +552,66 @@ async def stream_provision_progress(job_id: str):
 
 
 @router.get("/history", response_model=JobHistoryResponse)
-async def get_provision_history(limit: int = 50):
+async def get_provision_history(
+    limit: int = 50,
+    offset: int = 0,
+    status: Optional[str] = None,
+    search: Optional[str] = None,
+    user: Optional[dict] = Depends(optional_google_user)
+):
     """
-    Get list of all provisioning jobs (for CE Dashboard).
+    Get list of provisioning jobs for the current user.
+
+    If authenticated: Returns only user's jobs from Firestore with filtering
+    If not authenticated: Returns all jobs from in-memory state (backwards compatibility)
+
+    Query parameters:
+    - limit: Max number of jobs to return (default: 50)
+    - offset: Number of jobs to skip for pagination (default: 0)
+    - status: Filter by status (all, completed, running, failed, pending)
+    - search: Search in customer URL
 
     Returns most recent jobs first.
     """
+    # If user is authenticated, return their jobs from Firestore
+    if user:
+        user_id = user['uid']
+        logger.info(f"Fetching job history for user {user['email']} (limit={limit}, offset={offset}, status={status}, search={search})")
+
+        firestore_jobs = await firestore_service.get_user_jobs(
+            user_id,
+            limit=limit,
+            offset=offset,
+            status=status,
+            search=search
+        )
+
+        # Format Firestore jobs for response
+        formatted_jobs = [
+            {
+                "job_id": job.get('id'),
+                "customer_url": job.get('customer_url', ''),
+                "status": job.get('status', 'unknown'),
+                "mode": job.get('mode', 'default'),
+                "current_phase": job.get('current_phase', ''),
+                "overall_progress": job.get('overall_progress', 0),
+                "created_at": job.get('created_at', ''),
+                "updated_at": job.get('updated_at', ''),
+                "dataset_id": job.get('metadata', {}).get('dataset_id'),
+                "demo_title": job.get('metadata', {}).get('demo_title'),
+                "total_time": None,  # Could calculate from timestamps
+                "error_count": 0
+            }
+            for job in firestore_jobs
+        ]
+
+        return JobHistoryResponse(
+            jobs=formatted_jobs,
+            total=len(formatted_jobs)
+        )
+
+    # If not authenticated, fall back to in-memory jobs (for backwards compatibility)
+    logger.info("Fetching job history from in-memory state (unauthenticated)")
     jobs = job_manager.get_all_jobs(limit=limit)
 
     # Format jobs for response
@@ -566,14 +640,32 @@ async def get_provision_history(limit: int = 50):
 
 
 @router.get("/assets/{job_id}", response_model=DemoAssetsResponse)
-async def get_demo_assets(job_id: str):
+async def get_demo_assets(
+    job_id: str,
+    user: Optional[dict] = Depends(optional_google_user)
+):
     """
     Get complete demo assets for a finished provisioning job.
+
+    If authenticated: Verifies user owns the job
+    If not authenticated: Returns job from in-memory state (backwards compatibility)
 
     This endpoint provides all data needed for the Demo Assets Viewer.
     """
     try:
         logger.info(f"Getting demo assets for job {job_id}")
+
+        # If user is authenticated, verify they own this job
+        if user:
+            user_id = user['uid']
+            firestore_job = await firestore_service.get_job(user_id, job_id)
+
+            if not firestore_job:
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Job {job_id} not found for user {user['email']}"
+                )
+
         job = job_manager.get_job(job_id)
 
         if not job:

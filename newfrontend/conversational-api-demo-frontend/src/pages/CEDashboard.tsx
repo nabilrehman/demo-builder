@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProvisionModeCard } from "@/components/ProvisionModeCard";
-import { JobHistoryTable } from "@/components/JobHistoryTable";
+import UserStatsCard from "@/components/UserStatsCard";
+import JobFilters from "@/components/JobFilters";
+import EnhancedJobHistoryTable from "@/components/EnhancedJobHistoryTable";
 import { Link, Settings, Zap, LogIn, LogOut, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -24,6 +26,107 @@ const CEDashboard = () => {
   const { user, loading, signInWithGoogle, signOut: firebaseSignOut, isAuthEnabled } = useAuth();
   const [defaultUrl, setDefaultUrl] = useState("");
   const [isProvisioning, setIsProvisioning] = useState(false);
+  const [jobs, setJobs] = useState<ProvisionJob[]>([]);
+  const [loadingJobs, setLoadingJobs] = useState(false);
+  const [userStats, setUserStats] = useState<any>(null);
+  const [loadingStats, setLoadingStats] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  // Fetch user's job history
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoadingJobs(true);
+      try {
+        const headers: HeadersInit = {
+          "Content-Type": "application/json",
+        };
+
+        // Add Firebase auth token if user is signed in
+        if (user) {
+          const token = await user.getIdToken();
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        // Build query params
+        const params = new URLSearchParams();
+        if (statusFilter && statusFilter !== 'all') {
+          params.append('status', statusFilter);
+        }
+        if (searchQuery) {
+          params.append('search', searchQuery);
+        }
+
+        const url = `/api/provision/history${params.toString() ? `?${params.toString()}` : ''}`;
+
+        const response = await fetch(url, { headers });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch jobs: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        // Map API response to ProvisionJob format
+        const mappedJobs: ProvisionJob[] = data.jobs.map((job: any) => ({
+          id: job.job_id,
+          url: job.customer_url,
+          status: job.status === "completed" ? "complete" :
+                  job.status === "failed" ? "failed" : "running",
+          duration: job.total_time || "N/A",
+          date: new Date(job.created_at).toLocaleString(),
+          mode: job.mode as "default" | "advanced",
+        }));
+
+        setJobs(mappedJobs);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        // Don't show error toast - just log it
+      } finally {
+        setLoadingJobs(false);
+      }
+    };
+
+    fetchJobs();
+  }, [user, searchQuery, statusFilter, refreshTrigger]); // Refetch when filters change
+
+  // Fetch user stats
+  useEffect(() => {
+    const fetchStats = async () => {
+      // Only fetch stats if user is authenticated
+      if (!user) {
+        setUserStats(null);
+        return;
+      }
+
+      setLoadingStats(true);
+      try {
+        const token = await user.getIdToken();
+
+        const response = await fetch("/api/user/stats", {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch stats: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setUserStats(data);
+      } catch (error) {
+        console.error("Error fetching user stats:", error);
+        // Don't show error - stats are optional
+      } finally {
+        setLoadingStats(false);
+      }
+    };
+
+    fetchStats();
+  }, [user]);
 
   const handleSignIn = async () => {
     try {
@@ -57,50 +160,6 @@ const CEDashboard = () => {
     }
   };
 
-  // Mock job history data
-  const [jobs] = useState<ProvisionJob[]>([
-    {
-      id: "1",
-      url: "https://example.com",
-      status: "complete",
-      duration: "2m 34s",
-      date: "2025-10-04 14:30",
-      mode: "default"
-    },
-    {
-      id: "2",
-      url: "https://myshop.com",
-      status: "complete",
-      duration: "1m 52s",
-      date: "2025-10-04 12:15",
-      mode: "advanced"
-    },
-    {
-      id: "3",
-      url: "https://testsite.com",
-      status: "failed",
-      duration: "45s",
-      date: "2025-10-04 10:22",
-      mode: "default"
-    },
-    {
-      id: "4",
-      url: "https://demo.org",
-      status: "running",
-      duration: "1m 10s",
-      date: "2025-10-04 09:45",
-      mode: "default"
-    },
-    {
-      id: "5",
-      url: "https://portfolio.io",
-      status: "complete",
-      duration: "3m 12s",
-      date: "2025-10-03 16:20",
-      mode: "advanced"
-    }
-  ]);
-
   const handleDefaultProvision = async () => {
     if (!defaultUrl.trim()) {
       toast({
@@ -114,12 +173,20 @@ const CEDashboard = () => {
     setIsProvisioning(true);
 
     try {
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+
+      // Add Firebase auth token if user is signed in
+      if (user) {
+        const token = await user.getIdToken();
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       // Call the real API endpoint
       const response = await fetch("/api/provision/start", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify({
           customer_url: defaultUrl.startsWith("http") ? defaultUrl : `https://${defaultUrl}`,
         }),
@@ -155,6 +222,43 @@ const CEDashboard = () => {
       title: "Coming Soon",
       description: "Advanced setup mode will be available in Phase 2D",
     });
+  };
+
+  const handleDeleteJob = async (jobId: string) => {
+    try {
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+      };
+
+      // Add Firebase auth token if user is signed in
+      if (user) {
+        const token = await user.getIdToken();
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`/api/user/jobs/${jobId}`, {
+        method: "DELETE",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete job: ${response.statusText}`);
+      }
+
+      toast({
+        title: "Job Deleted",
+        description: "The provisioning job has been deleted successfully",
+      });
+
+      // Refresh the job list
+      setRefreshTrigger((prev) => prev + 1);
+    } catch (error) {
+      toast({
+        title: "Delete Failed",
+        description: error instanceof Error ? error.message : "Unknown error occurred",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -220,6 +324,14 @@ const CEDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         <div className="space-y-8">
+          {/* User Stats Section - Only show when authenticated */}
+          {user && (
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Your Dashboard</h2>
+              <UserStatsCard stats={userStats} loading={loadingStats} />
+            </div>
+          )}
+
           {/* Provision Modes Section */}
           <div>
             <h2 className="text-2xl font-semibold mb-4">Provision New Chatbot</h2>
@@ -295,10 +407,35 @@ const CEDashboard = () => {
           {/* Job History Section */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-semibold">Recent Provisions</h2>
+              <h2 className="text-2xl font-semibold">
+                {user ? "Your Recent Provisions" : "Recent Provisions"}
+              </h2>
               <Button variant="ghost" size="sm">View All</Button>
             </div>
-            <JobHistoryTable jobs={jobs} />
+            {loadingJobs ? (
+              <div className="text-center py-8 text-muted-foreground">
+                Loading jobs...
+              </div>
+            ) : (
+              <>
+                <JobFilters
+                  search={searchQuery}
+                  status={statusFilter}
+                  onSearchChange={setSearchQuery}
+                  onStatusChange={setStatusFilter}
+                  onClear={() => {
+                    setSearchQuery("");
+                    setStatusFilter("all");
+                  }}
+                  resultsCount={jobs.length}
+                />
+                <EnhancedJobHistoryTable
+                  jobs={jobs}
+                  onDelete={handleDeleteJob}
+                  onViewJob={(jobId) => navigate(`/provision-progress?jobId=${jobId}`)}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

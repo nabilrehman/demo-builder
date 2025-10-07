@@ -72,6 +72,10 @@ app.add_middleware(
 from routes.provisioning import router as provisioning_router
 app.include_router(provisioning_router)
 
+# --- Include User Management API Routes ---
+from routes.user_management import router as user_management_router
+app.include_router(user_management_router)
+
 # --- Serve Frontend (MUST COME LAST) ---
 # Serve the static assets from the React build directory
 app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIST_DIR, "assets")), name="assets")

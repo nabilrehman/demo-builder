@@ -67,13 +67,23 @@ class FirestoreService:
         except Exception as e:
             logger.error(f"❌ Failed to save job to Firestore: {e}", exc_info=True)
 
-    async def get_user_jobs(self, user_id: str, limit: int = 50) -> List[Dict]:
+    async def get_user_jobs(
+        self,
+        user_id: str,
+        limit: int = 50,
+        offset: int = 0,
+        status: Optional[str] = None,
+        search: Optional[str] = None
+    ) -> List[Dict]:
         """
-        Get all jobs for a user, ordered by creation date (newest first).
+        Get jobs for a user with filtering and pagination.
 
         Args:
             user_id: Firebase user ID
             limit: Maximum number of jobs to return (default 50)
+            offset: Number of jobs to skip (for pagination)
+            status: Filter by status (completed, running, failed, pending)
+            search: Search in customer_url (case-insensitive)
 
         Returns:
             List of job dictionaries with 'id' field
@@ -85,17 +95,37 @@ class FirestoreService:
         try:
             jobs_ref = self.db.collection('users').document(user_id).collection('jobs')
 
+            # Build query
+            query = jobs_ref
+
+            # Filter by status if provided
+            if status and status != 'all':
+                query = query.where('status', '==', status)
+
             # Order by created_at descending (newest first)
-            query = jobs_ref.order_by('created_at', direction=firestore.Query.DESCENDING).limit(limit)
+            query = query.order_by('created_at', direction=firestore.Query.DESCENDING)
+
+            # Get all matching documents (we'll apply pagination and search in memory for now)
             docs = query.stream()
 
             jobs = []
             for doc in docs:
                 job_data = doc.to_dict()
                 job_data['id'] = doc.id
+
+                # Apply search filter if provided
+                if search:
+                    customer_url = job_data.get('customer_url', '').lower()
+                    if search.lower() not in customer_url:
+                        continue
+
                 jobs.append(job_data)
 
-            logger.info(f"📋 Retrieved {len(jobs)} jobs for user {user_id}")
+            # Apply pagination
+            total_count = len(jobs)
+            jobs = jobs[offset:offset + limit]
+
+            logger.info(f"📋 Retrieved {len(jobs)}/{total_count} jobs for user {user_id} (status={status}, search={search})")
             return jobs
 
         except Exception as e:
