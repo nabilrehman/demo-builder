@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import HomePage from "./pages/HomePage";
 import Index from "./pages/Index";
 import CEDashboard from "./pages/CEDashboard";
 import ProvisionProgress from "./pages/ProvisionProgress";
@@ -22,7 +23,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<CEDashboard />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/ce-dashboard" element={<CEDashboard />} />
             <Route path="/chatbot" element={<Index />} />
             <Route path="/provision-progress" element={<ProvisionProgress />} />
