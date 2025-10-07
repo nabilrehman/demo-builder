@@ -17,9 +17,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Copy frontend build
-COPY ../newfrontend/conversational-api-demo-frontend/dist ./static 2>/dev/null || true
-
 # Expose port
 EXPOSE 8080
 
