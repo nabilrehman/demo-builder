@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProvisionModeCard } from "@/components/ProvisionModeCard";
 import { JobHistoryTable } from "@/components/JobHistoryTable";
-import { Link, Settings, Zap } from "lucide-react";
+import { Link, Settings, Zap, LogIn, LogOut, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 export interface ProvisionJob {
   id: string;
@@ -20,8 +21,41 @@ export interface ProvisionJob {
 const CEDashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { user, loading, signInWithGoogle, signOut: firebaseSignOut, isAuthEnabled } = useAuth();
   const [defaultUrl, setDefaultUrl] = useState("");
   const [isProvisioning, setIsProvisioning] = useState(false);
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      toast({
+        title: "Success",
+        description: "Signed in successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Sign In Failed",
+        description: error.message || "Failed to sign in",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await firebaseSignOut();
+      toast({
+        title: "Success",
+        description: "Signed out successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Sign Out Failed",
+        description: error.message || "Failed to sign out",
+        variant: "destructive",
+      });
+    }
+  };
 
   // Mock job history data
   const [jobs] = useState<ProvisionJob[]>([
@@ -137,10 +171,49 @@ const CEDashboard = () => {
                 Provision and manage conversational AI chatbots
               </p>
             </div>
-            <Button variant="outline" className="gap-2">
-              <Settings className="h-4 w-4" />
-              Settings
-            </Button>
+            <div className="flex items-center gap-4">
+              {/* Authentication UI (only show if enabled) */}
+              {isAuthEnabled && (
+                <div className="flex items-center gap-2">
+                  {loading ? (
+                    <span className="text-sm text-muted-foreground">Loading...</span>
+                  ) : user ? (
+                    <>
+                      <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-muted/50">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm text-foreground max-w-[150px] truncate">
+                          {user.email}
+                        </span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleSignOut}
+                        title="Sign out"
+                      >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={handleSignIn}
+                      title="Sign in with Google"
+                    >
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Sign In
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              <Button variant="outline" className="gap-2">
+                <Settings className="h-4 w-4" />
+                Settings
+              </Button>
+            </div>
           </div>
         </div>
       </div>

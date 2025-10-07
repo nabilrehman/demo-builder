@@ -13,7 +13,7 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config import (
+from agentic_service.config import (
     ENABLE_AUTH,
     FIREBASE_PROJECT_ID,
     FIREBASE_SERVICE_ACCOUNT_PATH,

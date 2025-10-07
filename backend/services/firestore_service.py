@@ -13,7 +13,8 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config import ENABLE_AUTH, FIRESTORE_DATABASE_ID
+from agentic_service.config import ENABLE_AUTH
+FIRESTORE_DATABASE_ID = os.getenv("FIRESTORE_DATABASE_ID", "(default)")
 
 logger = logging.getLogger(__name__)
 

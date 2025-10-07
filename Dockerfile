@@ -12,6 +12,7 @@ COPY newfrontend/conversational-api-demo-frontend/tsconfig.node.json ./
 COPY newfrontend/conversational-api-demo-frontend/tsconfig.app.json ./
 COPY newfrontend/conversational-api-demo-frontend/tailwind.config.ts ./
 COPY newfrontend/conversational-api-demo-frontend/postcss.config.js ./
+COPY newfrontend/conversational-api-demo-frontend/.env.local ./
 COPY newfrontend/conversational-api-demo-frontend/src ./src
 COPY newfrontend/conversational-api-demo-frontend/public ./public
 COPY newfrontend/conversational-api-demo-frontend/index.html ./
