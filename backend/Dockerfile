@@ -17,9 +17,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
+# Make start script executable
+RUN chmod +x start.sh
+
 # Expose port
 EXPOSE 8080
 
 # Run the application
-# Use shell form to allow PORT environment variable expansion
-CMD sh -c "exec uvicorn api:app --host 0.0.0.0 --port ${PORT:-8080}"
+ENTRYPOINT ["./start.sh"]
