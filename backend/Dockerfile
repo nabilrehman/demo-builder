@@ -21,4 +21,5 @@ COPY . .
 EXPOSE 8080
 
 # Run the application
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8080"]
+# Use shell form to allow PORT environment variable expansion
+CMD sh -c "exec uvicorn api:app --host 0.0.0.0 --port ${PORT:-8080}"
