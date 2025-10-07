@@ -875,16 +875,27 @@ Generate the markdown table now based on {company_name}'s actual business domain
             logger.info(f"📝 LLM Prompt for {table_name} saved to: {prompt_file}")
             logger.debug(f"📝 LLM Prompt preview (first 300 chars): {prompt[:300]}...")
 
-            # Call LLM
-            logger.info(f"🤖 Calling Gemini 2.0 Flash for {table_name} data generation...")
-            response = await asyncio.to_thread(
-                self.llm_model.generate_content,
-                prompt,
-                generation_config=self.generation_config
-            )
+            # Call LLM with better error handling
+            logger.info(f"🤖 Calling Gemini 2.5 Pro for {table_name} data generation...")
+            try:
+                response = await asyncio.to_thread(
+                    self.llm_model.generate_content,
+                    prompt,
+                    generation_config=self.generation_config
+                )
+            except Exception as api_error:
+                logger.error(f"❌ Gemini API call failed for {table_name}: {type(api_error).__name__}: {str(api_error)}")
+                raise
 
             # 🔍 LOG: Save raw response to file for debugging
-            response_text = response.text.strip()
+            try:
+                response_text = response.text.strip()
+            except Exception as text_error:
+                logger.error(f"❌ Failed to extract text from Gemini response for {table_name}: {type(text_error).__name__}: {str(text_error)}")
+                logger.error(f"Response object: {response}")
+                if hasattr(response, 'prompt_feedback'):
+                    logger.error(f"Prompt feedback (safety filters?): {response.prompt_feedback}")
+                raise
             response_file = f"/tmp/llm_prompts/{table_name}_response.txt"
             with open(response_file, 'w') as f:
                 f.write(response_text)
@@ -1001,24 +1012,25 @@ Generate the markdown table now based on {company_name}'s actual business domain
         except Exception as e:
             # FIX: Improved error logging to help diagnose LLM failures
             error_type = type(e).__name__
-            error_msg = str(e)[:200]
-            logger.warning(f"LLM generation failed for {table_name}: {error_type} - {error_msg}")
+            error_msg = str(e)
+            logger.error(f"❌ LLM generation failed for {table_name}: {error_type} - {error_msg}")
+            logger.error(f"Full LLM error for {table_name}:", exc_info=True)
 
             # Log more details for specific error types
             if error_type == "JSONDecodeError":
-                logger.info(f"  → JSON parsing failed for {table_name}. Check prompt output format.")
+                logger.error(f"  → JSON parsing failed for {table_name}. Check prompt output format.")
             elif "quota" in error_msg.lower() or "rate" in error_msg.lower():
-                logger.info(f"  → API quota/rate limit hit for {table_name}")
+                logger.error(f"  → API quota/rate limit hit for {table_name}")
+            elif "safety" in error_msg.lower() or "blocked" in error_msg.lower():
+                logger.error(f"  → Safety filter blocked content for {table_name}")
 
-            logger.debug(f"Full LLM error for {table_name}: {e}", exc_info=True)
-
-            # Log to job manager with more detail
+            # Log to job manager with FULL error details
             if "job_manager" in state and "job_id" in state:
                 state["job_manager"].add_log(
                     state["job_id"],
-                    "synthetic data generator optimized",
-                    f"⚠️ LLM generation failed for {table_name}: {error_type} (using Faker fallback)",
-                    "WARNING"
+                    "synthetic data generator markdown",
+                    f"❌ LLM generation failed for {table_name}: {error_type}: {error_msg[:500]}",
+                    "ERROR"
                 )
             return None
 

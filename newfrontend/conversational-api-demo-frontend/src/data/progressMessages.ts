@@ -121,8 +121,8 @@ export const getRunningMessage = (stage: number, elapsedSeconds: number): StageM
     return { icon: '⏳', message: 'Processing...' };
   }
 
-  // Rotate every 4 seconds
-  const index = Math.floor(elapsedSeconds / 4) % messages.length;
+  // Rotate every 8 seconds
+  const index = Math.floor(elapsedSeconds / 8) % messages.length;
   return messages[index];
 };
 

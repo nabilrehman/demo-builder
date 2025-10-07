@@ -132,7 +132,7 @@ export const LoadingState = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessage(getRandomMessage());
-    }, 4000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
