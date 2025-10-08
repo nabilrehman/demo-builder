@@ -62,16 +62,15 @@ class DemoStoryAgentGeminiPro:
             # Create demo story with PARALLEL execution
             demo_story = await self._create_demo_story_parallel(customer_info, state)
 
-            # Update state
-            state["demo_story"] = demo_story
-            state["demo_title"] = demo_story.get("demo_title")
-            state["golden_queries"] = demo_story.get("golden_queries", [])
-            state["data_requirements"] = demo_story.get("data_model_requirements", {})
-            state["synthetic_data_requirements"] = demo_story.get("synthetic_data_requirements", {})
+            # Extract values from demo_story
+            demo_title = demo_story.get("demo_title", "")
+            golden_queries = demo_story.get("golden_queries", [])
+            data_requirements = demo_story.get("data_model_requirements", {})
+            synthetic_data_requirements = demo_story.get("synthetic_data_requirements", {})
 
             elapsed = time.time() - start_time
-            logger.info(f"✅ Demo story complete in {elapsed:.1f}s: '{state['demo_title']}'")
-            logger.info(f"  - {len(state['golden_queries'])} golden queries")
+            logger.info(f"✅ Demo story complete in {elapsed:.1f}s: '{demo_title}'")
+            logger.info(f"  - {len(golden_queries)} golden queries")
             logger.info(f"  - {len(demo_story.get('demo_narrative', {}).get('story_arc', []))} story scenes")
 
             # Log detailed output to CE Dashboard
@@ -109,7 +108,6 @@ class DemoStoryAgentGeminiPro:
                     )
 
                 # Log golden queries (show first 3 as preview)
-                golden_queries = state.get("golden_queries", [])
                 if golden_queries:
                     job_manager.add_log(
                         job_id,
@@ -149,7 +147,14 @@ class DemoStoryAgentGeminiPro:
                         "INFO"
                     )
 
-            return state
+            # FIX: Return partial dict instead of full state to ensure LangGraph merges correctly
+            return {
+                "demo_story": demo_story,
+                "demo_title": demo_title,
+                "golden_queries": golden_queries,
+                "data_requirements": data_requirements,
+                "synthetic_data_requirements": synthetic_data_requirements
+            }
 
         except Exception as e:
             logger.error(f"Demo story creation failed: {e}", exc_info=True)

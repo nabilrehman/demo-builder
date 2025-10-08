@@ -91,31 +91,28 @@ class DemoOrchestrator:
         """Build the LangGraph state machine."""
         # Import config system and non-LLM agents
         from agentic_service.config.agent_config import get_agent_class
-        # USING MARKDOWN VERSION - ALWAYS uses LLM (no keyword filtering, no Faker fallback)
-        from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
         from agentic_service.agents.infrastructure_agent_optimized import InfrastructureAgentOptimized
         from agentic_service.agents.demo_validator_optimized import DemoValidatorOptimized
 
         # ====================================================================
-        # 🛡️ RUNTIME SAFEGUARD: Verify correct data generator is being used
+        # 🔧 SYNTHETIC DATA GENERATOR SELECTION
         # ====================================================================
-        # Check for environment variable that forces LLM-only data generation
-        FORCE_LLM = os.getenv("FORCE_LLM_DATA_GENERATION", "true").lower() == "true"
+        # Choose between CODE-BASED (default) or LLM-BASED data generation
+        USE_CODE_GENERATOR = os.getenv("USE_CODE_DATA_GENERATOR", "true").lower() == "true"
 
-        # Verify we're using the correct generator class
-        if "Optimized" in SyntheticDataGeneratorMarkdown.__name__:
-            error_msg = (
-                "❌ CRITICAL ERROR: Accidentally imported SyntheticDataGeneratorOptimized instead of Markdown version!\n"
-                "This version has keyword filtering and will use Faker for most tables.\n"
-                "Fix: Check line 91 in demo_orchestrator.py"
-            )
-            logger.error(error_msg)
+        if USE_CODE_GENERATOR:
+            from agentic_service.agents.synthetic_data_generator_code import SyntheticDataGeneratorCode
+            SyntheticDataGenerator = SyntheticDataGeneratorCode
+            logger.info("✅ Using CODE-BASED data generator (Claude generates Python code)")
+        else:
+            from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
+            SyntheticDataGenerator = SyntheticDataGeneratorMarkdown
+            logger.info("✅ Using LLM-BASED data generator (Gemini generates markdown tables)")
+
+            # Check for LLM-only enforcement (legacy)
+            FORCE_LLM = os.getenv("FORCE_LLM_DATA_GENERATION", "true").lower() == "true"
             if FORCE_LLM:
-                raise ValueError(error_msg)
-
-        logger.info(f"✅ Using correct data generator: {SyntheticDataGeneratorMarkdown.__name__}")
-        if FORCE_LLM:
-            logger.info("🔒 FORCE_LLM_DATA_GENERATION=true - Faker fallback is DISABLED")
+                logger.info("🔒 FORCE_LLM_DATA_GENERATION=true - Faker fallback is DISABLED")
 
         # ====================================================================
         # LLM-BASED AGENTS (model selection via config)
@@ -150,7 +147,7 @@ class DemoOrchestrator:
         # NON-LLM AGENTS (always use optimized versions)
         # ====================================================================
 
-        synthetic_data_generator = SyntheticDataGeneratorMarkdown()  # ALWAYS LLM, no Faker
+        synthetic_data_generator = SyntheticDataGenerator()  # CODE or LLM-based (selected above)
         infrastructure_agent = InfrastructureAgentOptimized()  # Parallel loading
         demo_validator = DemoValidatorOptimized()  # Parallel validation
 
@@ -421,21 +418,22 @@ async def run_demo_orchestrator(
 
         # Import config system and non-LLM agents
         from agentic_service.config.agent_config import get_agent_class
-        # USING MARKDOWN VERSION - ALWAYS uses LLM (no keyword filtering, no Faker fallback)
-        from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
         from agentic_service.agents.infrastructure_agent_optimized import InfrastructureAgentOptimized
         from agentic_service.agents.demo_validator_optimized import DemoValidatorOptimized
 
         # ====================================================================
-        # 🛡️ RUNTIME SAFEGUARD: Verify correct data generator is being used
+        # 🔧 SYNTHETIC DATA GENERATOR SELECTION
         # ====================================================================
-        FORCE_LLM = os.getenv("FORCE_LLM_DATA_GENERATION", "true").lower() == "true"
-        if "Optimized" in SyntheticDataGeneratorMarkdown.__name__:
-            error_msg = "❌ CRITICAL: Using SyntheticDataGeneratorOptimized (has keyword filtering, Faker fallback)"
-            logger.error(error_msg)
-            if FORCE_LLM:
-                raise ValueError(error_msg)
-        logger.info(f"✅ Using correct data generator: {SyntheticDataGeneratorMarkdown.__name__}")
+        USE_CODE_GENERATOR = os.getenv("USE_CODE_DATA_GENERATOR", "true").lower() == "true"
+
+        if USE_CODE_GENERATOR:
+            from agentic_service.agents.synthetic_data_generator_code import SyntheticDataGeneratorCode
+            SyntheticDataGenerator = SyntheticDataGeneratorCode
+            logger.info("✅ Using CODE-BASED data generator (Claude generates Python code)")
+        else:
+            from agentic_service.agents.synthetic_data_generator_markdown import SyntheticDataGeneratorMarkdown
+            SyntheticDataGenerator = SyntheticDataGeneratorMarkdown
+            logger.info("✅ Using LLM-BASED data generator (Gemini generates markdown tables)")
 
         # ====================================================================
         # LLM-BASED AGENTS (model selection via config)
@@ -470,7 +468,7 @@ async def run_demo_orchestrator(
         # NON-LLM AGENTS (always use optimized versions)
         # ====================================================================
 
-        synthetic_data_generator = SyntheticDataGeneratorMarkdown()
+        synthetic_data_generator = SyntheticDataGenerator()  # CODE or LLM-based (selected above)
         infrastructure_agent = InfrastructureAgentOptimized()
         demo_validator = DemoValidatorOptimized()
 
