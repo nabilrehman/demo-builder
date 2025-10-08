@@ -253,6 +253,13 @@ REQUIREMENTS:
    - Use WRITE_TRUNCATE to overwrite existing tables
    - Include try/except blocks for upload errors
    - Print progress messages
+   - CRITICAL: Always use datetime objects (not date objects) to avoid type mixing errors
+   - When creating helper functions for dates, ensure consistent types (datetime + timedelta, not date + timedelta)
+
+6. CODE QUALITY:
+   - Test that all date arithmetic uses datetime.datetime (not datetime.date)
+   - Ensure random_date() or similar helpers accept and return datetime objects
+   - Use fake.date_time_between() instead of fake.date_between() for consistency
 
 Generate ONLY the Python code, no explanations or markdown. The code should be production-ready and executable as-is.
 """
