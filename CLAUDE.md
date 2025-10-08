@@ -280,9 +280,29 @@ demo-gen-capi/
 
 ## Known Issues and Debugging
 
-### CRITICAL BUG: Code-Based Data Generator Row Count Parsing Failure (2025-10-08)
+### ✅ FIXED: Missing table_file_metadata in LangGraph State (2025-10-08)
 
-**Status**: 🔴 **BLOCKING** - Infrastructure Agent fails even though data generation succeeds
+**Status**: ✅ **FIXED** - Added `table_file_metadata: list` to DemoGenerationState schema
+
+**Root Cause**:
+LangGraph only persists state fields explicitly defined in the `DemoGenerationState` TypedDict schema. The Synthetic Data Generator (code mode) was setting `state["table_file_metadata"]` correctly, but this field wasn't in the schema, so LangGraph didn't pass it to the Infrastructure Agent.
+
+**Fix Applied**:
+Added `table_file_metadata: list` to the state schema in `demo_orchestrator.py` line 59:
+```python
+# Synthetic Data Generator output
+synthetic_data_files: list
+table_file_metadata: list  # FIX: Added for code-based data generator
+data_generation_complete: bool
+```
+
+**Lesson**: Always add new state fields to the TypedDict schema when agents need to pass data between each other!
+
+---
+
+### ARCHIVED: Code-Based Data Generator Row Count Parsing Failure (2025-10-08)
+
+**Status**: ✅ **RESOLVED** - Was not the root cause (regex was already fixed)
 
 **Symptoms**:
 - Synthetic Data Generator completes successfully (e.g., "✅ Code execution complete: 77,650 rows")

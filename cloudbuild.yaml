@@ -1,0 +1,6 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/bq-demos-469816/capi-demo/capi-demo:debug-state-passing', '.']
+images:
+  - 'us-central1-docker.pkg.dev/bq-demos-469816/capi-demo/capi-demo:debug-state-passing'
+timeout: 900s

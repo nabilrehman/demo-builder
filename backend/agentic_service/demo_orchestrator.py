@@ -56,6 +56,7 @@ class DemoGenerationState(TypedDict):
 
     # Synthetic Data Generator output
     synthetic_data_files: list
+    table_file_metadata: list  # FIX: Added for code-based data generator (stores table names + row counts)
     data_generation_complete: bool
 
     # Infrastructure Agent output
