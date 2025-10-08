@@ -680,6 +680,14 @@ async def get_demo_assets(
                 detail=f"Job {job_id} is not completed (status: {job.status})"
             )
 
+        # Check if job actually has data (edge case: job marked completed but data is missing)
+        if not job.demo_title and not job.golden_queries and not job.schema:
+            logger.warning(f"Job {job_id} marked completed but has no data - possible pipeline failure")
+            raise HTTPException(
+                status_code=500,
+                detail=f"Job {job_id} marked completed but data is missing. Please retry provisioning."
+            )
+
         # Calculate total time
         total_time = calculate_total_time(job)
 
