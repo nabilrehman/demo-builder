@@ -406,16 +406,25 @@ Generate ONLY the Python code, no explanations or markdown. The code should be p
             table_metadata = []
 
             import re
-            upload_pattern = r"Successfully uploaded (\d+) rows to .+\.([a-z_]+)$"
+            # More flexible pattern - match table name from dataset.table_name OR just table_name
+            # Supports mixed case, numbers, underscores in table names
+            upload_pattern = r"Successfully uploaded (\d+) rows to (?:.+\.)?([a-zA-Z0-9_]+)"
 
             row_counts = {}
             for line in result.stdout.split('\n'):
+                line = line.strip()  # Remove trailing whitespace/newlines
                 match = re.search(upload_pattern, line)
                 if match:
                     row_count = int(match.group(1))
                     table_name = match.group(2)
                     row_counts[table_name] = row_count
                     logger.info(f"  📊 Parsed: {table_name} = {row_count:,} rows")
+
+            # CRITICAL: Validate that we parsed at least one row count
+            if not row_counts:
+                logger.error(f"❌ Failed to parse ANY row counts from stdout!")
+                logger.error(f"stdout sample (first 500 chars): {result.stdout[:500]}")
+                raise RuntimeError("Row count parsing failed - check upload message format in generated code")
 
             # Build metadata from parsed row counts
             for table in schema.get("tables", []):

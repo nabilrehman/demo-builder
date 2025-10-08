@@ -278,6 +278,91 @@ demo-gen-capi/
 └── CLAUDE.md                            # This file
 ```
 
+## Known Issues and Debugging
+
+### CRITICAL BUG: Code-Based Data Generator Row Count Parsing Failure (2025-10-08)
+
+**Status**: 🔴 **BLOCKING** - Infrastructure Agent fails even though data generation succeeds
+
+**Symptoms**:
+- Synthetic Data Generator completes successfully (e.g., "✅ Code execution complete: 77,650 rows")
+- Infrastructure Agent immediately fails with "Missing schema or synthetic data files"
+- `table_file_metadata` state is empty list `[]` despite successful data upload
+
+**Root Cause**:
+The regex pattern in `synthetic_data_generator_code.py` line 409 fails to parse row counts from stdout:
+```python
+upload_pattern = r"Successfully uploaded (\d+) rows to .+\.([a-z_]+)$"
+```
+
+**Problems**:
+1. Pattern assumes table name is at END of line (`$`) - may have trailing whitespace/newlines
+2. Pattern uses `[a-z_]+` which doesn't match mixed case or numbers in table names
+3. Captures group 2 (table name) from full path but path format may vary
+4. No fallback if regex fails - returns empty `table_metadata`
+
+**Example Output That Fails**:
+```
+✅ Successfully uploaded 10000 rows to bq-demos-469816.nike_capi_demo_20251008.customers
+Dataset bq-demos-469816.nike_capi_demo_20251008 ready
+```
+
+**Immediate Fix Needed** (in `backend/agentic_service/agents/synthetic_data_generator_code.py`):
+
+```python
+# Lines 408-418 - REPLACE WITH:
+import re
+# More flexible pattern - match table name from dataset.table_name OR just table_name
+upload_pattern = r"Successfully uploaded (\d+) rows to (?:.+\.)?([a-zA-Z0-9_]+)"
+
+row_counts = {}
+for line in result.stdout.split('\n'):
+    line = line.strip()  # Remove trailing whitespace
+    match = re.search(upload_pattern, line)
+    if match:
+        row_count = int(match.group(1))
+        table_name = match.group(2)
+        row_counts[table_name] = row_count
+        logger.info(f"  📊 Parsed: {table_name} = {row_count:,} rows")
+
+# CRITICAL: Add validation
+if not row_counts:
+    logger.error(f"❌ Failed to parse ANY row counts from stdout!")
+    logger.error(f"stdout sample: {result.stdout[:500]}")
+    raise RuntimeError("Row count parsing failed - check upload message format")
+```
+
+**Testing**:
+```bash
+cd backend
+python test_code_gen_api.py  # Should parse row counts correctly
+```
+
+**Deploy Fix**:
+```bash
+cd backend
+git add agentic_service/agents/synthetic_data_generator_code.py
+git commit -m "🐛 CRITICAL FIX: Improve row count regex parsing (case insensitive, flexible)"
+git push
+
+cd ..
+gcloud builds submit --tag us-central1-docker.pkg.dev/bq-demos-469816/capi-demo/capi-demo:regex-fix --project=bq-demos-469816
+
+gcloud run deploy demo-gen-capi-prod \
+  --image us-central1-docker.pkg.dev/bq-demos-469816/capi-demo/capi-demo:regex-fix \
+  --region us-central1 \
+  --project bq-demos-469816 \
+  [... rest of deploy command with env vars ...]
+```
+
+**Verify Fix**:
+1. Start new provisioning job: `curl -X POST https://demo-gen-capi-prod-549403515075.us-central1.run.app/api/provision/start -d '{"customer_url":"https://www.nike.com"}'`
+2. Check logs for "📊 Parsed: [table_name] = [count] rows"
+3. Verify Infrastructure Agent receives non-empty `table_file_metadata`
+4. Confirm BigQuery dataset created with tables
+
+---
+
 ## Testing Checklist for New Changes
 
 1. **Backend changes**: Test with `uvicorn api:app --reload` + manual API calls
