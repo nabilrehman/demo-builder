@@ -46,6 +46,10 @@ class DemoGenerationState(TypedDict):
 
     # Demo Story Agent output
     demo_story: Dict
+    demo_title: str  # FIX: Added so LangGraph persists it
+    golden_queries: list  # FIX: Added so LangGraph persists it
+    data_requirements: Dict  # FIX: Added so LangGraph persists it
+    synthetic_data_requirements: Dict  # FIX: Added so LangGraph persists it
 
     # Data Modeling Agent output
     schema: Dict
@@ -509,6 +513,10 @@ async def run_demo_orchestrator(
             "customer_info": {},  # Will be populated by Research Agent
             "business_domain": "",
             "demo_story": {},
+            "demo_title": "",  # FIX: Initialize so LangGraph tracks it
+            "golden_queries": [],  # FIX: Initialize so LangGraph tracks it
+            "data_requirements": {},  # FIX: Initialize so LangGraph tracks it
+            "synthetic_data_requirements": {},  # FIX: Initialize so LangGraph tracks it
             "schema": {},
             "synthetic_data_files": [],
             "data_generation_complete": False,
@@ -622,7 +630,8 @@ async def run_demo_orchestrator(
 
         logger.info(f"Demo orchestrator completed successfully for job {job_id}")
 
-        return {
+        # DEBUG: Log what we're returning
+        result = {
             "status": "completed",
             "dataset_id": final_state.get("dataset_id", ""),
             "demo_title": demo_story.get("demo_title", ""),
@@ -630,6 +639,9 @@ async def run_demo_orchestrator(
             "schema": schema_data,
             "metadata": metadata
         }
+        logger.info(f"Orchestrator returning: status={result['status']}, demo_title={result['demo_title'][:50] if result['demo_title'] else None}, queries={len(result['golden_queries'])}, schema_tables={len(result['schema'])}, metadata_keys={list(result['metadata'].keys())}")
+
+        return result
 
     except Exception as e:
         logger.error(f"Demo orchestrator failed for job {job_id}: {e}", exc_info=True)
