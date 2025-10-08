@@ -249,11 +249,21 @@ class VertexLLMClient:
 
     def _repair_json(self, json_text: str, error: json.JSONDecodeError) -> str:
         """Attempt to repair malformed JSON."""
+        import re
+
         # Get the error position
         error_pos = getattr(error, 'pos', None)
+        error_msg = str(error)
 
-        # If unterminated string, try to close it and truncate
-        if "Unterminated string" in str(error):
+        # Strategy 1: Remove trailing commas (common Gemini error)
+        if "Expecting property name" in error_msg or "Expecting '}'" in error_msg:
+            logger.info("Attempting to fix trailing commas...")
+            # Remove commas before closing braces/brackets
+            repaired = re.sub(r',\s*([}\]])', r'\1', json_text)
+            return repaired
+
+        # Strategy 2: If unterminated string, try to close it and truncate
+        if "Unterminated string" in error_msg:
             # Find the last complete object/array before the error
             # Walk backwards from error position to find last complete '}' or ']'
             if error_pos:
@@ -288,6 +298,17 @@ class VertexLLMClient:
 
                 logger.info(f"Repaired JSON by truncating at position {truncate_pos} and closing {open_brackets} arrays and {open_braces} objects")
                 return repaired
+
+        # Strategy 3: Try removing content after error position
+        if error_pos and error_pos < len(json_text):
+            logger.info(f"Attempting to truncate JSON at error position {error_pos}...")
+            # Truncate at error and try to close properly
+            truncated = json_text[:error_pos]
+            # Count unclosed brackets
+            open_braces = truncated.count('{') - truncated.count('}')
+            open_brackets = truncated.count('[') - truncated.count(']')
+            repaired = truncated + ']' * open_brackets + '}' * open_braces
+            return repaired
 
         raise ValueError(f"Cannot repair JSON: {error}")
 
