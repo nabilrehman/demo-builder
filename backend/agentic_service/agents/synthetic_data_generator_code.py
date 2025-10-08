@@ -260,6 +260,8 @@ REQUIREMENTS:
    - Test that all date arithmetic uses datetime.datetime (not datetime.date)
    - Ensure random_date() or similar helpers accept and return datetime objects
    - Use fake.date_time_between() instead of fake.date_between() for consistency
+   - CRITICAL: In random_datetime_between() helper, handle edge case where start_date == end_date
+   - Add validation: if time_delta.days <= 0, return start_date (don't call randint with 0)
 
 Generate ONLY the Python code, no explanations or markdown. The code should be production-ready and executable as-is.
 """
