@@ -241,8 +241,35 @@ REQUIREMENTS:
        ...
        return pd.DataFrame(data)
 
-   def upload_to_bigquery(df, table_name, dataset_name):
-       ...
+   def upload_to_bigquery(df, table_name, dataset_name, project_id):
+       \"\"\"Upload DataFrame to BigQuery table.\"\"\"
+       from google.cloud import bigquery
+       from google.api_core import exceptions
+
+       client = bigquery.Client(project=project_id)
+       dataset_id = f"{{project_id}}.{{dataset_name}}"
+       table_id = f"{{dataset_id}}.{{table_name}}"
+
+       # Create dataset if it doesn't exist
+       dataset = bigquery.Dataset(dataset_id)
+       dataset.location = "US"
+       try:
+           dataset = client.create_dataset(dataset, exists_ok=True)
+           print(f"Dataset {{dataset_id}} ready")
+       except Exception as e:
+           print(f"Dataset check: {{e}}")
+
+       # Configure load job
+       job_config = bigquery.LoadJobConfig(
+           write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+       )
+
+       # Upload DataFrame
+       print(f"Uploading {{len(df)}} rows to {{table_id}}...")
+       job = client.load_table_from_dataframe(df, table_id, job_config=job_config)
+       job.result()  # Wait for job to complete
+
+       print(f"✅ Successfully uploaded {{len(df)}} rows to {{table_id}}")
 
    if __name__ == "__main__":
        # Generate tables in dependency order
@@ -250,8 +277,8 @@ REQUIREMENTS:
        table_2_df = generate_table_2(table_1_df)
 
        # Upload to BigQuery
-       upload_to_bigquery(table_1_df, "table_1", DATASET_NAME)
-       upload_to_bigquery(table_2_df, "table_2", DATASET_NAME)
+       upload_to_bigquery(table_1_df, "table_1", DATASET_NAME, PROJECT_ID)
+       upload_to_bigquery(table_2_df, "table_2", DATASET_NAME, PROJECT_ID)
    ```
 
 5. IMPORTANT:
