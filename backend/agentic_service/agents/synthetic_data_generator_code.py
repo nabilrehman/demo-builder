@@ -226,6 +226,11 @@ REQUIREMENTS:
    fake = Faker()
    client = bigquery.Client()
 
+   # CRITICAL: Use system date for current time
+   TODAY = datetime.now()
+   # Generate data for the past (e.g., last 2 years for customers, last 6 months for transactions)
+   # Always ensure start_date < end_date to avoid empty ranges
+
    def generate_table_1():
        ...
        return pd.DataFrame(data)
@@ -256,12 +261,22 @@ REQUIREMENTS:
    - CRITICAL: Always use datetime objects (not date objects) to avoid type mixing errors
    - When creating helper functions for dates, ensure consistent types (datetime + timedelta, not date + timedelta)
 
-6. CODE QUALITY:
-   - Test that all date arithmetic uses datetime.datetime (not datetime.date)
-   - Ensure random_date() or similar helpers accept and return datetime objects
+6. CODE QUALITY AND DATE HANDLING:
+   - Use datetime.now() to get TODAY, then generate all dates in the past
+   - Example: customer created 2 years ago → TODAY - timedelta(days=730)
+   - Example: orders in last 6 months → between (TODAY - timedelta(days=180)) and TODAY
+   - ALWAYS ensure start_date < end_date before calling random helpers
+   - In random_datetime_between() helper:
+     ```python
+     def random_datetime_between(start_date, end_date):
+         if start_date >= end_date:
+             return start_date  # Edge case: return start if no range
+         time_delta = end_date - start_date
+         random_days = random.randint(0, time_delta.days)
+         return start_date + timedelta(days=random_days)
+     ```
+   - Use datetime.datetime objects only (not datetime.date)
    - Use fake.date_time_between() instead of fake.date_between() for consistency
-   - CRITICAL: In random_datetime_between() helper, handle edge case where start_date == end_date
-   - Add validation: if time_delta.days <= 0, return start_date (don't call randint with 0)
 
 Generate ONLY the Python code, no explanations or markdown. The code should be production-ready and executable as-is.
 """
