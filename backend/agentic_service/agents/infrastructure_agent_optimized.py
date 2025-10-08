@@ -46,9 +46,17 @@ class InfrastructureAgentOptimized:
             data_files = state.get("synthetic_data_files", [])
             table_metadata = state.get("table_file_metadata", [])
 
+            # DEBUG: Log what we received
+            logger.info(f"🔍 DEBUG: Infrastructure Agent received state with keys: {list(state.keys())}")
+            logger.info(f"🔍 DEBUG: synthetic_data_files has {len(data_files)} files")
+            logger.info(f"🔍 DEBUG: table_file_metadata has {len(table_metadata)} tables")
+            if table_metadata:
+                logger.info(f"🔍 DEBUG: table_file_metadata = {table_metadata}")
+
             # For code-based generator, data is uploaded directly to BigQuery (no CSV files)
             # Check either data_files (CSV mode) or table_metadata (code mode)
             if not schema or (not data_files and not table_metadata):
+                logger.error(f"❌ Validation failed: schema={bool(schema)}, data_files={len(data_files)}, table_metadata={len(table_metadata)}")
                 raise ValueError("Missing schema or synthetic data files")
 
             # Generate dataset name with prefix

@@ -109,6 +109,11 @@ class SyntheticDataGeneratorCode:
             logger.info(f"✅ Synthetic data generation complete in {elapsed:.1f}s")
             logger.info(f"   Generated {total_rows:,} total rows across {len(generated_files)} tables")
 
+            # DEBUG: Check what's in state before returning
+            logger.info(f"🔍 DEBUG: Before return, table_file_metadata has {len(state.get('table_file_metadata', []))} tables")
+            if state.get("table_file_metadata"):
+                logger.info(f"🔍 DEBUG: table_file_metadata = {state['table_file_metadata']}")
+
             # Update state
             state["synthetic_data_files"] = generated_files
             state["data_generation_complete"] = True
@@ -437,6 +442,10 @@ Generate ONLY the Python code, no explanations or markdown. The code should be p
                 })
 
             state["table_file_metadata"] = table_metadata
+
+            # DEBUG: Log what we're setting in state
+            logger.info(f"🔍 DEBUG: Setting table_file_metadata with {len(table_metadata)} tables")
+            logger.info(f"🔍 DEBUG: table_metadata = {table_metadata}")
 
             return generated_files
 
