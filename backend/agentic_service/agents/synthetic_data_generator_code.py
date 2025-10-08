@@ -211,6 +211,7 @@ REQUIREMENTS:
 4. Code structure:
    ```python
    import pandas as pd
+   import pyarrow  # Required for load_table_from_dataframe
    import uuid
    import random
    import numpy as np
@@ -222,9 +223,10 @@ REQUIREMENTS:
    NUM_USERS = 5000
    NUM_TRANSACTIONS = 50000
    DATASET_NAME = "{schema.get('dataset_name', 'demo_dataset')}"
+   PROJECT_ID = "{project_id}"
 
    fake = Faker()
-   client = bigquery.Client()
+   client = bigquery.Client(project=PROJECT_ID)
 
    # CRITICAL: Use system date for current time
    TODAY = datetime.now()
