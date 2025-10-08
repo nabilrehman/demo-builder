@@ -24,9 +24,18 @@ system_instruction = os.environ.get('SYSTEM_INSTRUCTION', 'You are a helpful ass
 display_name = os.environ.get('DISPLAY_NAME', 'Default Demo Agent')
 
 import logging
+import sys
 
 # --- Logging ---
-logging.basicConfig(filename='backend.log', level=logging.INFO)
+# Configure logging to both file and stdout (for Cloud Run)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('backend.log'),
+        logging.StreamHandler(sys.stdout)  # Add stdout handler for Cloud Run logs
+    ]
+)
 
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
