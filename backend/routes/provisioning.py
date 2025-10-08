@@ -141,13 +141,12 @@ async def run_provisioning_workflow(
             f"Starting {mode} mode provisioning for {customer_url}"
         )
 
-        # Save initial job state to Firestore if user is authenticated
-        if user_id:
-            await firestore_service.save_job(user_id, job_id, {
-                "customer_url": customer_url,
-                "project_id": project_id,
-                "mode": mode,
-                "status": "running",
+        # Save initial job state to Firestore (always, even for anonymous users)
+        await firestore_service.save_job(user_id, job_id, {
+            "customer_url": customer_url,
+            "project_id": project_id,
+            "mode": mode,
+            "status": "running",
                 "created_at": datetime.utcnow().isoformat()
             })
 
@@ -195,9 +194,8 @@ async def run_provisioning_workflow(
                 "INFO"
             )
 
-            # Save completed job to Firestore if user is authenticated
-            if user_id:
-                await firestore_service.update_job_status(user_id, job_id, "completed", metadata)
+            # Save completed job to Firestore (always)
+            await firestore_service.update_job_status(user_id, job_id, "completed", metadata)
 
         else:
             # Failed
@@ -211,9 +209,8 @@ async def run_provisioning_workflow(
                 "ERROR"
             )
 
-            # Save failed job to Firestore if user is authenticated
-            if user_id:
-                await firestore_service.update_job_status(user_id, job_id, "failed", {"error": error_msg})
+            # Save failed job to Firestore (always)
+            await firestore_service.update_job_status(user_id, job_id, "failed", {"error": error_msg})
 
     except Exception as e:
         logger.error(f"Provisioning workflow error for job {job_id}: {str(e)}", exc_info=True)
@@ -226,9 +223,8 @@ async def run_provisioning_workflow(
             "ERROR"
         )
 
-        # Save fatal error to Firestore if user is authenticated
-        if user_id:
-            await firestore_service.update_job_status(user_id, job_id, "failed", {"error": str(e)})
+        # Save fatal error to Firestore (always)
+        await firestore_service.update_job_status(user_id, job_id, "failed", {"error": str(e)})
 
 
 def calculate_total_time(job: JobState) -> Optional[str]:
@@ -267,10 +263,14 @@ async def start_default_provision(
     customer_url = str(request.customer_url)
     project_id = request.project_id or os.getenv("DEVSHELL_PROJECT_ID") or "bq-demos-469816"
 
-    # Extract user ID if authenticated
-    user_id = user['uid'] if user else None
+    # Extract user ID if authenticated, otherwise use anonymous
     if user:
+        user_id = user['uid']
         logger.info(f"Authenticated request from {user['email']} (uid: {user_id})")
+    else:
+        # Use anonymous user ID for unauthenticated requests (still saved to Firestore)
+        user_id = "anonymous"
+        logger.info(f"Unauthenticated request, using anonymous user ID")
 
     # Create job in state manager
     job_manager.create_job(
@@ -396,29 +396,44 @@ async def get_provision_status(
     """
     Get current status of a provisioning job.
 
-    If authenticated: Verifies user owns the job
-    If not authenticated: Returns job from in-memory state (backwards compatibility)
+    Checks both in-memory state and Firestore for job persistence.
 
     Returns job metadata, agent progress, recent logs, and errors.
     """
-    # If user is authenticated, verify they own this job
-    if user:
-        user_id = user['uid']
-        firestore_job = await firestore_service.get_job(user_id, job_id)
-
-        if not firestore_job:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Job {job_id} not found for user {user['email']}"
-            )
-
-        # Job exists in Firestore for this user, now get current status from job_manager
-        # (which has real-time progress updates)
-
+    # Try in-memory first (for running jobs)
     job = job_manager.get_job(job_id)
 
+    # If not in memory, try Firestore (for completed/failed jobs or after server restart)
     if not job:
-        raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
+        # Check authenticated user first
+        if user:
+            user_id = user['uid']
+            firestore_job = await firestore_service.get_job(user_id, job_id)
+        else:
+            # Check anonymous user (for unauthenticated API calls)
+            firestore_job = await firestore_service.get_job("anonymous", job_id)
+
+        if not firestore_job:
+            raise HTTPException(status_code=404, detail=f"Job {job_id} not found")
+
+        # Job found in Firestore but not in memory - return Firestore data
+        # (This happens after server restart or job completion cleanup)
+        return JobStatusResponse(
+            job_id=job_id,
+            customer_url=firestore_job.get('customer_url', ''),
+            company_name=firestore_job.get('company_name'),
+            status=firestore_job.get('status', 'unknown'),
+            current_phase=firestore_job.get('current_phase', 'N/A'),
+            overall_progress=firestore_job.get('overall_progress', 0),
+            mode=firestore_job.get('mode', 'default'),
+            created_at=firestore_job.get('created_at', ''),
+            updated_at=firestore_job.get('updated_at', ''),
+            agents=firestore_job.get('agents', []),
+            recent_logs=firestore_job.get('recent_logs', []),
+            errors=firestore_job.get('errors', []),
+            dataset_full_name=firestore_job.get('dataset_full_name'),
+            capi_agent_id=firestore_job.get('capi_agent_id')
+        )
 
     # Get recent logs (last 20)
     recent_logs = [
