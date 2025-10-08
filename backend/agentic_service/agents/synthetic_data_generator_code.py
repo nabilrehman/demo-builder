@@ -400,19 +400,30 @@ Generate ONLY the Python code, no explanations or markdown. The code should be p
                     "INFO"
                 )
 
-            # Parse output to extract file information
-            # For now, return empty list - the code uploads directly to BigQuery
-            # We'll extract metadata from the code's print statements
+            # Parse output to extract row counts from BigQuery upload messages
+            # Look for lines like: "✅ Successfully uploaded 6000 rows to bq-demos-469816.dataset.table_name"
             generated_files = []
             table_metadata = []
 
-            # Extract table names from schema
+            import re
+            upload_pattern = r"Successfully uploaded (\d+) rows to .+\.([a-z_]+)$"
+
+            row_counts = {}
+            for line in result.stdout.split('\n'):
+                match = re.search(upload_pattern, line)
+                if match:
+                    row_count = int(match.group(1))
+                    table_name = match.group(2)
+                    row_counts[table_name] = row_count
+                    logger.info(f"  📊 Parsed: {table_name} = {row_count:,} rows")
+
+            # Build metadata from parsed row counts
             for table in schema.get("tables", []):
                 table_name = table["name"]
-                # Estimate row count from output (you can enhance this)
+                row_count = row_counts.get(table_name, 0)
                 table_metadata.append({
                     "table_name": table_name,
-                    "row_count": 0,  # Will be populated by code output parsing
+                    "row_count": row_count,
                     "filename": f"{table_name}.csv"
                 })
 
