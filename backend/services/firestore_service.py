@@ -24,12 +24,16 @@ class FirestoreService:
 
     def __init__(self):
         """Initialize Firestore client if auth is enabled."""
+        import os
+        raw_enable_auth = os.getenv("ENABLE_AUTH", "false")
+        logger.info(f"🔧 Firestore initialization: ENABLE_AUTH env var = '{raw_enable_auth}', parsed = {ENABLE_AUTH}")
+
         if ENABLE_AUTH:
             try:
                 self.db = firestore.Client(database=FIRESTORE_DATABASE_ID)
                 logger.info(f"✅ Firestore client initialized: {FIRESTORE_DATABASE_ID}")
             except Exception as e:
-                logger.error(f"❌ Failed to initialize Firestore: {e}")
+                logger.error(f"❌ Failed to initialize Firestore: {e}", exc_info=True)
                 self.db = None
         else:
             self.db = None
