@@ -44,8 +44,11 @@ class InfrastructureAgentOptimized:
             demo_story = state.get("demo_story", {})
             customer_info = state.get("customer_info", {})
             data_files = state.get("synthetic_data_files", [])
+            table_metadata = state.get("table_file_metadata", [])
 
-            if not schema or not data_files:
+            # For code-based generator, data is uploaded directly to BigQuery (no CSV files)
+            # Check either data_files (CSV mode) or table_metadata (code mode)
+            if not schema or (not data_files and not table_metadata):
                 raise ValueError("Missing schema or synthetic data files")
 
             # Generate dataset name with prefix
