@@ -497,6 +497,21 @@ class SyntheticDataGeneratorMarkdown:
 
 You are an expert data generation specialist tasked with creating REALISTIC, DOMAIN-SPECIFIC synthetic data for a business analytics demo. Your data must be authentic and representative of the actual business, not generic placeholder data.
 
+## 🎯 YOUR SPECIFIC TASK (READ THIS FIRST!)
+
+**YOU MUST GENERATE DATA FOR THIS TABLE ONLY:**
+
+**Table Name:** `{table_name}`
+
+**Table Schema (YOU MUST USE EXACTLY THESE FIELDS):**
+{chr(10).join(schema_desc)}
+
+**Number of Records to Generate:** {min(row_count, 200)} realistic sample records
+
+**CRITICAL:** Your output MUST be a markdown table with the EXACT field names listed above. Do NOT generate data for any other table. Do NOT add extra fields. Do NOT use different field names.
+
+---
+
 ## COMPANY RESEARCH & CONTEXT
 
 **Company:** {company_name}
@@ -721,12 +736,12 @@ Your data will be displayed in charts, graphs, and dashboards. It must have:
    - Include some outliers for visual interest (but keep realistic)
    - Make data "demo-worthy" - should show surprising insights when analyzed
 
-## YOUR TASK: Generate Data for Table "{table_name}"
+## ⚠️ REMINDER: YOU ARE GENERATING DATA FOR TABLE `{table_name}` ONLY
 
-**Table Schema:**
+**Table Schema (exact fields you must use):**
 {chr(10).join(schema_desc)}
 
-**Number of Records to Generate:** {min(row_count, 200)} realistic sample records
+**DO NOT deviate from this schema. DO NOT generate data for a different table.**
 """
 
             # Add foreign key constraints section if any exist
@@ -865,7 +880,10 @@ Return a MARKDOWN TABLE with ALL schema fields as columns. Generate {min(row_cou
 - Field names must match the schema EXACTLY (case-sensitive)
 - Use realistic values appropriate for {company_name}'s business
 
-Generate the markdown table now based on {company_name}'s actual business domain:"""
+**⚠️ FINAL REMINDER: Generate data for table `{table_name}` with these EXACT fields:**
+{chr(10).join(schema_desc)}
+
+Generate the markdown table NOW for table `{table_name}`:"""
 
             # 🔍 LOG: Save prompt to file for debugging
             prompt_file = f"/tmp/llm_prompts/{table_name}_prompt.txt"
